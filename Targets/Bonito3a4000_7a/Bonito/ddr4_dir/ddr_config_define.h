@@ -153,10 +153,12 @@ temparary used in PROBE_DIMM
 #define DDR_CLKSEL_WIDTH            5
 #define DDR_CLKSEL_SOFT_OFFSET      24
 #define DDR_CLKSEL_SOFT_MASK        0x1F
+#ifndef DDR_CONFIG_DISABLE_OFFSET
 #ifdef  LSMC_2
 #define DDR_CONFIG_DISABLE_OFFSET   4
 #else
 #define DDR_CONFIG_DISABLE_OFFSET   8
+#endif
 #endif
 #define ARB_TEMP_L2WINDOW_OFFSET    0x20
 #else
@@ -173,7 +175,9 @@ temparary used in PROBE_DIMM
 #define DDR_CLKSEL_WIDTH            5
 #define DDR_CLKSEL_SOFT_OFFSET      40
 #define DDR_CLKSEL_SOFT_MASK        0x1F
+#ifndef
 #define DDR_CONFIG_DISABLE_OFFSET   4
+#endif
 #define ARB_TEMP_L2WINDOW_OFFSET    0x20
 #else
 #ifdef  LS2HMC
