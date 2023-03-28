@@ -1,5 +1,8 @@
 #ifdef SIM
-#include "stdio.h"
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#define tgt_puts(s) fputs((s),stdout)
 #else 
 typedef int size_t;
 extern void tgt_putchar(char c);
