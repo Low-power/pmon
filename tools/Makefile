@@ -45,14 +45,14 @@ all: build
 build: .PHONY
 	@for entry in ${SUBDIR}; do \
 		echo "Entering $${entry}" ;\
-		(cd $${entry}; ${MAKE}); \
+		(cd $${entry}; ${MAKE}) || exit; \
 		echo "Leaving $${entry}"; \
 	done
 
 install: .PHONY
 	@for entry in ${SUBDIR}; do \
 		echo "Entering $${entry}" ;\
-		(cd $${entry}; ${MAKE} install); \
+		(cd $${entry}; ${MAKE} install) || exit; \
 		echo "Leaving $${entry}"; \
 	done
 

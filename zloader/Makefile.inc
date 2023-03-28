@@ -1,25 +1,29 @@
 ifndef PMONCC
-CC=$(CROSS_COMPILE)gcc -mabi=32
-CROSS_COMPILE ?= mipsel-linux-
+ifeq ($(CC),cc)
+CC=$(CROSS_COMPILE)gcc -mabi=32 -mel
+endif
+CROSS_COMPILE ?= mipsel-none-elf-
 else
 CC=${PMONCC}
 endif
 
-
-ifeq "$(shell echo ${CC}|grep  'mips-elf-')" ""
- ifeq "$(shell echo ${CC}|grep  '\-mabi=64')" ""
-LD		= $(CROSS_COMPILE)ld  -m elf32ltsmip -G 0 -static -n -nostdlib
+LD = $(CROSS_COMPILE)ld -m elf32ltsmip --EL --gpsize 0 --static -n --nostdlib
 OUT_FORMAT="elf32-tradlittlemips"
- else
-LD		= $(CROSS_COMPILE)ld  -m elf64ltsmip -G 0 -static -n -nostdlib
-OUT_FORMAT="elf64-tradlittlemips"
- endif
-else
-ENDIAN_FLAG= -EL
-LD		= $(CROSS_COMPILE)ld  -m elf32ebmip -G 0 -static -n -nostdlib -EL
-CC :=${CC} -EL
-OUT_FORMAT="elf32-littlemips"
-endif
+
+#ifeq "$(shell echo ${CC}|grep  'mips-elf-')" ""
+# ifeq "$(shell echo ${CC}|grep  '\-mabi=64')" ""
+#LD		= $(CROSS_COMPILE)ld  -m elf32ltsmip -G 0 -static -n -nostdlib
+#OUT_FORMAT="elf32-tradlittlemips"
+# else
+#LD		= $(CROSS_COMPILE)ld  -m elf64ltsmip -G 0 -static -n -nostdlib
+#OUT_FORMAT="elf64-tradlittlemips"
+# endif
+#else
+#ENDIAN_FLAG= -EL
+#LD		= $(CROSS_COMPILE)ld  -m elf32ebmip -G 0 -static -n -nostdlib -EL
+#CC :=${CC} -EL
+#OUT_FORMAT="elf32-littlemips"
+#endif
 
 GZROMSTARTADDR?=0xffffffff8f900000
 ROMSTARTADDR?=0xffffffff8f010000
@@ -71,30 +75,30 @@ all: ${tgt}
 sim: clean pmon.bin.c
 	gcc -o zloader  -DSIM zloader.c
 ejtag_rom ejtag_rom1 ejtag_ram rom: clean ${START} zloader.o 
-	gcc  -DSTARTADDR=${GZROMSTARTADDR} -DOUT_FORMAT=\"${OUT_FORMAT}\" -DOUT_ARCH=mips -Umips -E -P ld.script.S  > ld.script
+	gcc  -DSTARTADDR=${GZROMSTARTADDR} -D OUT_FORMAT=\"${OUT_FORMAT}\" -DOUT_ARCH=mips -Umips -E -P ld.script.S  > ld.script
 	${LD} -T ld.script -g -e start -o gzrom ${START} zloader.o 
 	${CROSS_COMPILE}objcopy -O binary gzrom gzrom.bin
 
 ram: clean startram.o zloader.o 
-	${CC}  -DSTARTADDR=${GZROMSTARTADDR} -DOUT_FORMAT=\"${OUT_FORMAT}\" -DOUT_ARCH=mips -Umips -E -P ld.script.S  > ld.script
+	${CC}  -DSTARTADDR=${GZROMSTARTADDR} -D OUT_FORMAT=\"${OUT_FORMAT}\" -DOUT_ARCH=mips -Umips -E -P ld.script.S  > ld.script
 	${LD}  -T ld.script -e start -o gzram startram.o zloader.o 
 
 ${START}:
 	rm -f ../Targets/${TARGET}/compile/${TARGETEL}/${START}
-	gcc  -DSTARTADDR=${ROMSTARTADDR} -DOUT_FORMAT=\"${OUT_FORMAT}\" -DOUT_ARCH=mips -Umips -E -P ld.script.S  > ../Targets/${TARGET}/conf/ld.script
+	gcc  -DSTARTADDR=${ROMSTARTADDR} -D OUT_FORMAT=\"${OUT_FORMAT}\" -DOUT_ARCH=mips -Umips -E -P ld.script.S  > ../Targets/${TARGET}/conf/ld.script
 	make -C ../Targets/${TARGET}/compile/${TARGETEL}/
 	cp ../Targets/${TARGET}/compile/${TARGETEL}/${START} .
 
 startram.o:
-	gcc  -DSTARTADDR=${ROMSTARTADDR} -DOUT_FORMAT=\"${OUT_FORMAT}\" -DOUT_ARCH=mips -Umips -E -P ld.script.S  > ../Targets/${TARGET}/conf/ld.script
+	gcc  -DSTARTADDR=${ROMSTARTADDR} -D OUT_FORMAT=\"${OUT_FORMAT}\" -DOUT_ARCH=mips -Umips -E -P ld.script.S  > ../Targets/${TARGET}/conf/ld.script
 	make -C ../Targets/${TARGET}/compile/${TARGETEL}/ DEBUG='-g -DMYDBG="printf(\"debug:%s,%d\\n\",__FILE__,__LINE__);"'
-	$(CC) -D_LOCORE -G 0  -nostdinc   -DMIPS  -DCONS_BAUD="B115200"  -DCONFIG_CACHE_64K_4WAY  -D_KERNEL -D__OpenBSD__ -DPMON -D__PMON__ -mno-abicalls -c startram.S ${ZLOADER_OPTIONS} -D MEMSIZE=${MEMSIZE}
+	$(CC) -D _LOCORE=1 -G 0  -nostdinc   -DMIPS  -DCONS_BAUD="B115200"  -DCONFIG_CACHE_64K_4WAY  -D_KERNEL -D__OpenBSD__ -DPMON -D__PMON__ -mno-abicalls -c startram.S ${ZLOADER_OPTIONS} -D MEMSIZE=${MEMSIZE}
 # $(CC) -D_LOCORE -G 0  -nostdinc   -DMIPS  -DCONS_BAUD="B115200"  -DCONFIG_CACHE_64K_4WAY  -D_KERNEL -D__OpenBSD__ -DPMON -D__PMON__ -EL -mno-abicalls -mcpu=r4000 -c startram.S -D MEMSIZE=${MEMSIZE}
 zloader.o: zloader.c inflate.c  malloc.c  memop.c  pmon.bin.c initmips.c
 	$(CC) -c zloader.c ${ZLOADER_OPTIONS} -DMEMSIZE=${MEMSIZE}
 
 rom1: clean ${START} zloader1.o 
-	gcc  -DSTARTADDR=0xffffffff9fc00000 -D_ROM1 -DOUT_FORMAT=\"${OUT_FORMAT}\" -DOUT_ARCH=mips -Umips -E -P ld.script.S  > ld.script
+	gcc  -DSTARTADDR=0xffffffff9fc00000 -D_ROM1 -D OUT_FORMAT=\"${OUT_FORMAT}\" -DOUT_ARCH=mips -Umips -E -P ld.script.S  > ld.script
 	${LD} -T ld.script -e start -o gzrom ${START} zloader.o 
 	${CROSS_COMPILE}objcopy -O binary gzrom gzrom.bin
 

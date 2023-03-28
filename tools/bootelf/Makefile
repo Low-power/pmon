@@ -7,11 +7,12 @@ DESTDIR=/opt/pmon2000/tools
 
 OBJS=	bootelf.o
 
-CFLAGS+=-I${.CURDIR} -I.
-#CFLAGS+=-I${.CURDIR} -I. -DDO_SWAP
+#CFLAGS+=-I ${.CURDIR} -I .
+#CFLAGS+=-I ${.CURDIR} -I . -D DO_SWAP=1
+CFLAGS += -Wall
 
 ${PROG}: ${OBJS}
-	${CC} -o $@ ${OBJS} ${LIBS}
+	${CC} ${LDFLAGS} -o $@ ${OBJS} ${LIBS}
 
 install:
 	cp ${PROG} ${DESTDIR}/bin

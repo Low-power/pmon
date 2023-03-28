@@ -10,7 +10,8 @@ SRCS=	files.c gram.y hash.c main.c mkheaders.c mkioconf.c mkmakefile.c \
 
 OBJS=	files.o hash.o main.o mkheaders.o mkioconf.o mkmakefile.o pack.o sem.o util.o gram.o scan.o 
 
-CFLAGS+=-I${.CURDIR} -I. -DYY_SKIP_YYWRAP
+#CFLAGS+=-I ${.CURDIR} -I . -D YY_SKIP_YYWRAP=1 -Wall
+CFLAGS +=-I . -D YY_SKIP_YYWRAP=1 -Wall
 
 LEX=flex
 
@@ -22,7 +23,7 @@ MAN=	pmoncfg.8
 	${BISON} -d -o $@ $< 
 
 ${PROG}: ${OBJS}
-	${CC} -o $@ ${OBJS} ${LIBS}
+	${CC} ${LDFLAGS} -o $@ ${OBJS} ${LIBS}
 
 install:
 	cp ${PROG} ${DESTDIR}/bin

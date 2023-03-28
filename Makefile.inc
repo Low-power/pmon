@@ -17,36 +17,40 @@
 #
 .SUFFIXES:	.S .c .o
 
-CROSS_COMPILE 	?=mipsel-linux-
+CROSS_COMPILE 	?=mipsel-none-elf-
 
 #
 # Include the make variables (CC, etc...)
 #
 
 AS		= $(CROSS_COMPILE)as
-LD		= $(CROSS_COMPILE)ld  -m elf32ltsmip -G 0 -static -n -nostdlib
-CC		?= $(CROSS_COMPILE)gcc
+LD		= $(CROSS_COMPILE)ld -m elf32ltsmip --EL --gpsize 0 --static -n --nostdlib
+ifeq ($(CC),cc)
+CC		= $(CROSS_COMPILE)gcc
+endif
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
+#AR = LD_PRELOAD=/usr/home/whr/src/syscall-wrapper.so /opt/powervm-lx86/bin/powervm-lx86 /i386/opt/toolchains/bin/mipsel-linux-gnu-ar
 NM		= $(CROSS_COMPILE)nm
 STRIP		= $(CROSS_COMPILE)strip
 OBJCOPY		= $(CROSS_COMPILE)objcopy
 OBJDUMP		= $(CROSS_COMPILE)objdump
-RANLIB		= $(CROSS_COMPILE)ranlib
+#RANLIB		= $(CROSS_COMPILE)ranlib
+RANLIB		= ranlib
 SIZE		= $(CROSS_COMPILE)size
 
-ifeq "$(shell echo ${CC}|grep  'mips-elf-')" ""
- ifeq "$(shell echo ${CC}|grep  '\-mabi=64')" ""
-LD		= $(CROSS_COMPILE)ld  -m elf32ltsmip -G 0 -static -n -nostdlib
- else
-LD		= $(CROSS_COMPILE)ld  -m elf64ltsmip -G 0 -static -n -nostdlib
- endif
-else
-ENDIAN_FLAG= -EL
-LD		= $(CROSS_COMPILE)ld  -m elf32ebmip -G 0 -static -n -nostdlib -EL
-endif
+#ifeq "$(shell echo ${CC}|grep  'mips-elf-')" ""
+# ifeq "$(shell echo ${CC}|grep  '\-mabi=64')" ""
+#LD		= $(CROSS_COMPILE)ld -m elf32ltsmip --gpsize 0 --static -n --nostdlib
+# else
+#LD		= $(CROSS_COMPILE)ld -m elf64ltsmip --gpsize 0 --static -n --nostdlib
+# endif
+#else
+#ENDIAN_FLAG= -mel
+#LD		= $(CROSS_COMPILE)ld -m elf32ebmip --gpsize 0 --static -n --nostdlib --EL
+#endif
 
-OPT?=	-O2
+OPT?=	-Os
 IDENT:=${IDENT} $(shell echo  ${IDENT}|sed -n 's/.*-DX\([0-9]\+\)x\([0-9]\+\).*/ -DFB_XSIZE=\1 -DFB_YSIZE=\2 /p')
 IDENT:=${IDENT} $(shell echo  ${IDENT}|sed -n 's/.*-DCONFIG_VIDEO_\([0-9]\+\)BPP.*/ -DFB_COLOR_BITS=\1 /p')
 
@@ -85,7 +89,7 @@ CWARNFLAGS=	-Wall -Wstrict-prototypes \
 		-Wno-uninitialized -Wno-format -Wno-main
 CFLAGS=		${DEBUG} ${CWARNFLAGS} ${OPT} -G 0
 AFLAGS=		-D_LOCORE -G 0
-LFLAGS=	${ENDIAN_FLAG} -N -G 0 -T../../conf/ld.script -e start
+LFLAGS=		-N --gpsize 0 -T ../../conf/ld.script -e start
 STRIPFLAGS=	-g -S --strip-debug
 
 HOSTCC?=	${CC}

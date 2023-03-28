@@ -1,4 +1,4 @@
 gpioserial:
-	gcc -o gpioserial gpioserial.c
+	${CC} ${LDFLAGS} gpioserial.c -o $@
 clean:
 	rm -f gpioserial *.o

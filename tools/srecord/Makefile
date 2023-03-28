@@ -8,11 +8,12 @@ SRCS=	srecord.c
 
 OBJS=	srecord.o
 
-CFLAGS+=-I${.CURDIR} -I.
+#CFLAGS+=-I ${.CURDIR} -I . -Wall
+CFLAGS += -Wall
 CLEANFILES=
 
 ${PROG}: ${OBJS}
-	${CC} -o $@ ${OBJS} ${LIBS}
+	${CC} ${LDFLAGS} -o $@ ${OBJS} ${LIBS}
 
 install:
 	cp ${PROG} ${DESTDIR}/bin

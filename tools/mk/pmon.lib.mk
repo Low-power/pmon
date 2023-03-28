@@ -151,35 +151,35 @@ OBJS+=	${SRCS:N*.h:R:S/$/.o/g}
 
 lib${LIB}.a:: ${OBJS}
 	@echo building standard ${LIB} library
-	@rm -f lib${LIB}.a
-	@${AR} cq lib${LIB}.a `${LORDER} ${OBJS} | tsort -q`
+	rm -f lib${LIB}.a
+	${AR} -r lib${LIB}.a `${LORDER} ${OBJS} | tsort -q`
 	${RANLIB} lib${LIB}.a
 
 GOBJS+=	${OBJS:.o=.go}
 lib${LIB}_g.a:: ${GOBJS}
 	@echo building debugging ${LIB} library
-	@rm -f lib${LIB}_g.a
-	@${AR} cq lib${LIB}_g.a `${LORDER} ${GOBJS} | tsort -q`
+	rm -f lib${LIB}_g.a
+	${AR} -r lib${LIB}_g.a `${LORDER} ${GOBJS} | tsort -q`
 	${RANLIB} lib${LIB}_g.a
 
 POBJS+=	${OBJS:.o=.po}
 lib${LIB}_p.a:: ${POBJS}
 	@echo building profiled ${LIB} library
-	@rm -f lib${LIB}_p.a
-	@${AR} cq lib${LIB}_p.a `${LORDER} ${POBJS} | tsort -q`
+	rm -f lib${LIB}_p.a
+	${AR} -r lib${LIB}_p.a `${LORDER} ${POBJS} | tsort -q`
 	${RANLIB} lib${LIB}_p.a
 
 SOBJS+=	${OBJS:.o=.so}
 lib${LIB}_pic.a:: ${SOBJS}
 	@echo building shared object ${LIB} library
-	@rm -f lib${LIB}_pic.a
-	@${AR} cq lib${LIB}_pic.a `${LORDER} ${SOBJS} | tsort -q`
+	rm -f lib${LIB}_pic.a
+	${AR} -r lib${LIB}_pic.a `${LORDER} ${SOBJS} | tsort -q`
 	${RANLIB} lib${LIB}_pic.a
 
 lib${LIB}.so.${SHLIB_MAJOR}.${SHLIB_MINOR}: ${SOBJS} ${DPADD}
 	@echo building shared ${LIB} library \(version ${SHLIB_MAJOR}.${SHLIB_MINOR}\)
-	@rm -f lib${LIB}.so.${SHLIB_MAJOR}.${SHLIB_MINOR}
-	${CC} -shared ${PICFLAG} \
+	rm -f lib${LIB}.so.${SHLIB_MAJOR}.${SHLIB_MINOR}
+	${CC} --shared ${PICFLAG} \
 	    -o lib${LIB}.so.${SHLIB_MAJOR}.${SHLIB_MINOR} \
 	    `${LORDER} ${SOBJS}|tsort -q` ${LDADD}
 
