@@ -38,21 +38,21 @@
  * I/O macros.
  */
 
-static __inline void __outb __P((volatile u_int8_t *, int));
-static __inline void __outw __P((volatile u_int16_t *, u_int16_t));
-static __inline void __outl __P((volatile u_int32_t *, int));
-static __inline void __outwrb __P((volatile u_int16_t *, u_int16_t));
-static __inline void __outlrb __P((volatile u_int32_t *, u_int32_t));
-static __inline u_int8_t __inb __P((volatile u_int8_t *));
-static __inline u_int16_t __inw __P((volatile u_int16_t *));
-static __inline u_int32_t __inl __P((volatile u_int32_t *));
-static __inline u_int16_t __inwrb __P((volatile u_int16_t *));
-static __inline u_int32_t __inlrb __P((volatile u_int32_t *));
+static __inline void __outb __P((volatile uint8_t *, int));
+static __inline void __outw __P((volatile uint16_t *, uint16_t));
+static __inline void __outl __P((volatile uint32_t *, int));
+static __inline void __outwrb __P((volatile uint16_t *, uint16_t));
+static __inline void __outlrb __P((volatile uint32_t *, uint32_t));
+static __inline uint8_t __inb __P((volatile uint8_t *));
+static __inline uint16_t __inw __P((volatile uint16_t *));
+static __inline uint32_t __inl __P((volatile uint32_t *));
+static __inline uint16_t __inwrb __P((volatile uint16_t *));
+static __inline uint32_t __inlrb __P((volatile uint32_t *));
 
 
 static __inline void
 __outb(a,v)
-	volatile u_int8_t *a;
+	volatile uint8_t *a;
 	int v;
 {
 	*a = v;
@@ -61,8 +61,8 @@ __outb(a,v)
 
 static __inline void
 __outw(a,v)
-	volatile u_int16_t *a;
-	u_int16_t v;
+	volatile uint16_t *a;
+	uint16_t v;
 {
 	*a = v;
 	__asm__ volatile("eieio\n  sync");
@@ -70,7 +70,7 @@ __outw(a,v)
 
 static __inline void
 __outl(a,v)
-	volatile u_int32_t *a;
+	volatile uint32_t *a;
 	int v;
 {
 	*a = v;
@@ -79,10 +79,10 @@ __outl(a,v)
 
 static __inline void
 __outwrb(a,v)
-	volatile u_int16_t *a;
-	u_int16_t v;
+	volatile uint16_t *a;
+	uint16_t v;
 {
-	u_int32_t _p_ = (u_int32_t)a;
+	uint32_t _p_ = (uint32_t)a;
 
 	__asm__ volatile("sthbrx %0, 0, %1\n" :: "r"(v), "r"(_p_));
 	__asm__ volatile("eieio\n  sync");
@@ -90,66 +90,66 @@ __outwrb(a,v)
 
 static __inline void
 __outlrb(a,v)
-	volatile u_int32_t *a;
-	u_int32_t v;
+	volatile uint32_t *a;
+	uint32_t v;
 {
-	u_int32_t _p_ = (u_int32_t)a;
+	uint32_t _p_ = (uint32_t)a;
 
 	__asm__ volatile("stwbrx %0, 0, %1\n" :: "r"(v), "r"(_p_));
 	__asm__ volatile("eieio\n  sync");
 }
 
-static __inline u_int8_t
+static __inline uint8_t
 __inb(a)
-	volatile u_int8_t *a;
+	volatile uint8_t *a;
 {
-	u_int8_t _v_;
+	uint8_t _v_;
 
 	_v_ = *a;
 	__asm__ volatile("eieio\n  sync");
 	return _v_;
 }
 
-static __inline u_int16_t
+static __inline uint16_t
 __inw(a)
-	volatile u_int16_t *a;
+	volatile uint16_t *a;
 {
-	u_int16_t _v_;
+	uint16_t _v_;
 
 	_v_ = *a;
 	__asm__ volatile("eieio\n  sync");
 	return _v_;
 }
 
-static __inline u_int32_t
+static __inline uint32_t
 __inl(a)
-	volatile u_int32_t *a;
+	volatile uint32_t *a;
 {
-	u_int32_t _v_;
+	uint32_t _v_;
 
 	_v_ = *a;
 	__asm__ volatile("eieio\n  sync");
 	return _v_;
 }
 
-static __inline u_int16_t
+static __inline uint16_t
 __inwrb(a)
-	volatile u_int16_t *a;
+	volatile uint16_t *a;
 {
-	u_int16_t _v_;
-	u_int32_t _p_ = (u_int32_t)a;
+	uint16_t _v_;
+	uint32_t _p_ = (uint32_t)a;
 
 	__asm__ volatile("lhbrx %0, 0, %1\n" : "=r"(_v_) : "r"(_p_));
 	__asm__ volatile("eieio\n  sync");
 	return _v_;
 }
 
-static __inline u_int32_t
+static __inline uint32_t
 __inlrb(a)
-	volatile u_int32_t *a;
+	volatile uint32_t *a;
 {
-	u_int32_t _v_;
-	u_int32_t _p_ = (u_int32_t)a;
+	uint32_t _v_;
+	uint32_t _p_ = (uint32_t)a;
 
 	__asm__ volatile("lwbrx %0, 0, %1\n" : "=r"(_v_) : "r"(_p_));
 	__asm__ volatile("eieio\n  sync");
@@ -157,28 +157,28 @@ __inlrb(a)
 }
 
 
-#define	outb(a,v)	(__outb((volatile u_int8_t *)(a), v))
+#define	outb(a,v)	(__outb((volatile uint8_t *)(a), v))
 #define	out8(a,v)	outb(a,v)
-#define	outw(a,v)	(__outw((volatile u_int16_t *)(a), v))
+#define	outw(a,v)	(__outw((volatile uint16_t *)(a), v))
 #define	out16(a,v)	outw(a,v)
-#define	outl(a,v)	(__outl((volatile u_int32_t *)(a), v))
+#define	outl(a,v)	(__outl((volatile uint32_t *)(a), v))
 #define	out32(a,v)	outl(a,v)
-#define	inb(a)		(__inb((volatile u_int8_t *)(a)))
+#define	inb(a)		(__inb((volatile uint8_t *)(a)))
 #define	in8(a)		inb(a)
-#define	inw(a)		(__inw((volatile u_int16_t *)(a)))
+#define	inw(a)		(__inw((volatile uint16_t *)(a)))
 #define	in16(a)		inw(a)
-#define	inl(a)		(__inl((volatile u_int32_t *)(a)))
+#define	inl(a)		(__inl((volatile uint32_t *)(a)))
 #define	in32(a)		inl(a)
 
 #define	out8rb(a,v)	outb(a,v)
-#define	outwrb(a,v)	(__outwrb((volatile u_int16_t *)(a), v))
+#define	outwrb(a,v)	(__outwrb((volatile uint16_t *)(a), v))
 #define	out16rb(a,v)	outwrb(a,v)
-#define	outlrb(a,v)	(__outlrb((volatile u_int32_t *)(a), v))
+#define	outlrb(a,v)	(__outlrb((volatile uint32_t *)(a), v))
 #define	out32rb(a,v)	outlrb(a,v)
 #define	in8rb(a)	inb(a)
-#define	inwrb(a)	(__inwrb((volatile u_int16_t *)(a)))
+#define	inwrb(a)	(__inwrb((volatile uint16_t *)(a)))
 #define	in16rb(a)	inwrb(a)
-#define	inlrb(a)	(__inlrb((volatile u_int32_t *)(a)))
+#define	inlrb(a)	(__inlrb((volatile uint32_t *)(a)))
 #define	in32rb(a)	inlrb(a)
 
 #ifdef DEBUG_SPEC
@@ -193,13 +193,13 @@ __flash_led(bits, count)
 	}
 	bits &= 3;
 	count += count;
-	v |= (*(volatile u_int8_t *)(MPC106_V_ISA_IO_SPACE + 0x01f4)) & ~3;
+	v |= (*(volatile uint8_t *)(MPC106_V_ISA_IO_SPACE + 0x01f4)) & ~3;
 	while(count--) {
 		v ^= bits;
 		for(i = 100000; i > 0; i--)
-			*(volatile u_int8_t *)(MPC106_V_ISA_IO_SPACE + 0x01f4) = v;
+			*(volatile uint8_t *)(MPC106_V_ISA_IO_SPACE + 0x01f4) = v;
 	}
-	*(u_int8_t *)(MPC106_V_ISA_IO_SPACE + 0x01f4) &= ~3;
+	*(uint8_t *)(MPC106_V_ISA_IO_SPACE + 0x01f4) &= ~3;
 }
 #endif /* DEBUG */
 

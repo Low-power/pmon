@@ -66,8 +66,8 @@ struct channel_softc { /* Per channel data */
 #define WDCF_ACTIVE   0x01	/* channel is active */
 #define WDCF_IRQ_WAIT 0x10	/* controller is waiting for irq */
 #define WDCF_ONESLAVE 0x20      /* slave-only channel */
-	u_int8_t ch_status;         /* copy of status register */
-	u_int8_t ch_error;          /* copy of error register */
+	uint8_t ch_status;         /* copy of status register */
+	uint8_t ch_error;          /* copy of error register */
 	/* per-drive infos */
 	struct ata_drive_datas ch_drive[2];
 
@@ -102,9 +102,9 @@ enum wdc_regs {
 };
 
 struct channel_softc_vtbl {
-	u_int8_t (*read_reg)(struct channel_softc *, enum wdc_regs reg);
+	uint8_t (*read_reg)(struct channel_softc *, enum wdc_regs reg);
 	void (*write_reg)(struct channel_softc *, enum wdc_regs reg, 
-	    u_int8_t var);
+	    uint8_t var);
 	
 	void (*read_raw_multi_2)(struct channel_softc *, 
 	    void *data, unsigned int nbytes);
@@ -147,9 +147,9 @@ struct wdc_softc { /* Per controller state */
 #define	WDC_CAPABILITY_IRQACK 0x0400	/* callback to ack interrupt */
 #define	WDC_CAPABILITY_SINGLE_DRIVE 0x800 /* Don't proble second drive */
 #define	WDC_CAPABILITY_NO_ATAPI_DMA 0x1000 /* Don't do DMA with ATAPI */ 
-	u_int8_t      PIO_cap; /* highest PIO mode supported */
-	u_int8_t      DMA_cap; /* highest DMA mode supported */
-	u_int8_t      UDMA_cap; /* highest UDMA mode supported */
+	uint8_t      PIO_cap; /* highest PIO mode supported */
+	uint8_t      DMA_cap; /* highest DMA mode supported */
+	uint8_t      UDMA_cap; /* highest UDMA mode supported */
 	int nchannels;	/* Number of channels on this controller */
 	struct channel_softc **channels;  /* channels-specific datas (array) */
 
@@ -196,7 +196,7 @@ struct wdc_xfer {
 
 	/* Informations about our location */
 	struct channel_softc *chp;
-	u_int8_t drive;
+	uint8_t drive;
 
 	/* Information about the current transfer  */
 	void *cmd; /* wdc, ata or scsipi command structure */
@@ -246,8 +246,8 @@ int   wdcreset	__P((struct channel_softc *, int));
 int   wdcwait __P((struct channel_softc *, int, int, int));
 void  wdcbit_bucket __P((struct channel_softc *, int));
 
-void  wdccommand __P((struct channel_softc *, u_int8_t, u_int8_t, u_int16_t,
-	                  u_int8_t, u_int8_t, u_int8_t, u_int8_t));
+void  wdccommand __P((struct channel_softc *, uint8_t, uint8_t, uint16_t,
+	                  uint8_t, uint8_t, uint8_t, uint8_t));
 void   wdccommandshort __P((struct channel_softc *, int, int));
 void  wdctimeout	__P((void *arg));
 

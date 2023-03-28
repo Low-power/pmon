@@ -45,41 +45,41 @@
  */
 
 struct llc {
-	u_int8_t llc_dsap;
-	u_int8_t llc_ssap;
+	uint8_t llc_dsap;
+	uint8_t llc_ssap;
 	union {
 	    struct {
-		u_int8_t control;
-		u_int8_t format_id;
-		u_int8_t class;
-		u_int8_t window_x2;
+		uint8_t control;
+		uint8_t format_id;
+		uint8_t class;
+		uint8_t window_x2;
 	    } type_u;
 	    struct {
-		u_int8_t num_snd_x2;
-		u_int8_t num_rcv_x2;
+		uint8_t num_snd_x2;
+		uint8_t num_rcv_x2;
 	    } type_i;
 	    struct {
-		u_int8_t control;
-		u_int8_t num_rcv_x2;
+		uint8_t control;
+		uint8_t num_rcv_x2;
 	    } type_s;
 	    struct {
-	        u_int8_t control;
+	        uint8_t control;
 		struct frmrinfo {
-			u_int8_t rej_pdu_0;
-			u_int8_t rej_pdu_1;
-			u_int8_t frmr_control;
-			u_int8_t frmr_control_ext;
-			u_int8_t frmr_cause;
+			uint8_t rej_pdu_0;
+			uint8_t rej_pdu_1;
+			uint8_t frmr_control;
+			uint8_t frmr_control_ext;
+			uint8_t frmr_cause;
 		} frmrinfo;
 	    } type_frmr;
 	    struct {
-		u_int8_t  control;
-		u_int8_t  org_code[3];
-		u_int16_t ether_type;
+		uint8_t  control;
+		uint8_t  org_code[3];
+		uint16_t ether_type;
 	    } type_snap;
 	    struct {
-		u_int8_t control;
-		u_int8_t control_ext;
+		uint8_t control;
+		uint8_t control_ext;
 	    } type_raw;
 	} llc_un;
 };

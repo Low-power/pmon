@@ -336,7 +336,7 @@ static int ioremap_bar0(struct pci_device *pdev, int iosize)
 
 #define iounmap(...)
 
-static inline int is_valid_ether_addr(u_int8_t *addr)
+static inline int is_valid_ether_addr(uint8_t *addr)
 {
     const char zaddr[6] = {0,};
 

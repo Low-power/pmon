@@ -157,7 +157,7 @@ int scsi_activate_bus(struct scsibus_softc *, int);
 int scsi_activate_target(struct scsibus_softc *, int, int);
 int scsi_activate_lun(struct scsibus_softc *, int, int, int);
 
-const u_int8_t version_to_spc [] = {
+const uint8_t version_to_spc [] = {
 	0, /* 0x00: The device does not claim conformance to any standard. */
 	1, /* 0x01: (Obsolete) SCSI-1 in olden times. */
 	2, /* 0x02: (Obsolete) SCSI-2 in olden times. */
@@ -655,7 +655,7 @@ scsi_strvis(u_char *dst, u_char *src, int len)
 
 struct scsi_quirk_inquiry_pattern {
 	struct scsi_inquiry_pattern	pattern;
-	u_int16_t			quirks;
+	uint16_t			quirks;
 };
 
 const struct scsi_quirk_inquiry_pattern scsi_quirk_patterns[] = {
@@ -738,7 +738,7 @@ scsibus_printlink(struct scsi_link *link)
 {
 	char				vendor[33], product[65], revision[17];
 	struct scsi_inquiry_data	*inqbuf;
-	u_int8_t			type;
+	uint8_t			type;
 	int				removable;
 	char				*dtype = NULL, *qtype = NULL;
 
@@ -830,7 +830,7 @@ scsibus_printlink(struct scsi_link *link)
 
 #if NMPATH > 0
 	if (link->id != NULL && link->id->d_type != DEVID_NONE) {
-		u_int8_t *id = (u_int8_t *)(link->id + 1);
+		uint8_t *id = (uint8_t *)(link->id + 1);
 		int i;
 
 		switch (link->id->d_type) {
@@ -1133,7 +1133,7 @@ const void *
 scsi_inqmatch(struct scsi_inquiry_data *inqbuf, const void *_base,
     int nmatches, int matchsize, int *bestpriority)
 {
-	u_int8_t			type;
+	uint8_t			type;
 	int				removable;
 	const void			*bestmatch;
 	const unsigned char		*base = (const unsigned char *)_base;
@@ -1183,7 +1183,7 @@ scsi_devid(struct scsi_link *link)
 {
 	struct {
 		struct scsi_vpd_hdr hdr;
-		u_int8_t list[32];
+		uint8_t list[32];
 	//} __packed pg;//wan-
 	} __attribute__((packed, aligned(1))) pg;//wan^
 	int pg80 = 0, pg83 = 0, i;
@@ -1223,7 +1223,7 @@ scsi_devid_pg83(struct scsi_link *link)
 {
 	struct scsi_vpd_hdr hdr;
 	struct scsi_vpd_devid_hdr dhdr, chdr;
-	u_int8_t *pg, *id;
+	uint8_t *pg, *id;
 	int type, idtype = 0;
 	u_char idflags;
 	int len, pos;
@@ -1319,7 +1319,7 @@ scsi_minphys(struct buf *bp, struct scsi_link *sl)
 }
 
 struct devid *
-devid_alloc(u_int8_t type, u_int8_t flags, u_int8_t len, u_int8_t *id)
+devid_alloc(uint8_t type, uint8_t flags, uint8_t len, uint8_t *id)
 {
 	struct devid *d;
 

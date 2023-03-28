@@ -31,8 +31,8 @@
  * Types and macros for handling bitmaps with one bit per virtual interface.
  */
 #define	MAXVIFS 32
-typedef u_int32_t vifbitmap_t;
-typedef u_int16_t vifi_t;		/* type of a vif index */
+typedef uint32_t vifbitmap_t;
+typedef uint16_t vifi_t;		/* type of a vif index */
 
 #define	VIFM_SET(n, m)			((m) |= (1 << (n)))
 #define	VIFM_CLR(n, m)			((m) &= ~(1 << (n)))
@@ -51,9 +51,9 @@ typedef u_int16_t vifi_t;		/* type of a vif index */
  */
 struct vifctl {
 	vifi_t	  vifc_vifi;	    	/* the index of the vif to be added */
-	u_int8_t  vifc_flags;     	/* VIFF_ flags defined below */
-	u_int8_t  vifc_threshold; 	/* min ttl required to forward on vif */
-	u_int32_t vifc_rate_limit;	/* max rate */
+	uint8_t  vifc_flags;     	/* VIFF_ flags defined below */
+	uint8_t  vifc_threshold; 	/* min ttl required to forward on vif */
+	uint32_t vifc_rate_limit;	/* max rate */
 	struct	  in_addr vifc_lcl_addr;/* local interface address */
 	struct	  in_addr vifc_rmt_addr;/* remote address (tunnels only) */
 };
@@ -66,7 +66,7 @@ struct mfcctl {
 	struct	 in_addr mfcc_origin;	/* ip origin of mcasts */
 	struct	 in_addr mfcc_mcastgrp;	/* multicast group associated */
 	vifi_t	 mfcc_parent;		/* incoming vif */
-	u_int8_t mfcc_ttls[MAXVIFS];	/* forwarding ttls on vifs */
+	uint8_t mfcc_ttls[MAXVIFS];	/* forwarding ttls on vifs */
 };
   
 /*
@@ -118,18 +118,18 @@ struct mrtstat {
  * Token bucket filter at each vif
  */
 struct tbf {
-	u_int32_t last_pkt_t;		/* arr. time of last pkt */
-	u_int32_t n_tok;		/* no of tokens in bucket */
-	u_int32_t q_len;		/* length of queue at this vif */
+	uint32_t last_pkt_t;		/* arr. time of last pkt */
+	uint32_t n_tok;		/* no of tokens in bucket */
+	uint32_t q_len;		/* length of queue at this vif */
 };
 
 /*
  * The kernel's virtual-interface structure.
  */
 struct vif {
-	u_int8_t  v_flags;		/* VIFF_ flags defined above */
-	u_int8_t  v_threshold;		/* min ttl required to forward on vif */
-	u_int32_t v_rate_limit;		/* max rate */
+	uint8_t  v_flags;		/* VIFF_ flags defined above */
+	uint8_t  v_threshold;		/* min ttl required to forward on vif */
+	uint32_t v_rate_limit;		/* max rate */
 	struct	  tbf v_tbf;		/* token bucket structure at intf. */
 	struct	  in_addr v_lcl_addr;	/* local interface address */
 	struct	  in_addr v_rmt_addr;	/* remote address (tunnels only) */
@@ -155,7 +155,7 @@ struct mfc {
 	struct	 in_addr mfc_origin;	 	/* ip origin of mcasts */
 	struct	 in_addr mfc_mcastgrp;  	/* multicast group associated */
 	vifi_t	 mfc_parent;			/* incoming vif */
-	u_int8_t mfc_ttls[MAXVIFS]; 		/* forwarding ttls on vifs */
+	uint8_t mfc_ttls[MAXVIFS]; 		/* forwarding ttls on vifs */
 	u_long	 mfc_pkt_cnt;			/* pkt count for src-grp */
 	u_long	 mfc_byte_cnt;			/* byte count for src-grp */
 	u_long	 mfc_wrong_if;			/* wrong if for src-grp	*/
@@ -169,14 +169,14 @@ struct mfc {
  * (Note the convenient similarity to an IP packet.)
  */
 struct igmpmsg {
-	u_int32_t unused1;
-	u_int32_t unused2;
-	u_int8_t  im_msgtype;		/* what type of message */
+	uint32_t unused1;
+	uint32_t unused2;
+	uint8_t  im_msgtype;		/* what type of message */
 #define IGMPMSG_NOCACHE		1
 #define IGMPMSG_WRONGVIF	2
-	u_int8_t  im_mbz;		/* must be zero */
-	u_int8_t  im_vif;		/* vif rec'd on */
-	u_int8_t  unused3;
+	uint8_t  im_mbz;		/* must be zero */
+	uint8_t  im_vif;		/* vif rec'd on */
+	uint8_t  unused3;
 	struct	  in_addr im_src, im_dst;
 };
 
@@ -205,7 +205,7 @@ struct rtdetq {
  * Queue structure at each vif
  */
 struct pkt_queue {
-	u_int32_t pkt_len;		/* length of packet in queue */
+	uint32_t pkt_len;		/* length of packet in queue */
 	struct	  mbuf *pkt_m;		/* pointer to packet mbuf */
 	struct	  ip *pkt_ip;		/* pointer to ip header */
 };

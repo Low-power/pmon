@@ -816,9 +816,9 @@ struct head {
 	**	the last transfer command.
 	*/
 
-	u_int32_t	savep;
-	u_int32_t	lastp;
-	u_int32_t	goalp;
+	uint32_t	savep;
+	uint32_t	lastp;
+	uint32_t	goalp;
 
 	/*
 	**	The virtual address of the ccb
@@ -1204,7 +1204,7 @@ struct ncb {
 	/*
 	**	Start queue.
 	*/
-	u_int32_t	squeue [MAX_START];
+	uint32_t	squeue [MAX_START];
 	u_short		squeueput;
 	u_short		actccbs;
 
@@ -1263,7 +1263,7 @@ struct ncb {
 	*/
 	u_char		msgout[8];
 	u_char		msgin [8];
-	u_int32_t	lastmsg;
+	uint32_t	lastmsg;
 
 	/*
 	**	Buffer for STATUS_IN phase.
@@ -1411,7 +1411,7 @@ static	void	ncr_init	(ncb_p np, char * msg, u_long code);
 static	int	ncr_intr	(void *vnp);
 #else
 static	void	ncr_intr	(void *vnp);
-static  u_int32_t ncr_info	(int unit);
+static  uint32_t ncr_info	(int unit);
 #endif	/* !__OpenBSD__ */	
 static	void	ncr_int_ma	(ncb_p np, u_char dstat);
 static	void	ncr_int_sir	(ncb_p np);
@@ -3460,7 +3460,7 @@ void ncr_min_phys (struct buf *bp)
 */
 
 #ifndef __OpenBSD__
-u_int32_t ncr_info (int unit)
+uint32_t ncr_info (int unit)
 {
 	return (1);   /* may be changed later */
 }
@@ -5838,7 +5838,7 @@ static void ncr_timeout (void *arg)
 
 static void ncr_log_hard_error(ncb_p np, u_short sist, u_char dstat)
 {
-	u_int32_t dsp;
+	uint32_t dsp;
 	int	script_ofs;
 	int	script_size;
 	char	*script_name;
@@ -5896,8 +5896,8 @@ static void ncr_log_hard_error(ncb_p np, u_short sist, u_char dstat)
 
 void ncr_exception (ncb_p np)
 {
-	u_int8_t	istat, dstat;
-	u_int16_t	sist;
+	uint8_t	istat, dstat;
+	uint16_t	sist;
 
 	/*
 	**	interrupt on the fly ?
@@ -6260,17 +6260,17 @@ void ncr_int_sto (ncb_p np)
 
 static void ncr_int_ma (ncb_p np, u_char dstat)
 {
-	u_int32_t	dbc;
-	u_int32_t	rest;
-	u_int32_t	dsa;
-	u_int32_t	dsp;
-	u_int32_t	nxtdsp;
+	uint32_t	dbc;
+	uint32_t	rest;
+	uint32_t	dsa;
+	uint32_t	dsp;
+	uint32_t	nxtdsp;
 	void	*vdsp_base;
 	size_t	vdsp_off;
-	u_int32_t	oadr, olen;
-	u_int32_t	*tblp;
+	uint32_t	oadr, olen;
+	uint32_t	*tblp;
 	ncrcmd	*newcmd;
-	u_int32_t	cmd, sbcl, delta, ss0, ss2, ctest5;
+	uint32_t	cmd, sbcl, delta, ss0, ss2, ctest5;
 	ccb_p	cp;
 
 	dsp = INL (nc_dsp);
@@ -6371,11 +6371,11 @@ static void ncr_int_ma (ncb_p np, u_char dstat)
 	oadr = READSCRIPT_OFF(vdsp_base, vdsp_off + 1*4);
 
 	if (cmd & 0x10) {	/* Table indirect */
-		tblp = (u_int32_t *) ((char*) &cp->phys + oadr);
+		tblp = (uint32_t *) ((char*) &cp->phys + oadr);
 		olen = SCR_BO(tblp[0]);
 		oadr = SCR_BO(tblp[1]);
 	} else {
-		tblp = (u_int32_t *) 0;
+		tblp = (uint32_t *) 0;
 		olen = READSCRIPT_OFF(vdsp_base, vdsp_off) & 0xffffff;
 	};
 
@@ -7497,7 +7497,7 @@ static	int	ncr_scatter
 #if !defined(NCR_IOMAPPED) || defined(__OpenBSD__)
 static int ncr_regtest (struct ncb* np)
 {
-	register volatile u_int32_t data;
+	register volatile uint32_t data;
 	/*
 	**	ncr registers may NOT be cached.
 	**	write 0xffffffff to a read only register area,
@@ -7521,7 +7521,7 @@ static int ncr_regtest (struct ncb* np)
 
 static int ncr_snooptest (struct ncb* np)
 {
-	volatile u_int32_t ncr_rd, ncr_wr, ncr_bk, host_rd, host_wr, pc;
+	volatile uint32_t ncr_rd, ncr_wr, ncr_bk, host_rd, host_wr, pc;
 	int	i, err=0;
 #if !defined(NCR_IOMAPPED) || defined(__OpenBSD__)
 #ifdef __OpenBSD__

@@ -285,7 +285,7 @@ _pci_hwinit (initialise, iot, memt)
 	_pci_conf_write(_pci_make_tag(1, 0, 0), PCI_INTERNAL_REGISTERS_MEMORY_MAPPED_BASE_ADDRESS, 0xf4000000);
 		
 	for(i = 0; i < NBARS; i++) {
-		u_int32_t baselo, basehi, enabler;
+		uint32_t baselo, basehi, enabler;
 		pcitag_t tag;
 
 		baselo = GT_READ(barlist[i].scslow);
@@ -444,7 +444,7 @@ _pci_conf_readn(tag, reg, width)
 	int width;
 {
 	pcireg_t data;
-	u_int32_t adr;
+	uint32_t adr;
 	int bus, device, function;
 	if (reg & (width-1) || reg < 0 || reg >= 0x100) {
 		if (_pciverbose >= 1) {
@@ -503,7 +503,7 @@ _pci_conf_writen(tag, reg, data, width)
 	pcireg_t data;
 	int width;
 {
-	u_int32_t adr;
+	uint32_t adr;
 	int bus, device, function;
 
 	if (reg & (width-1) || reg < 0 || reg >= 0x100) {

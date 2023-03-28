@@ -182,9 +182,9 @@ _wdc_ata_bio_start(chp, xfer)
 {
 	struct ata_bio *ata_bio = xfer->cmd;
 	struct ata_drive_datas *drvp = &chp->ch_drive[xfer->drive];
-	u_int16_t cyl;
-	u_int8_t head1, head, sect, cmd = 0;
-	u_int8_t LBA1,LBA2,LBA3,LBA4,LBA5,LBA6,precomp;
+	uint16_t cyl;
+	uint8_t head1, head, sect, cmd = 0;
+	uint8_t LBA1,LBA2,LBA3,LBA4,LBA5,LBA6,precomp;
 	int nblks;
 	int ata_delay;
 #if !defined(PMON) || defined(IDE_DMA)

@@ -26,17 +26,17 @@
 	bus_space_write_4((sc)->sc_st, (sc)->sc_sh, (reg), (val))
 #else
  #define	RTL_READ_1(sc, reg)						\
-	(*((u_int8_t *)((sc)->csr + (reg))))
+	(*((uint8_t *)((sc)->csr + (reg))))
  #define	RTL_READ_2(sc, reg)						\
-	(*((u_int16_t *)((sc)->csr + (reg))))
+	(*((uint16_t *)((sc)->csr + (reg))))
  #define	RTL_READ_4(sc, reg)						\
-	(*((u_int32_t *)((sc)->csr + (reg))))
+	(*((uint32_t *)((sc)->csr + (reg))))
  #define	RTL_WRITE_1(sc, reg, val)					\
-	(*((u_int8_t *)((sc)->csr + (reg)))) = (val)
+	(*((uint8_t *)((sc)->csr + (reg)))) = (val)
  #define	RTL_WRITE_2(sc, reg, val)					\
-	(*((u_int16_t *)((sc)->csr + (reg)))) = (val)
+	(*((uint16_t *)((sc)->csr + (reg)))) = (val)
  #define	RTL_WRITE_4(sc, reg, val)					\
-	(*((u_int32_t *)((sc)->csr + (reg)))) = (val)
+	(*((uint32_t *)((sc)->csr + (reg)))) = (val)
 #endif /* __NetBSD__ || __OpenBSD__ */
 
 #else
@@ -57,17 +57,17 @@
 	bus_space_write_4((sc)->sc_st, (sc)->sc_sh, (reg), (val))
 #else
  #define	RTL_READ_1(sc, reg)						\
-	(*((u_int8_t *)((sc)->csr + (reg))))
+	(*((uint8_t *)((sc)->csr + (reg))))
  #define	RTL_READ_2(sc, reg)						\
-	(*((u_int16_t *)((sc)->csr + (reg))))
+	(*((uint16_t *)((sc)->csr + (reg))))
  #define	RTL_READ_4(sc, reg)						\
-	(*((u_int32_t *)((sc)->csr + (reg))))
+	(*((uint32_t *)((sc)->csr + (reg))))
  #define	RTL_WRITE_1(sc, reg, val)					\
-	(*((u_int8_t *)((sc)->csr + (reg)))) = (val)
+	(*((uint8_t *)((sc)->csr + (reg)))) = (val)
  #define	RTL_WRITE_2(sc, reg, val)					\
-	(*((u_int16_t *)((sc)->csr + (reg)))) = (val)
+	(*((uint16_t *)((sc)->csr + (reg)))) = (val)
  #define	RTL_WRITE_4(sc, reg, val)					\
-	(*((u_int32_t *)((sc)->csr + (reg)))) = (val)
+	(*((uint32_t *)((sc)->csr + (reg)))) = (val)
 #endif /* __NetBSD__ || __OpenBSD__ */
 
 #endif

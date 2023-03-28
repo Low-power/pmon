@@ -49,10 +49,10 @@ struct in_ifaddr {
 #define	ia_ifp		ia_ifa.ifa_ifp
 #define ia_flags	ia_ifa.ifa_flags
 					/* ia_{,sub}net{,mask} in host order */
-	u_int32_t ia_net;		/* network number of interface */
-	u_int32_t ia_netmask;		/* mask of net part */
-	u_int32_t ia_subnet;		/* subnet number, including net */
-	u_int32_t ia_subnetmask;	/* mask of subnet part */
+	uint32_t ia_net;		/* network number of interface */
+	uint32_t ia_netmask;		/* mask of net part */
+	uint32_t ia_subnet;		/* subnet number, including net */
+	uint32_t ia_subnetmask;	/* mask of subnet part */
 	struct	in_addr ia_netbroadcast; /* to recognize net broadcasts */
 	TAILQ_ENTRY(in_ifaddr) ia_list;	/* list of internet addresses */
 	struct	sockaddr_in ia_addr;	/* reserve space for interface name */

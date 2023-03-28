@@ -40,9 +40,9 @@ struct ataparams;
 
 /* Datas common to drives and controller drivers */
 struct ata_drive_datas {
-    u_int8_t drive; /* drive number */
+    uint8_t drive; /* drive number */
     int8_t ata_vers; /* ATA version supported */
-    u_int16_t drive_flags; /* bitmask for drives present/absent and cap */
+    uint16_t drive_flags; /* bitmask for drives present/absent and cap */
 #define DRIVE_ATA	0x0001
 #define DRIVE_ATAPI	0x0002
 #define DRIVE_OLD	0x0004 
@@ -62,26 +62,26 @@ struct ata_drive_datas {
      * Is initialised by the disks drivers at attach time, and may be
      * changed later by the controller's code if needed
      */
-    u_int8_t PIO_mode; /* Current setting of drive's PIO mode */
-    u_int8_t DMA_mode; /* Current setting of drive's DMA mode */
-    u_int8_t UDMA_mode; /* Current setting of drive's UDMA mode */
+    uint8_t PIO_mode; /* Current setting of drive's PIO mode */
+    uint8_t DMA_mode; /* Current setting of drive's DMA mode */
+    uint8_t UDMA_mode; /* Current setting of drive's UDMA mode */
     /* Supported modes for this drive */
-    u_int8_t PIO_cap; /* supported drive's PIO mode */
-    u_int8_t DMA_cap; /* supported drive's DMA mode */
-    u_int8_t UDMA_cap; /* supported drive's UDMA mode */
+    uint8_t PIO_cap; /* supported drive's PIO mode */
+    uint8_t DMA_cap; /* supported drive's DMA mode */
+    uint8_t UDMA_cap; /* supported drive's UDMA mode */
     /*
      * Drive state. This is drive-type (ATA or ATAPI) dependant
      * This is reset to 0 after a channel reset.
      */
-    u_int8_t state;
+    uint8_t state;
 
 #define ACAP_LEN            0x01  /* 16 byte commands */
 #define ACAP_DSC            0x02  /* use DSC signalling */
     /* 0x20-0x40 reserved for ATAPI_CFG_DRQ_MASK */
-    u_int8_t atapi_cap;
+    uint8_t atapi_cap;
 
     /* Number of DMA errors. Reset to 0 after every successful transfers. */
-    u_int8_t n_dmaerrs;
+    uint8_t n_dmaerrs;
     /* downgrade mode after this many successive errors */
 #define NERRS_MAX 2
 
@@ -92,11 +92,11 @@ struct ata_drive_datas {
 
 /* ATA/ATAPI common attachement datas */
 struct ata_atapi_attach {
-    u_int8_t aa_type; /* Type of device */
+    uint8_t aa_type; /* Type of device */
 #define T_ATA 0
 #define T_ATAPI 1
-    u_int8_t aa_channel; /* controller's channel */
-    u_int8_t aa_openings; /* Number of simultaneous commands possible */
+    uint8_t aa_channel; /* controller's channel */
+    uint8_t aa_openings; /* Number of simultaneous commands possible */
     struct ata_drive_datas *aa_drv_data;
     void *aa_bus_private; /* infos specifics to this bus */
 };
@@ -128,16 +128,16 @@ struct ata_atapi_attach {
  * (which need multiple interrupts per commands).
  */
 struct wdc_command {
-    u_int8_t r_command;  /* Parameters to upload to registers */
-    u_int8_t r_head;
-    u_int16_t r_cyl;
-    u_int8_t r_sector;
-    u_int8_t r_count;
-    u_int8_t r_precomp;
-    u_int8_t r_st_bmask; /* status register mask to wait for before command */
-    u_int8_t r_st_pmask; /* status register mask to wait for after command */
-    u_int8_t r_error;    /* error register after command done */
-    volatile u_int16_t flags;
+    uint8_t r_command;  /* Parameters to upload to registers */
+    uint8_t r_head;
+    uint16_t r_cyl;
+    uint8_t r_sector;
+    uint8_t r_count;
+    uint8_t r_precomp;
+    uint8_t r_st_bmask; /* status register mask to wait for before command */
+    uint8_t r_st_pmask; /* status register mask to wait for after command */
+    uint8_t r_error;    /* error register after command done */
+    volatile uint16_t flags;
 #define AT_READ     0x0001 /* There is data to read */
 #define AT_WRITE    0x0002 /* There is data to write (excl. with AT_READ) */
 #define AT_WAIT     0x0008 /* wait in controller code for command completion */
@@ -171,9 +171,9 @@ int wdc_ata_addref __P((struct ata_drive_datas *));
 void wdc_ata_delref __P((struct ata_drive_datas *));
 
 struct ataparams;
-int ata_get_params __P((struct ata_drive_datas*, u_int8_t,
+int ata_get_params __P((struct ata_drive_datas*, uint8_t,
 	 struct ataparams *));
-int ata_set_mode __P((struct ata_drive_datas*, u_int8_t, u_int8_t));
+int ata_set_mode __P((struct ata_drive_datas*, uint8_t, uint8_t));
 /* return code for these cmds */
 #define CMD_OK    0
 #define CMD_ERR   1

@@ -93,7 +93,7 @@ struct wxmdvar {
 	struct arpcom		arpcom;		/* ethernet common part */
 	pci_chipset_tag_t	pci_pc;
 	pcitag_t		pci_tag;
-	u_int32_t		cmdw;
+	uint32_t		cmdw;
 #ifndef PMON
 	struct timeout		tmo;	/* handle for timeouts */
 #endif
@@ -149,7 +149,7 @@ typedef	unsigned long intptr_t;
  */
 typedef struct rxpkt {
 	struct mbuf *dptr;	/* pointer to receive frame */
-	u_int32_t dma_addr;	/* dma address */
+	uint32_t dma_addr;	/* dma address */
 } rxpkt_t;
 
 	
@@ -159,8 +159,8 @@ typedef struct rxpkt {
 typedef struct txpkt {
 	struct txpkt *next;	/* next in a chain */
 	struct mbuf *dptr;	/* pointer to mbuf being sent */
-	u_int32_t sidx;		/* start index */
-	u_int32_t eidx;		/* end index */
+	uint32_t sidx;		/* start index */
+	uint32_t eidx;		/* end index */
 } txpkt_t;
 
 
@@ -173,7 +173,7 @@ typedef struct wx_softc {
 	/*
 	 * misc goodies
 	 */
-	u_int32_t		:	22,
+	uint32_t		:	22,
 		wx_needreinit	:	1,
 		wx_mii		:	1,	/* non-zero if we have a PHY */
 		wx_no_flow 	:	1,
@@ -184,37 +184,37 @@ typedef struct wx_softc {
 		ane_failed	:	1,
 		linkup		:	1,
 		all_mcasts	:	1;
-	u_int32_t wx_idnrev;		/* chip revision && PCI ID */
-	u_int16_t wx_cfg1;
-	u_int16_t wx_unused;
-	u_int32_t wx_ienable;		/* current ienable to use */
-	u_int32_t wx_dcr;		/* dcr used */
-	u_int32_t wx_icr;		/* last icr */
+	uint32_t wx_idnrev;		/* chip revision && PCI ID */
+	uint16_t wx_cfg1;
+	uint16_t wx_unused;
+	uint32_t wx_ienable;		/* current ienable to use */
+	uint32_t wx_dcr;		/* dcr used */
+	uint32_t wx_icr;		/* last icr */
 
 	/*
 	 * Statistics, soft && hard
 	 */
-	u_int32_t	wx_intr;
-	u_int32_t	wx_linkintr;
-	u_int32_t	wx_rxintr;
-	u_int32_t	wx_txqe;
-	u_int32_t	wx_xmitgc;
-	u_int32_t	wx_xmitpullup;
-	u_int32_t	wx_xmitcluster;
-	u_int32_t	wx_xmitputback;
-	u_int32_t	wx_xmitwanted;
-	u_int32_t	wx_xmitblocked;
-	u_int32_t	wx_xmitrunt;
-	u_int32_t	wx_rxnobuf;
-	u_int32_t	wx_oddpkt;
+	uint32_t	wx_intr;
+	uint32_t	wx_linkintr;
+	uint32_t	wx_rxintr;
+	uint32_t	wx_txqe;
+	uint32_t	wx_xmitgc;
+	uint32_t	wx_xmitpullup;
+	uint32_t	wx_xmitcluster;
+	uint32_t	wx_xmitputback;
+	uint32_t	wx_xmitwanted;
+	uint32_t	wx_xmitblocked;
+	uint32_t	wx_xmitrunt;
+	uint32_t	wx_rxnobuf;
+	uint32_t	wx_oddpkt;
 
 	/*
 	 * Soft copies of multicast addresses. We're only
 	 * using (right now) the rest of the receive address
 	 * registers- not the hashed multicast table.
 	 */
-	u_int8_t	wx_mcaddr[WX_RAL_TAB_SIZE-1][6];
-	u_int8_t	wx_nmca;		/* # active multicast addrs */
+	uint8_t	wx_mcaddr[WX_RAL_TAB_SIZE-1][6];
+	uint8_t	wx_nmca;		/* # active multicast addrs */
 
 
 	/*
@@ -223,8 +223,8 @@ typedef struct wx_softc {
 	 */
 	wxrd_t	*rdescriptors;		/* receive descriptor ring */
 	rxpkt_t *rbase;			/* base of soft rdesc list */
-	u_int16_t rnxt;			/* next descriptor to check */
-	u_int16_t _pad;
+	uint16_t rnxt;			/* next descriptor to check */
+	uint16_t _pad;
 	struct mbuf *rpending;		/* pending partial packet */
 
 	/*
@@ -234,8 +234,8 @@ typedef struct wx_softc {
 	txpkt_t *tbase;			/* base of soft soft management */
 	txpkt_t *tbsyf, *tbsyl;		/* linked busy list */
 	wxtd_t	*tdescriptors;		/* transmit descriptor ring */
-	u_int16_t tnxtfree;		/* next free index (circular) */
-	u_int16_t tactive;		/* # active */
+	uint16_t tnxtfree;		/* next free index (circular) */
+	uint16_t tactive;		/* # active */
 } wx_softc_t;
 
 /*

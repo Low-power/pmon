@@ -71,7 +71,7 @@ struct client_config_t
 	char		interface[INTERFACE_MAXLEN];
 	char		arp[16];							//store the MAC	address
 
-	u_int32_t	addr;
+	uint32_t	addr;
 	int			ifindex;
 };
 

@@ -823,8 +823,8 @@ m_devget(buf, totlen, off0, ifp, copy)
 		 * If 'off' is non-zero, packet is trailer-encapsulated,
 		 * so we have to skip the type and length fields.
 		 */
-		cp += off + 2 * sizeof(u_int16_t);
-		totlen -= 2 * sizeof(u_int16_t);
+		cp += off + 2 * sizeof(uint16_t);
+		totlen -= 2 * sizeof(uint16_t);
 	}
 	MGETHDR(m, M_DONTWAIT, MT_DATA);
 	if (m == NULL)

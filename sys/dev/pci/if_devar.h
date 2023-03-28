@@ -67,23 +67,23 @@ typedef bus_addr_t tulip_csrptr_t;
  */
 #if defined(BYTE_ORDER) && BYTE_ORDER == BIG_ENDIAN
 
-__inline__ static u_int32_t FILT_BO(u_int32_t);
-__inline__ static u_int32_t
+__inline__ static uint32_t FILT_BO(uint32_t);
+__inline__ static uint32_t
 FILT_BO(x)
-    u_int32_t x;
+    uint32_t x;
 {
-	u_int32_t s;
+	uint32_t s;
 
 	s = ((x & 0xffff) << 16) | (x & 0xffff);
 	return s;
 }
 
-__inline__ static u_int32_t DESC_BO(u_int32_t);
-__inline__ static u_int32_t
+__inline__ static uint32_t DESC_BO(uint32_t);
+__inline__ static uint32_t
 DESC_BO(x)
-    u_int32_t x;
+    uint32_t x;
 {
-	u_int32_t s;
+	uint32_t s;
 
 	s = x;
 	x = (((s) >> 24) | (((s) >> 8) & 0xff00) | 
@@ -262,33 +262,33 @@ typedef struct {
     } mi_type;
     union {
 	struct {
-	    u_int16_t sia_connectivity;
-	    u_int16_t sia_tx_rx;
-	    u_int16_t sia_general;
-	    u_int32_t sia_gp_control;	/* 21142/21143 */
-	    u_int32_t sia_gp_data;	/* 21142/21143 */
+	    uint16_t sia_connectivity;
+	    uint16_t sia_tx_rx;
+	    uint16_t sia_general;
+	    uint32_t sia_gp_control;	/* 21142/21143 */
+	    uint32_t sia_gp_data;	/* 21142/21143 */
 	} un_sia;
 	struct {
-	    u_int32_t gpr_cmdmode;
-	    u_int32_t gpr_gpcontrol;	/* 21142/21143 */
-	    u_int32_t gpr_gpdata;
-	    u_int8_t gpr_actmask;
-	    u_int8_t gpr_actdata;
-	    u_int8_t gpr_default : 1;
+	    uint32_t gpr_cmdmode;
+	    uint32_t gpr_gpcontrol;	/* 21142/21143 */
+	    uint32_t gpr_gpdata;
+	    uint8_t gpr_actmask;
+	    uint8_t gpr_actdata;
+	    uint8_t gpr_default : 1;
 	} un_gpr;
 	struct {
-	    u_int32_t mii_mediamask;
-	    u_int16_t mii_capabilities;
-	    u_int16_t mii_advertisement;
-	    u_int16_t mii_full_duplex;
-	    u_int16_t mii_tx_threshold;
-	    u_int16_t mii_interrupt;	/* 21142/21143 */
-	    u_int8_t mii_phyaddr;
-	    u_int8_t mii_gpr_length;
-	    u_int8_t mii_gpr_offset;
-	    u_int8_t mii_reset_length;
-	    u_int8_t mii_reset_offset;
-	    u_int32_t mii_phyid;
+	    uint32_t mii_mediamask;
+	    uint16_t mii_capabilities;
+	    uint16_t mii_advertisement;
+	    uint16_t mii_full_duplex;
+	    uint16_t mii_tx_threshold;
+	    uint16_t mii_interrupt;	/* 21142/21143 */
+	    uint8_t mii_phyaddr;
+	    uint8_t mii_gpr_length;
+	    uint8_t mii_gpr_offset;
+	    uint8_t mii_reset_length;
+	    uint8_t mii_reset_offset;
+	    uint32_t mii_phyid;
 	} un_mii;
     } mi_un;
 } tulip_media_info_t;
@@ -420,14 +420,14 @@ typedef enum {
 } tulip_phy_mode_t;
 
 typedef struct {
-    u_int16_t pm_regno;
-    u_int16_t pm_mask;
-    u_int16_t pm_value;
+    uint16_t pm_regno;
+    uint16_t pm_mask;
+    uint16_t pm_value;
 } tulip_phy_modedata_t;
 
 typedef struct {
-    u_int32_t attr_id;
-    u_int16_t attr_flags;
+    uint32_t attr_id;
+    uint16_t attr_flags;
 #define	PHY_NEED_HARD_RESET	0x0001
 #define	PHY_DUAL_CYCLE_TA	0x0002
     tulip_phy_modedata_t attr_modes[PHY_MODE_MAX];
@@ -453,24 +453,24 @@ typedef struct {
     /*
      * Transmit Statistics
      */
-    u_int32_t dot3StatsSingleCollisionFrames;
-    u_int32_t dot3StatsMultipleCollisionFrames;
-    u_int32_t dot3StatsSQETestErrors;
-    u_int32_t dot3StatsDeferredTransmissions;
-    u_int32_t dot3StatsLateCollisions;
-    u_int32_t dot3StatsExcessiveCollisions;
-    u_int32_t dot3StatsCarrierSenseErrors;
-    u_int32_t dot3StatsInternalMacTransmitErrors;
-    u_int32_t dot3StatsInternalTransmitUnderflows;	/* not in rfc1650! */
-    u_int32_t dot3StatsInternalTransmitBabbles;		/* not in rfc1650! */
+    uint32_t dot3StatsSingleCollisionFrames;
+    uint32_t dot3StatsMultipleCollisionFrames;
+    uint32_t dot3StatsSQETestErrors;
+    uint32_t dot3StatsDeferredTransmissions;
+    uint32_t dot3StatsLateCollisions;
+    uint32_t dot3StatsExcessiveCollisions;
+    uint32_t dot3StatsCarrierSenseErrors;
+    uint32_t dot3StatsInternalMacTransmitErrors;
+    uint32_t dot3StatsInternalTransmitUnderflows;	/* not in rfc1650! */
+    uint32_t dot3StatsInternalTransmitBabbles;		/* not in rfc1650! */
     /*
      * Receive Statistics
      */
-    u_int32_t dot3StatsMissedFrames;	/* not in rfc1650! */
-    u_int32_t dot3StatsAlignmentErrors;
-    u_int32_t dot3StatsFCSErrors;
-    u_int32_t dot3StatsFrameTooLongs;
-    u_int32_t dot3StatsInternalMacReceiveErrors;
+    uint32_t dot3StatsMissedFrames;	/* not in rfc1650! */
+    uint32_t dot3StatsAlignmentErrors;
+    uint32_t dot3StatsFCSErrors;
+    uint32_t dot3StatsFrameTooLongs;
+    uint32_t dot3StatsInternalMacReceiveErrors;
 } tulip_dot3_stats_t;
 
 /*
@@ -490,7 +490,7 @@ struct _tulip_softc_t {
 #if !defined(__OpenBSD__)
     struct ethercom tulip_ec;
 #endif
-    u_int8_t tulip_enaddr[ETHER_ADDR_LEN];
+    uint8_t tulip_enaddr[ETHER_ADDR_LEN];
 #endif
 #if !defined(tulip_ifmedia) && defined(IFM_ETHER)
     struct ifmedia tulip_ifmedia;
@@ -499,7 +499,7 @@ struct _tulip_softc_t {
     struct arpcom tulip_ac;
 #endif
     tulip_regfile_t tulip_csrs;
-    u_int32_t tulip_flags;
+    uint32_t tulip_flags;
 #define	TULIP_WANTSETUP		0x00000001
 #define	TULIP_WANTHASHPERFECT	0x00000002
 #define	TULIP_WANTHASHONLY	0x00000004
@@ -533,7 +533,7 @@ struct _tulip_softc_t {
 #define	TULIP_HASHONLY		0x40000000
 #define	TULIP_xxxxxx3		0x80000000
     /* only 4 bits left! */
-    u_int32_t tulip_features;	/* static bits indicating features of chip */
+    uint32_t tulip_features;	/* static bits indicating features of chip */
 #define	TULIP_HAVE_GPR		0x00000001	/* have gp register (140[A]) */
 #define	TULIP_HAVE_RXBADOVRFLW	0x00000002	/* RX corrupts on overflow */
 #define	TULIP_HAVE_POWERMGMT	0x00000004	/* Snooze/sleep modes */
@@ -552,30 +552,30 @@ struct _tulip_softc_t {
 #define	TULIP_HAVE_STOREFWD	0x00008000	/* have CMD_STOREFWD */
 #define	TULIP_HAVE_SIA100	0x00010000	/* has LS100 in SIA status */
 #define	TULIP_HAVE_OKSROM	0x00020000	/* SROM CRC is OK */
-    u_int32_t tulip_intrmask;	/* our copy of csr_intr */
-    u_int32_t tulip_cmdmode;	/* our copy of csr_cmdmode */
-    u_int32_t tulip_last_system_error : 3;	/* last system error (only value is TULIP_SYSTEMERROR is also set) */
-    u_int32_t tulip_txtimer : 2;	/* transmission timer */
-    u_int32_t tulip_system_errors;	/* number of system errors encountered */
-    u_int32_t tulip_statusbits;	/* status bits from CSR5 that may need to be printed */
+    uint32_t tulip_intrmask;	/* our copy of csr_intr */
+    uint32_t tulip_cmdmode;	/* our copy of csr_cmdmode */
+    uint32_t tulip_last_system_error : 3;	/* last system error (only value is TULIP_SYSTEMERROR is also set) */
+    uint32_t tulip_txtimer : 2;	/* transmission timer */
+    uint32_t tulip_system_errors;	/* number of system errors encountered */
+    uint32_t tulip_statusbits;	/* status bits from CSR5 that may need to be printed */
 
     tulip_media_info_t *tulip_mediums[TULIP_MEDIA_MAX];	/* indexes into mediainfo */
     tulip_media_t tulip_media;			/* current media type */
-    u_int32_t tulip_abilities;	/* remote system's abiltities (as defined in IEEE 802.3u) */
+    uint32_t tulip_abilities;	/* remote system's abiltities (as defined in IEEE 802.3u) */
 
-    u_int8_t tulip_revinfo;			/* revision of chip */
-    u_int8_t tulip_phyaddr;			/* 0..31 -- address of current phy */
-    u_int8_t tulip_gpinit;			/* active pins on 21140 */
-    u_int8_t tulip_gpdata;			/* default gpdata for 21140 */
+    uint8_t tulip_revinfo;			/* revision of chip */
+    uint8_t tulip_phyaddr;			/* 0..31 -- address of current phy */
+    uint8_t tulip_gpinit;			/* active pins on 21140 */
+    uint8_t tulip_gpdata;			/* default gpdata for 21140 */
 
     struct {
-	u_int8_t probe_count;			/* count of probe operations */
+	uint8_t probe_count;			/* count of probe operations */
 	int32_t probe_timeout;			/* time in ms of probe timeout */
 	tulip_probe_state_t probe_state;	/* current media probe state */
 	tulip_media_t probe_media;		/* current media being probed */
-	u_int32_t probe_mediamask;		/* medias checked */
-	u_int32_t probe_passes;			/* times autosense failed */
-	u_int32_t probe_txprobes;		/* txprobes attempted */
+	uint32_t probe_mediamask;		/* medias checked */
+	uint32_t probe_passes;			/* times autosense failed */
+	uint32_t probe_txprobes;		/* txprobes attempted */
     } tulip_probe;
 #define	tulip_probe_count	tulip_probe.probe_count
 #define	tulip_probe_timeout	tulip_probe.probe_timeout
@@ -593,26 +593,26 @@ struct _tulip_softc_t {
      */
     struct {
 	tulip_media_t dbg_last_media;
-	u_int32_t dbg_intrs;
-	u_int32_t dbg_media_probes;
-	u_int32_t dbg_txprobe_nocarr;
-	u_int32_t dbg_txprobe_exccoll;
-	u_int32_t dbg_link_downed;
-	u_int32_t dbg_link_suspected;
-	u_int32_t dbg_link_intrs;
-	u_int32_t dbg_link_pollintrs;
-	u_int32_t dbg_link_failures;
-	u_int32_t dbg_nway_starts;
-	u_int32_t dbg_nway_failures;
-	u_int16_t dbg_phyregs[32][4];
-	u_int32_t dbg_rxlowbufs;
-	u_int32_t dbg_rxintrs;
-	u_int32_t dbg_last_rxintrs;
-	u_int32_t dbg_high_rxintrs_hz;
-	u_int32_t dbg_txprobes_ok[TULIP_MEDIA_MAX];
-	u_int32_t dbg_txprobes_failed[TULIP_MEDIA_MAX];
-	u_int32_t dbg_events[TULIP_MEDIAPOLL_MAX];
-	u_int32_t dbg_rxpktsperintr[TULIP_RXDESCS];
+	uint32_t dbg_intrs;
+	uint32_t dbg_media_probes;
+	uint32_t dbg_txprobe_nocarr;
+	uint32_t dbg_txprobe_exccoll;
+	uint32_t dbg_link_downed;
+	uint32_t dbg_link_suspected;
+	uint32_t dbg_link_intrs;
+	uint32_t dbg_link_pollintrs;
+	uint32_t dbg_link_failures;
+	uint32_t dbg_nway_starts;
+	uint32_t dbg_nway_failures;
+	uint16_t dbg_phyregs[32][4];
+	uint32_t dbg_rxlowbufs;
+	uint32_t dbg_rxintrs;
+	uint32_t dbg_last_rxintrs;
+	uint32_t dbg_high_rxintrs_hz;
+	uint32_t dbg_txprobes_ok[TULIP_MEDIA_MAX];
+	uint32_t dbg_txprobes_failed[TULIP_MEDIA_MAX];
+	uint32_t dbg_events[TULIP_MEDIAPOLL_MAX];
+	uint32_t dbg_rxpktsperintr[TULIP_RXDESCS];
     } tulip_dbg;
 #endif
 #if defined(TULIP_PERFSTATS)
@@ -655,17 +655,17 @@ struct _tulip_softc_t {
      * one is the one being sent while the other is the one being
      * filled.
      */
-    u_int32_t tulip_setupbuf[192/sizeof(u_int32_t)];
-    u_int32_t tulip_setupdata[192/sizeof(u_int32_t)];
+    uint32_t tulip_setupbuf[192/sizeof(uint32_t)];
+    uint32_t tulip_setupdata[192/sizeof(uint32_t)];
     char tulip_boardid[16];		/* buffer for board ID */
-    u_int8_t tulip_rombuf[128];
+    uint8_t tulip_rombuf[128];
 #if defined(__NetBSD__)
     struct device *tulip_pci_busno;	/* needed for multiport boards */
 #else
-    u_int8_t tulip_pci_busno;		/* needed for multiport boards */
+    uint8_t tulip_pci_busno;		/* needed for multiport boards */
 #endif
-    u_int8_t tulip_pci_devno;		/* needed for multiport boards */
-    u_int8_t tulip_connidx;
+    uint8_t tulip_pci_devno;		/* needed for multiport boards */
+    uint8_t tulip_connidx;
     tulip_srom_connection_t tulip_conntype;
     tulip_desc_t tulip_rxdescs[TULIP_RXDESCS];
     tulip_desc_t tulip_txdescs[TULIP_TXDESCS];
@@ -764,7 +764,7 @@ static const char * const tulip_status_bits[] = {
 static const struct {
     tulip_srom_connection_t sc_type;
     tulip_media_t sc_media;
-    u_int32_t sc_attrs;
+    uint32_t sc_attrs;
 } tulip_srom_conninfo[] = {
     { TULIP_SROM_CONNTYPE_10BASET,		TULIP_MEDIA_10BASET },
     { TULIP_SROM_CONNTYPE_BNC,			TULIP_MEDIA_BNC },
@@ -825,7 +825,7 @@ static const struct {
 #define	TULIP_MAX_DEVICES	32
 
 #if defined(TULIP_USE_SOFTINTR) && defined(TULIP_HDR_DATA)
-static u_int32_t tulip_softintr_mask;
+static uint32_t tulip_softintr_mask;
 static int tulip_softintr_last_unit;
 static int tulip_softintr_max_unit;
 static void tulip_softintr(void);
@@ -1061,13 +1061,13 @@ TULIP_PERFREAD(
 #define	TULIP_MAX_TXSEG		30
 
 #define	TULIP_ADDREQUAL(a1, a2) \
-	(((u_int16_t *)a1)[0] == ((u_int16_t *)a2)[0] \
-	 && ((u_int16_t *)a1)[1] == ((u_int16_t *)a2)[1] \
-	 && ((u_int16_t *)a1)[2] == ((u_int16_t *)a2)[2])
+	(((uint16_t *)a1)[0] == ((uint16_t *)a2)[0] \
+	 && ((uint16_t *)a1)[1] == ((uint16_t *)a2)[1] \
+	 && ((uint16_t *)a1)[2] == ((uint16_t *)a2)[2])
 #define	TULIP_ADDRBRDCST(a1) \
-	(((u_int16_t *)a1)[0] == 0xFFFFU \
-	 && ((u_int16_t *)a1)[1] == 0xFFFFU \
-	 && ((u_int16_t *)a1)[2] == 0xFFFFU)
+	(((uint16_t *)a1)[0] == 0xFFFFU \
+	 && ((uint16_t *)a1)[1] == 0xFFFFU \
+	 && ((uint16_t *)a1)[2] == 0xFFFFU)
 
 typedef int tulip_spl_t;
 

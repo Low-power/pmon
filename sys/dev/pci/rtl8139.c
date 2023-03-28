@@ -1108,10 +1108,10 @@ static int rtl8139_match(
 }
 
 static int
-rtl8139_attach_common(struct nic *nic, u_int8_t *enaddr)
+rtl8139_attach_common(struct nic *nic, uint8_t *enaddr)
 {
 	unsigned long long macaddr;
-	u_int8_t *paddr;
+	uint8_t *paddr;
 	int i;
 
 	/* 
@@ -1258,7 +1258,7 @@ static void rtl8139_attach(struct device * parent, struct device * self, void *a
 	pci_chipset_tag_t pc = pa->pa_pc;
 	pci_intr_handle_t ih;
 	const char *intrstr = NULL;
-	u_int8_t enaddr[6];
+	uint8_t enaddr[6];
 	struct ifnet *ifp;
 #ifdef __OpenBSD__
 	bus_space_tag_t iot = pa->pa_iot;
@@ -1681,8 +1681,8 @@ int cmd_setmac(int ac, char *av[])
 #endif
 	if(ac != 2){
 	long long macaddr;
-	u_int8_t *paddr;
-	u_int8_t enaddr[6];
+	uint8_t *paddr;
+	uint8_t enaddr[6];
 	macaddr=rtl_read_mac(nic);
 	paddr=(uint8_t*)&macaddr;
 	enaddr[0] = paddr[5- 0];

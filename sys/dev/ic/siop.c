@@ -140,8 +140,8 @@ siop_script_sync(sc, ops)
 		    0, PAGE_SIZE, ops);
 }
 
-static __inline__ u_int32_t siop_script_read __P((struct siop_softc *, u_int));
-static __inline__ u_int32_t
+static __inline__ uint32_t siop_script_read __P((struct siop_softc *, u_int));
+static __inline__ uint32_t
 siop_script_read(sc, offset)
 	struct siop_softc *sc;
 	u_int offset;
@@ -154,12 +154,12 @@ siop_script_read(sc, offset)
 }
 
 static __inline__ void siop_script_write __P((struct siop_softc *, u_int,
-	u_int32_t));
+	uint32_t));
 static __inline__ void
 siop_script_write(sc, offset, val)
 	struct siop_softc *sc;
 	u_int offset;
-	u_int32_t val;
+	uint32_t val;
 {
 	if (sc->features & SF_CHIP_RAM) {
 		bus_space_write_4(sc->sc_ramt, sc->sc_ramh, offset * 4, val);
@@ -220,7 +220,7 @@ siop_attach(sc)
 #ifdef SIOP_DEBUG
 	printf("%s: script size = %d, PHY addr=0x%x, VIRT=%p\n",
 	    sc->sc_dev.dv_xname, (int)sizeof(siop_script),
-	    (u_int32_t)sc->sc_scriptaddr, sc->sc_script);
+	    (uint32_t)sc->sc_scriptaddr, sc->sc_script);
 #endif
 	/* Start with one page worth of commands */
 	siop_morecbd(sc);
@@ -409,7 +409,7 @@ siop_intr(v)
 	struct siop_lun *siop_lun;
 	struct scsi_xfer *xs;
 	int istat, sist = 0, sstat1 = 0, dstat = 0;
-	u_int32_t irqcode = 0;
+	uint32_t irqcode = 0;
 	int need_reset = 0;
 	int offset, target, lun, tag;
 	bus_addr_t dsa;
@@ -1474,7 +1474,7 @@ siop_start(sc)
 {
 	struct siop_cmd *siop_cmd, *next_siop_cmd;
 	struct siop_lun *siop_lun;
-	u_int32_t dsa;
+	uint32_t dsa;
 #ifndef PMON
 	int timeout;
 #endif
@@ -1632,8 +1632,8 @@ again:
 		if (siop_cmd->status == CMDST_ACTIVE) {
 			if ((siop_cmd->xs->flags & SCSI_POLL) == 0) {
 				/* start expire timer */
-				timeout = (u_int64_t) siop_cmd->xs->timeout *
-				    (u_int64_t)hz / 1000;
+				timeout = (uint64_t) siop_cmd->xs->timeout *
+				    (uint64_t)hz / 1000;
 				if (timeout == 0)
 					timeout = 1;
 				timeout_add(&siop_cmd->xs->stimeout, timeout);
@@ -1726,7 +1726,7 @@ siop_morecbd(sc)
 	int rseg;
 	struct siop_cbd *newcbd;
 	bus_addr_t dsa;
-	u_int32_t *scr;
+	uint32_t *scr;
 
 	/* allocate a new list head */
 	newcbd = malloc(sizeof(struct siop_cbd), M_DEVBUF, M_NOWAIT);

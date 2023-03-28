@@ -87,7 +87,7 @@ static void em_txeof(struct em_softc *);
 static int  em_allocate_receive_structures(struct em_softc *);
 static int  em_allocate_transmit_structures(struct em_softc *);
 #ifdef __STRICT_ALIGNMENT
-static void em_realign(struct em_softc *, struct mbuf *, u_int16_t *);
+static void em_realign(struct em_softc *, struct mbuf *, uint16_t *);
 #else
 #define em_realign(a, b, c) /* a, b, c */
 #endif
@@ -97,7 +97,7 @@ static void em_receive_checksum(struct em_softc *, struct em_rx_desc *,
 				struct mbuf *);
 #ifdef EM_CSUM_OFFLOAD
 static void em_transmit_checksum_setup(struct em_softc *, struct mbuf *,
-				u_int32_t *, u_int32_t *);
+				uint32_t *, uint32_t *);
 #endif
 static void em_iff(struct em_softc *);
 #ifdef EM_DEBUG
@@ -113,8 +113,8 @@ static void em_82547_move_tail_locked(struct em_softc *);
 static int  em_dma_malloc(struct em_softc *, bus_size_t,
 				struct em_dma_alloc *, int);
 static void em_dma_free(struct em_softc *, struct em_dma_alloc *);
-static int  em_is_valid_ether_addr(u_int8_t *);
-static u_int32_t em_fill_descriptors(u_int64_t address, u_int32_t length,
+static int  em_is_valid_ether_addr(uint8_t *);
+static uint32_t em_fill_descriptors(uint64_t address, uint32_t length,
 				PDESC_ARRAY desc_array);
 
 static int cmd_set_mac(struct em_softc *sc, int ac, char *av[]);
@@ -672,7 +672,7 @@ static int em_intr(void *arg)
 {
 	struct em_softc  *sc = arg;
 	struct ifnet	*ifp;
-	u_int32_t	reg_icr, test_icr;
+	uint32_t	reg_icr, test_icr;
 	int claimed = 0;
 	int refill;
 
@@ -731,7 +731,7 @@ static void em_media_status(struct ifnet *ifp, struct ifmediareq *ifmr)
 {
 	struct em_softc *sc = ifp->if_softc;
 	u_char fiber_type = IFM_1000_SX;
-	u_int16_t gsr;
+	uint16_t gsr;
 
 	INIT_DEBUGOUT("em_media_status: begin");
 
@@ -841,7 +841,7 @@ static int em_media_change(struct ifnet *ifp)
 
 static int em_flowstatus(struct em_softc *sc)
 {
-	u_int16_t ar, lpar;
+	uint16_t ar, lpar;
 
 	if (sc->hw.media_type == em_media_type_fiber ||
 	    sc->hw.media_type == em_media_type_internal_serdes)
@@ -870,15 +870,15 @@ static int em_flowstatus(struct em_softc *sc)
  **********************************************************************/
 static int em_encap(struct em_softc *sc, struct mbuf *m_head)
 {
-	u_int32_t	txd_upper;
-	u_int32_t	txd_lower, txd_used = 0, txd_saved = 0;
+	uint32_t	txd_upper;
+	uint32_t	txd_lower, txd_used = 0, txd_saved = 0;
 	int		i, j, first, error = 0, last = 0;
 	bus_dmamap_t	map;
 
 	/* For 82544 Workaround */
 	DESC_ARRAY		desc_array;
-	u_int32_t		array_elements;
-	u_int32_t		counter;
+	uint32_t		array_elements;
+	uint32_t		counter;
 
 	struct em_buffer   *tx_buffer, *tx_buffer_mapped;
 	struct em_tx_desc *current_tx_desc = NULL;
@@ -959,7 +959,7 @@ static int em_encap(struct em_softc *sc, struct mbuf *m_head)
 				current_tx_desc->buffer_addr = htole64(
 					desc_array.descriptor[counter].address);
 				current_tx_desc->lower.data = htole32(
-				(sc->txd_cmd | txd_lower | (u_int16_t)
+				(sc->txd_cmd | txd_lower | (uint16_t)
 				desc_array.descriptor[counter].length));
 				current_tx_desc->upper.data =
 					 htole32((txd_upper));
@@ -1169,8 +1169,8 @@ static void em_iff(struct em_softc *sc)
 {
 	struct ifnet *ifp = &sc->interface_data.ac_if;
 	struct arpcom *ac = &sc->interface_data;
-	u_int32_t reg_rctl = 0;
-	u_int8_t  mta[MAX_NUM_MULTICAST_ADDRESSES * ETH_LENGTH_OF_ADDRESS];
+	uint32_t reg_rctl = 0;
+	uint8_t  mta[MAX_NUM_MULTICAST_ADDRESSES * ETH_LENGTH_OF_ADDRESS];
 	struct ether_multi *enm;
 	struct ether_multistep step;
 	int i = 0;
@@ -1296,7 +1296,7 @@ static void em_stop(void *arg, int softonly)
  **********************************************************************/
 static void em_identify_hardware(struct em_softc *sc)
 {
-	u_int32_t reg;
+	uint32_t reg;
 	struct pci_attach_args *pa = &sc->osdep.em_pa;
 
 	/* Make sure our PCI config space has the necessary stuff set */
@@ -1469,7 +1469,7 @@ static void em_free_pci_resources(struct em_softc *sc)
 static int em_hardware_init(struct em_softc *sc)
 {
 	uint32_t ret_val;
-	u_int16_t rx_buffer_size;
+	uint16_t rx_buffer_size;
 
 	INIT_DEBUGOUT("em_hardware_init: begin");
 	/* Issue a global reset */
@@ -1767,8 +1767,8 @@ fail:
  **********************************************************************/
 static void em_initialize_transmit_unit(struct em_softc *sc)
 {
-	u_int32_t	reg_tctl, reg_tipg = 0;
-	u_int64_t	bus_addr;
+	uint32_t	reg_tctl, reg_tipg = 0;
+	uint64_t	bus_addr;
 
 	INIT_DEBUGOUT("em_initialize_transmit_unit: begin");
 
@@ -1777,8 +1777,8 @@ static void em_initialize_transmit_unit(struct em_softc *sc)
 	E1000_WRITE_REG(&sc->hw, TDLEN,
 			sc->num_tx_desc *
 			sizeof(struct em_tx_desc));
-	E1000_WRITE_REG(&sc->hw, TDBAH, (u_int32_t)(bus_addr >> 32));
-	E1000_WRITE_REG(&sc->hw, TDBAL, (u_int32_t)bus_addr);
+	E1000_WRITE_REG(&sc->hw, TDBAH, (uint32_t)(bus_addr >> 32));
+	E1000_WRITE_REG(&sc->hw, TDBAL, (uint32_t)bus_addr);
 
 	/* Setup the HW Tx Head and Tail descriptor pointers */
 	E1000_WRITE_REG(&sc->hw, TDT, 0);
@@ -1891,7 +1891,7 @@ static void em_free_transmit_structures(struct em_softc *sc)
  *
  **********************************************************************/
 static void em_transmit_checksum_setup(struct em_softc *sc, struct mbuf *mp,
-	u_int32_t *txd_upper, u_int32_t *txd_lower)
+	uint32_t *txd_upper, uint32_t *txd_lower)
 {
 	struct em_context_desc *TXD;
 	struct em_buffer *tx_buffer;
@@ -2198,9 +2198,9 @@ static int em_setup_receive_structures(struct em_softc *sc)
  **********************************************************************/
 static void em_initialize_receive_unit(struct em_softc *sc)
 {
-	u_int32_t	reg_rctl;
-	u_int32_t	reg_rxcsum;
-	u_int64_t	bus_addr;
+	uint32_t	reg_rctl;
+	uint32_t	reg_rxcsum;
+	uint64_t	bus_addr;
 
 	INIT_DEBUGOUT("em_initialize_receive_unit: begin");
 
@@ -2225,8 +2225,8 @@ static void em_initialize_receive_unit(struct em_softc *sc)
 	bus_addr = sc->rxdma.dma_map->dm_segs[0].ds_addr;
 	E1000_WRITE_REG(&sc->hw, RDLEN, sc->num_rx_desc *
 			sizeof(struct em_rx_desc));
-	E1000_WRITE_REG(&sc->hw, RDBAH, (u_int32_t)(bus_addr >> 32));
-	E1000_WRITE_REG(&sc->hw, RDBAL, (u_int32_t)bus_addr);
+	E1000_WRITE_REG(&sc->hw, RDBAH, (uint32_t)(bus_addr >> 32));
+	E1000_WRITE_REG(&sc->hw, RDBAL, (uint32_t)bus_addr);
 
 	/* Setup the Receive Control Register */
 	reg_rctl = E1000_RCTL_EN | E1000_RCTL_BAM | E1000_RCTL_LBM_NO |
@@ -2319,7 +2319,7 @@ static void em_free_receive_structures(struct em_softc *sc)
 
 #ifdef __STRICT_ALIGNMENT
 static void em_realign(struct em_softc *sc,
-	 struct mbuf *m, u_int16_t *prev_len_adj)
+	 struct mbuf *m, uint16_t *prev_len_adj)
 {
 	unsigned char tmp_align_buf[ETHER_ALIGN];
 	int tmp_align_buf_len = 0;
@@ -2399,15 +2399,15 @@ static void em_rxeof(struct em_softc *sc, int count)
 {
 	struct ifnet	*ifp = &sc->interface_data.ac_if;
 	struct mbuf	*m;
-	u_int8_t	accept_frame = 0;
-	u_int8_t	eop = 0;
-	u_int16_t	len, desc_len, prev_len_adj;
+	uint8_t	accept_frame = 0;
+	uint8_t	eop = 0;
+	uint16_t	len, desc_len, prev_len_adj;
 	int	i;
 
 	/* Pointer to the receive descriptor being examined. */
 	struct em_rx_desc   *desc;
 	struct em_buffer    *pkt;
-	u_int8_t	status;
+	uint8_t	status;
 
 	ifp = &sc->interface_data.ac_if;
 
@@ -2467,8 +2467,8 @@ static void em_rxeof(struct em_softc *sc, int count)
 		}
 
 		if (desc->errors & E1000_RXD_ERR_FRAME_ERR_MASK) {
-			u_int8_t last_byte;
-			u_int32_t pkt_len = desc_len;
+			uint8_t last_byte;
+			uint32_t pkt_len = desc_len;
 
 			if (sc->fmp != NULL)
 				pkt_len += sc->fmp->m_pkthdr.len;
@@ -2621,7 +2621,7 @@ static void em_disable_intr(struct em_softc *sc)
 		E1000_WRITE_REG(&sc->hw, IMC, 0xffffffff);
 }
 
-static int em_is_valid_ether_addr(u_int8_t *addr)
+static int em_is_valid_ether_addr(uint8_t *addr)
 {
 	const char zero_addr[6] = { 0, 0, 0, 0, 0, 0 };
 
@@ -2691,19 +2691,19 @@ int32_t em_read_pcie_cap_reg(struct em_hw *hw,
 *          1,2,3,4(Hang) or 9,a,b,c (DAC)
 *
 *** *********************************************************************/
-static u_int32_t em_fill_descriptors(u_int64_t address,
-		 u_int32_t length, PDESC_ARRAY desc_array)
+static uint32_t em_fill_descriptors(uint64_t address,
+		 uint32_t length, PDESC_ARRAY desc_array)
 {
 	/* Since issue is sensitive to length and address.*/
 	/* Let us first check the address...*/
-	u_int32_t safe_terminator;
+	uint32_t safe_terminator;
 	if (length <= 4) {
 		desc_array->descriptor[0].address = address;
 		desc_array->descriptor[0].length = length;
 		desc_array->elements = 1;
 		return desc_array->elements;
 	}
-	safe_terminator = (u_int32_t)((((u_int32_t)address & 0x7) +
+	safe_terminator = (uint32_t)((((uint32_t)address & 0x7) +
 						(length & 0xF)) & 0xF);
 	/* if it does not fall between 0x1 to 0x4 and 0x9 to 0xC then return */
 	if (safe_terminator == 0   ||

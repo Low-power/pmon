@@ -66,6 +66,6 @@ void	pmon_stop __P((char *));
 void	rm_bpts __P((void));
 void	dspbpts __P((void));
 int	goclient __P((void));
-int	addstop __P((u_int32_t, u_int32_t, char *, char));
+int	addstop __P((uint32_t, uint32_t, char *, char));
 
 #endif /* __DEBUGGER_H__ */

@@ -257,7 +257,7 @@ _pci_hwinit (initialise, iot, memt)
 	enabler0 = GT_READ(BASE_ADDRESS_ENABLE_REG);
 
 	for(i = 0; i < NBARS; i++) {
-		u_int32_t csbase, cssize, enabler;
+		uint32_t csbase, cssize, enabler;
 		pcitag_t tag;
 
 		csbase = GT_READ(barlist[i].csbase);
@@ -408,7 +408,7 @@ _pci_conf_readn(tag, reg, width)
 	int width;
 {
 	pcireg_t data;
-	u_int32_t adr;
+	uint32_t adr;
 	int bus, device, function;
 	if (reg & (width-1) || reg < 0 || reg >= 0x100) {
 		if (_pciverbose >= 1) {
@@ -454,7 +454,7 @@ _pci_conf_writen(tag, reg, data, width)
 	pcireg_t data;
 	int width;
 {
-	u_int32_t adr;
+	uint32_t adr;
 	int bus, device, function;
 
 	if (reg & (width-1) || reg < 0 || reg >= 0x100) {

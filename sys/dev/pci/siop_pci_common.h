@@ -34,20 +34,20 @@
 
 /* structure describing each chip */
 struct siop_product_desc {
-	u_int32_t product;
+	uint32_t product;
 	int	revision;
 	int	features; /* features are defined in siopvar.h */
-	u_int8_t maxburst;
-	u_int8_t maxoff;  /* maximum supported offset */
-	u_int8_t clock_div; /* clock divider to use for async. logic */
-	u_int8_t scf_index; /* Index into a period_factor_to_scf.scf */
+	uint8_t maxburst;
+	uint8_t maxoff;  /* maximum supported offset */
+	uint8_t clock_div; /* clock divider to use for async. logic */
+	uint8_t scf_index; /* Index into a period_factor_to_scf.scf */
 #define     SF_CLOCK_2500	0
 #define	    SF_CLOCK_1250	1
 #define	    SF_CLOCK_625	2
 	int 	ram_size; /* size of RAM, if appropriate */
 };
 
-const struct siop_product_desc * siop_lookup_product __P((u_int32_t, int));
+const struct siop_product_desc * siop_lookup_product __P((uint32_t, int));
 
 /* Driver internal state */
 struct siop_pci_softc {

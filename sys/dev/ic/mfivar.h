@@ -100,7 +100,7 @@ enum mfi_iop {
 };
 
 struct mfi_iop_ops {
-	u_int32_t	(*mio_fw_state)(struct mfi_softc *);
+	uint32_t	(*mio_fw_state)(struct mfi_softc *);
 	void		(*mio_intr_ena)(struct mfi_softc *);
 	int		(*mio_intr)(struct mfi_softc *);
 	void		(*mio_post)(struct mfi_softc *, struct mfi_ccb *);
@@ -121,7 +121,7 @@ struct mfi_softc {
 
 	const struct mfi_iop_ops *sc_iop;
 
-	u_int32_t		sc_flags;
+	uint32_t		sc_flags;
 
 	bus_space_tag_t		sc_iot;
 	bus_space_handle_t	sc_ioh;

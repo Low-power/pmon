@@ -106,7 +106,7 @@ didn't get a copy, you may request one from <license@ipv6.nrl.navy.mil>.
 do { \
 	bzero(&(a6), sizeof(a6));			\
 	(a6).s6_addr[10] = (a6).s6_addr[11] = 0xff;	\
-	*(u_int32_t *)&(a6).s6_addr[12] = (a4);		\
+	*(uint32_t *)&(a6).s6_addr[12] = (a4);		\
 } while (0)
 #endif
 
@@ -298,7 +298,7 @@ present:
 void
 tcpdropoldhalfopen(avoidtp, port)
 	struct tcpcb *avoidtp;
-	u_int16_t port;
+	uint16_t port;
 {
 	register struct inpcb *inp;
 	register struct tcpcb *tp;
@@ -399,7 +399,7 @@ tcp_input(m, va_alist)
 	int dropsocket = 0;
 	int iss = 0;
 	u_long tiwin;
-	u_int32_t ts_val, ts_ecr;
+	uint32_t ts_val, ts_ecr;
 	int ts_present = 0;
 	int iphlen;
 	va_list ap;
@@ -520,7 +520,7 @@ tcp_input(m, va_alist)
 #endif /* INET6 */
 	len = sizeof (struct ip) + tlen;
 	bzero(ti->ti_x1, sizeof ti->ti_x1);
-	ti->ti_len = (u_int16_t)tlen;
+	ti->ti_len = (uint16_t)tlen;
 	HTONS(ti->ti_len);
 	if ((ti->ti_sum = in_cksum(m, len)) != 0) {
 		tcpstat.tcps_rcvbadsum++;
@@ -569,11 +569,11 @@ tcp_input(m, va_alist)
 		if ((optlen == TCPOLEN_TSTAMP_APPA ||
 		     (optlen > TCPOLEN_TSTAMP_APPA &&
 			optp[TCPOLEN_TSTAMP_APPA] == TCPOPT_EOL)) &&
-		     *(u_int32_t *)optp == htonl(TCPOPT_TSTAMP_HDR) &&
+		     *(uint32_t *)optp == htonl(TCPOPT_TSTAMP_HDR) &&
 		     (th->th_flags & TH_SYN) == 0) {
 			ts_present = 1;
-			ts_val = ntohl(*(u_int32_t *)(optp + 4));
-			ts_ecr = ntohl(*(u_int32_t *)(optp + 8));
+			ts_val = ntohl(*(uint32_t *)(optp + 4));
+			ts_ecr = ntohl(*(uint32_t *)(optp + 8));
 			optp = NULL;	/* we've parsed the options */
 		}
 	}
@@ -1887,7 +1887,7 @@ step6:
 		 * but if two URG's are pending at once, some out-of-band
 		 * data may creep in... ick.
 		 */
-		if (th->th_urp <= (u_int16_t) tlen
+		if (th->th_urp <= (uint16_t) tlen
 #ifdef SO_OOBINLINE
 		     && (so->so_options & SO_OOBINLINE) == 0
 #endif
@@ -2093,9 +2093,9 @@ tcp_dooptions(tp, cp, cnt, th, ts_present, ts_val, ts_ecr)
 	int cnt;
 	struct tcphdr *th;
 	int *ts_present;
-	u_int32_t *ts_val, *ts_ecr;
+	uint32_t *ts_val, *ts_ecr;
 {
-	u_int16_t mss = 0;
+	uint16_t mss = 0;
 	int opt, optlen;
 
 	for (; cnt > 0; cnt -= optlen, cp += optlen) {

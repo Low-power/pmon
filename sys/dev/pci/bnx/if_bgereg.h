@@ -2058,14 +2058,14 @@
 #define BGE_MAGIC_NUMBER		0x4B657654
 
 typedef struct {
-	u_int32_t		bge_addr_hi;
-	u_int32_t		bge_addr_lo;
+	uint32_t		bge_addr_hi;
+	uint32_t		bge_addr_lo;
 } bge_hostaddr;
 #define BGE_HOSTADDR(x,y)						\
 	do {								\
-		(x).bge_addr_lo = ((u_int64_t) (y) & 0xffffffff);	\
+		(x).bge_addr_lo = ((uint64_t) (y) & 0xffffffff);	\
 		if (sizeof(bus_addr_t) == 8)				\
-			(x).bge_addr_hi = ((u_int64_t) (y) >> 32);	\
+			(x).bge_addr_hi = ((uint64_t) (y) >> 32);	\
 		else							\
 			(x).bge_addr_hi = 0;				\
 	} while(0)
@@ -2073,8 +2073,8 @@ typedef struct {
 /* Ring control block structure */
 struct bge_rcb {
 	bge_hostaddr		bge_hostaddr;
-	u_int32_t		bge_maxlen_flags;
-	u_int32_t		bge_nicaddr;
+	uint32_t		bge_maxlen_flags;
+	uint32_t		bge_nicaddr;
 };
 
 #define RCB_WRITE_4(sc, rcb, offset, val) \
@@ -2093,15 +2093,15 @@ struct bge_rcb {
 struct bge_tx_bd {
 	bge_hostaddr		bge_addr;
 #if BYTE_ORDER == LITTLE_ENDIAN
-	u_int16_t		bge_flags;
-	u_int16_t		bge_len;
-	u_int16_t		bge_vlan_tag;
-	u_int16_t		bge_rsvd;
+	uint16_t		bge_flags;
+	uint16_t		bge_len;
+	uint16_t		bge_vlan_tag;
+	uint16_t		bge_rsvd;
 #else
-	u_int16_t		bge_len;
-	u_int16_t		bge_flags;
-	u_int16_t		bge_rsvd;
-	u_int16_t		bge_vlan_tag;
+	uint16_t		bge_len;
+	uint16_t		bge_flags;
+	uint16_t		bge_rsvd;
+	uint16_t		bge_vlan_tag;
 #endif
 };
 
@@ -2126,26 +2126,26 @@ struct bge_tx_bd {
 struct bge_rx_bd {
 	bge_hostaddr		bge_addr;
 #if BYTE_ORDER == LITTLE_ENDIAN
-	u_int16_t		bge_len;
-	u_int16_t		bge_idx;
-	u_int16_t		bge_flags;
-	u_int16_t		bge_type;
-	u_int16_t		bge_tcp_udp_csum;
-	u_int16_t		bge_ip_csum;
-	u_int16_t		bge_vlan_tag;
-	u_int16_t		bge_error_flag;
+	uint16_t		bge_len;
+	uint16_t		bge_idx;
+	uint16_t		bge_flags;
+	uint16_t		bge_type;
+	uint16_t		bge_tcp_udp_csum;
+	uint16_t		bge_ip_csum;
+	uint16_t		bge_vlan_tag;
+	uint16_t		bge_error_flag;
 #else
-	u_int16_t		bge_idx;
-	u_int16_t		bge_len;
-	u_int16_t		bge_type;
-	u_int16_t		bge_flags;
-	u_int16_t		bge_ip_csum;
-	u_int16_t		bge_tcp_udp_csum;
-	u_int16_t		bge_error_flag;
-	u_int16_t		bge_vlan_tag;
+	uint16_t		bge_idx;
+	uint16_t		bge_len;
+	uint16_t		bge_type;
+	uint16_t		bge_flags;
+	uint16_t		bge_ip_csum;
+	uint16_t		bge_tcp_udp_csum;
+	uint16_t		bge_error_flag;
+	uint16_t		bge_vlan_tag;
 #endif
-	u_int32_t		bge_rsvd;
-	u_int32_t		bge_opaque;
+	uint32_t		bge_rsvd;
+	uint32_t		bge_opaque;
 };
 
 struct bge_ext_rx_bd {
@@ -2153,15 +2153,15 @@ struct bge_ext_rx_bd {
 	bge_hostaddr		bge_addr2;
 	bge_hostaddr		bge_addr3;
 #if BYTE_ORDER == LITTLE_ENDIAN
-	u_int16_t		bge_len2;
-	u_int16_t		bge_len1;
-	u_int16_t		bge_rsvd;
-	u_int16_t		bge_len3;
+	uint16_t		bge_len2;
+	uint16_t		bge_len1;
+	uint16_t		bge_rsvd;
+	uint16_t		bge_len3;
 #else
-	u_int16_t		bge_len1;
-	u_int16_t		bge_len2;
-	u_int16_t		bge_len3;
-	u_int16_t		bge_rsvd;
+	uint16_t		bge_len1;
+	uint16_t		bge_len2;
+	uint16_t		bge_len3;
+	uint16_t		bge_rsvd;
 #endif
 	struct bge_rx_bd	bge_bd;
 };
@@ -2186,27 +2186,27 @@ struct bge_ext_rx_bd {
 
 struct bge_sts_idx {
 #if BYTE_ORDER == LITTLE_ENDIAN
-	u_int16_t		bge_rx_prod_idx;
-	u_int16_t		bge_tx_cons_idx;
+	uint16_t		bge_rx_prod_idx;
+	uint16_t		bge_tx_cons_idx;
 #else
-	u_int16_t		bge_tx_cons_idx;
-	u_int16_t		bge_rx_prod_idx;
+	uint16_t		bge_tx_cons_idx;
+	uint16_t		bge_rx_prod_idx;
 #endif
 };
 
 struct bge_status_block {
-	u_int32_t		bge_status;
-	u_int32_t		bge_rsvd0;
+	uint32_t		bge_status;
+	uint32_t		bge_rsvd0;
 #if BYTE_ORDER == LITTLE_ENDIAN
-	u_int16_t		bge_rx_jumbo_cons_idx;
-	u_int16_t		bge_rx_std_cons_idx;
-	u_int16_t		bge_rx_mini_cons_idx;
-	u_int16_t		bge_rsvd1;
+	uint16_t		bge_rx_jumbo_cons_idx;
+	uint16_t		bge_rx_std_cons_idx;
+	uint16_t		bge_rx_mini_cons_idx;
+	uint16_t		bge_rsvd1;
 #else
-	u_int16_t		bge_rx_std_cons_idx;
-	u_int16_t		bge_rx_jumbo_cons_idx;
-	u_int16_t		bge_rsvd1;
-	u_int16_t		bge_rx_mini_cons_idx;
+	uint16_t		bge_rx_std_cons_idx;
+	uint16_t		bge_rx_jumbo_cons_idx;
+	uint16_t		bge_rsvd1;
+	uint16_t		bge_rx_mini_cons_idx;
 #endif
 	struct bge_sts_idx	bge_idx[16];
 };
@@ -2354,43 +2354,43 @@ struct bge_tx_mac_stats {
 
 /* Stats counters access through registers */
 struct bge_mac_stats_regs {
-	u_int32_t		ifHCOutOctets;
-	u_int32_t		Reserved0;
-	u_int32_t		etherStatsCollisions;
-	u_int32_t		outXonSent;
-	u_int32_t		outXoffSent;
-	u_int32_t		Reserved1;
-	u_int32_t		dot3StatsInternalMacTransmitErrors;
-	u_int32_t		dot3StatsSingleCollisionFrames;
-	u_int32_t		dot3StatsMultipleCollisionFrames;
-	u_int32_t		dot3StatsDeferredTransmissions;
-	u_int32_t		Reserved2;
-	u_int32_t		dot3StatsExcessiveCollisions;
-	u_int32_t		dot3StatsLateCollisions;
-	u_int32_t		Reserved3[14];
-	u_int32_t		ifHCOutUcastPkts;
-	u_int32_t		ifHCOutMulticastPkts;
-	u_int32_t		ifHCOutBroadcastPkts;
-	u_int32_t		Reserved4[2];
-	u_int32_t		ifHCInOctets;
-	u_int32_t		Reserved5;
-	u_int32_t		etherStatsFragments;
-	u_int32_t		ifHCInUcastPkts;
-	u_int32_t		ifHCInMulticastPkts;
-	u_int32_t		ifHCInBroadcastPkts;
-	u_int32_t		dot3StatsFCSErrors;
-	u_int32_t		dot3StatsAlignmentErrors;
-	u_int32_t		xonPauseFramesReceived;
-	u_int32_t		xoffPauseFramesReceived;
-	u_int32_t		macControlFramesReceived;
-	u_int32_t		xoffStateEntered;
-	u_int32_t		dot3StatsFramesTooLong;
-	u_int32_t		etherStatsJabbers;
-	u_int32_t		etherStatsUndersizePkts;
+	uint32_t		ifHCOutOctets;
+	uint32_t		Reserved0;
+	uint32_t		etherStatsCollisions;
+	uint32_t		outXonSent;
+	uint32_t		outXoffSent;
+	uint32_t		Reserved1;
+	uint32_t		dot3StatsInternalMacTransmitErrors;
+	uint32_t		dot3StatsSingleCollisionFrames;
+	uint32_t		dot3StatsMultipleCollisionFrames;
+	uint32_t		dot3StatsDeferredTransmissions;
+	uint32_t		Reserved2;
+	uint32_t		dot3StatsExcessiveCollisions;
+	uint32_t		dot3StatsLateCollisions;
+	uint32_t		Reserved3[14];
+	uint32_t		ifHCOutUcastPkts;
+	uint32_t		ifHCOutMulticastPkts;
+	uint32_t		ifHCOutBroadcastPkts;
+	uint32_t		Reserved4[2];
+	uint32_t		ifHCInOctets;
+	uint32_t		Reserved5;
+	uint32_t		etherStatsFragments;
+	uint32_t		ifHCInUcastPkts;
+	uint32_t		ifHCInMulticastPkts;
+	uint32_t		ifHCInBroadcastPkts;
+	uint32_t		dot3StatsFCSErrors;
+	uint32_t		dot3StatsAlignmentErrors;
+	uint32_t		xonPauseFramesReceived;
+	uint32_t		xoffPauseFramesReceived;
+	uint32_t		macControlFramesReceived;
+	uint32_t		xoffStateEntered;
+	uint32_t		dot3StatsFramesTooLong;
+	uint32_t		etherStatsJabbers;
+	uint32_t		etherStatsUndersizePkts;
 };
 
 struct bge_stats {
-	u_int8_t		Reserved0[256];
+	uint8_t		Reserved0[256];
 
 	/* Statistics maintained by Receive MAC. */
 	struct bge_rx_mac_stats rxstats;
@@ -2427,7 +2427,7 @@ struct bge_stats {
 	bge_hostaddr		nicAvoidedInterrupts;
 	bge_hostaddr		nicSendThresholdHit;
 
-	u_int8_t		Reserved4[320];
+	uint8_t		Reserved4[320];
 };
 
 /*
@@ -2505,8 +2505,8 @@ struct bge_gib {
 #define BGE_JSLOTS	384
 
 #define BGE_JRAWLEN (BGE_JUMBO_FRAMELEN + ETHER_ALIGN)
-#define BGE_JLEN (BGE_JRAWLEN + (sizeof(u_int64_t) - \
-	(BGE_JRAWLEN % sizeof(u_int64_t))))
+#define BGE_JLEN (BGE_JRAWLEN + (sizeof(uint64_t) - \
+	(BGE_JRAWLEN % sizeof(uint64_t))))
 
 /*
  * Ring structures. Most of these reside in host memory and we tell
@@ -2558,8 +2558,8 @@ struct bge_chain_data {
 };
 
 struct bge_type {
-	u_int16_t		bge_vid;
-	u_int16_t		bge_did;
+	uint16_t		bge_vid;
+	uint16_t		bge_did;
 	char			*bge_name;
 };
 
@@ -2584,7 +2584,7 @@ struct bge_softc {
 	struct pci_attach_args	bge_pa;
 	struct mii_data		bge_mii;
 	struct ifmedia		bge_ifmedia;	/* media info */
-	u_int32_t		bge_flags;
+	uint32_t		bge_flags;
 #define BGE_TXRING_VALID	0x00000001
 #define BGE_RXRING_VALID	0x00000002
 #define BGE_JUMBO_RXRING_VALID	0x00000004
@@ -2613,26 +2613,26 @@ struct bge_softc {
 #define BGE_5700_FAMILY		0x02000000
 
 	bus_dma_tag_t		bge_dmatag;
-	u_int32_t		bge_chipid;
+	uint32_t		bge_chipid;
 	struct bge_ring_data	*bge_rdata;	/* rings */
 	struct bge_chain_data	bge_cdata;	/* mbufs */
 	bus_dmamap_t		bge_ring_map;
-	u_int16_t		bge_tx_saved_considx;
-	u_int16_t		bge_rx_saved_considx;
-	u_int16_t		bge_ev_saved_considx;
-	u_int16_t		bge_return_ring_cnt;
-	u_int32_t		bge_tx_prodidx;
-	u_int16_t		bge_std;	/* current std ring head */
+	uint16_t		bge_tx_saved_considx;
+	uint16_t		bge_rx_saved_considx;
+	uint16_t		bge_ev_saved_considx;
+	uint16_t		bge_return_ring_cnt;
+	uint32_t		bge_tx_prodidx;
+	uint16_t		bge_std;	/* current std ring head */
 	int			bge_std_cnt;
-	u_int16_t		bge_jumbo;	/* current jumo ring head */
+	uint16_t		bge_jumbo;	/* current jumo ring head */
 	int			bge_jumbo_cnt;
-	u_int32_t		bge_stat_ticks;
-	u_int32_t		bge_rx_coal_ticks;
-	u_int32_t		bge_tx_coal_ticks;
-	u_int32_t		bge_rx_max_coal_bds;
-	u_int32_t		bge_tx_max_coal_bds;
-	u_int32_t		bge_tx_buf_ratio;
-	u_int32_t		bge_sts;
+	uint32_t		bge_stat_ticks;
+	uint32_t		bge_rx_coal_ticks;
+	uint32_t		bge_tx_coal_ticks;
+	uint32_t		bge_rx_max_coal_bds;
+	uint32_t		bge_tx_max_coal_bds;
+	uint32_t		bge_tx_buf_ratio;
+	uint32_t		bge_sts;
 #define BGE_STS_LINK		0x00000001	/* MAC link status */
 #define BGE_STS_LINK_EVT	0x00000002	/* pending link event */
 #define BGE_STS_AUTOPOLL	0x00000004	/* PHY auto-polling  */
@@ -2643,11 +2643,11 @@ struct bge_softc {
 	int			bge_txcnt;
 	struct timeout		bge_timeout;
 	struct timeout		bge_rxtimeout;
-	u_int32_t		bge_rx_discards;
-	u_int32_t		bge_tx_discards;
-	u_int32_t		bge_rx_inerrors;
-	u_int32_t		bge_rx_overruns;
-	u_int32_t		bge_tx_collisions;
+	uint32_t		bge_rx_discards;
+	uint32_t		bge_tx_discards;
+	uint32_t		bge_rx_inerrors;
+	uint32_t		bge_rx_overruns;
+	uint32_t		bge_tx_collisions;
 	SLIST_HEAD(, txdmamap_pool_entry) txdma_list;
 	struct txdmamap_pool_entry *txdma[BGE_TX_RING_CNT];
 };

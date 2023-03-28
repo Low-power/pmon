@@ -139,7 +139,7 @@ localbusattach(parent, self, aux)
 void
 gt64420_map()
 {
-	u_int32_t rval;
+	uint32_t rval;
 
 static int gt64420_initialized;
 

@@ -141,7 +141,7 @@ nload (argc, argv)
 				flags |= IFLAG; break;
 #ifdef HAVE_FLASH
 			case 'f':
-				if (!get_rsa ((u_int32_t *)&flashaddr, optarg)) {
+				if (!get_rsa ((uint32_t *)&flashaddr, optarg)) {
 					err++;
 				}
 				flags |= FFLAG; break;
@@ -165,7 +165,7 @@ nload (argc, argv)
 			case 'r':
 				flags |= RFLAG; break;
 			case 'o':
-				if (!get_rsa ((u_int32_t *)&offset, optarg)) {
+				if (!get_rsa ((uint32_t *)&offset, optarg)) {
 					err++;
 				}
 				break;

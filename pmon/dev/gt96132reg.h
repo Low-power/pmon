@@ -47,14 +47,14 @@
                          (((v) >> 24) & 0xff) | (((v) >> 8) & 0xff00))
 
 #define GT_WRITE(ofs, data) \
-    *(volatile u_int32_t *)(GT_BASE_ADDR+ofs) = HTOLE32(data)
+    *(volatile uint32_t *)(GT_BASE_ADDR+ofs) = HTOLE32(data)
 #define GT_WRITE_NOSWAP(ofs, data) \
-    *(volatile u_int32_t *)(GT_BASE_ADDR+ofs) = (data)
+    *(volatile uint32_t *)(GT_BASE_ADDR+ofs) = (data)
 
 #define GT_READ(ofs) \
-    HTOLE32(*(volatile u_int32_t *)(GT_BASE_ADDR+ofs))
+    HTOLE32(*(volatile uint32_t *)(GT_BASE_ADDR+ofs))
 #define GT_READ_NOSWAP(ofs) \
-    (*(volatile u_int32_t *)(GT_BASE_ADDR+ofs))
+    (*(volatile uint32_t *)(GT_BASE_ADDR+ofs))
 
 #if defined(GT_HIGH)
 #define GT_BASE_ADDR                    0xfe000000

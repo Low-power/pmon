@@ -102,7 +102,7 @@ int		mfi_create_sensors(struct mfi_softc *);
 void		mfi_refresh_sensors(void *);
 #endif /* SMALL_KERNEL */
 #endif /* NBIO > 0 */
-u_int32_t	mfi_tbolt_fw_state(struct mfi_softc *);
+uint32_t	mfi_tbolt_fw_state(struct mfi_softc *);
 void		mfi_tbolt_intr_ena(struct mfi_softc *);
 int		mfi_tbolt_intr(struct mfi_softc *);
 void		mfi_tbolt_post(struct mfi_softc *, struct mfi_ccb *);
@@ -2469,7 +2469,7 @@ mfi_complete(struct mfi_softc *sc, struct mfi_command *cm)
 
 #endif
 #if 0
-u_int32_t
+uint32_t
 mfi_xscale_fw_state(struct mfi_softc *sc)
 {
 	return (mfi_read(sc, MFI_OMSG0));
@@ -2484,7 +2484,7 @@ mfi_xscale_intr_ena(struct mfi_softc *sc)
 int
 mfi_xscale_intr(struct mfi_softc *sc)
 {
-	u_int32_t status;
+	uint32_t status;
 
 	status = mfi_read(sc, MFI_OSTS);
 	if (!ISSET(status, MFI_OSTS_INTR_VALID))
@@ -2503,7 +2503,7 @@ mfi_xscale_post(struct mfi_softc *sc, struct mfi_ccb *ccb)
 	    ccb->ccb_extra_frames);
 }
 
-u_int32_t
+uint32_t
 mfi_ppc_fw_state(struct mfi_softc *sc)
 {
 	return (mfi_read(sc, MFI_OSP));
@@ -2519,7 +2519,7 @@ mfi_ppc_intr_ena(struct mfi_softc *sc)
 int
 mfi_ppc_intr(struct mfi_softc *sc)
 {
-	u_int32_t status;
+	uint32_t status;
 
 	status = mfi_read(sc, MFI_OSTS);
 	if (!ISSET(status, MFI_OSTS_PPC_INTR_VALID))
@@ -2538,7 +2538,7 @@ mfi_ppc_post(struct mfi_softc *sc, struct mfi_ccb *ccb)
 	    (ccb->ccb_extra_frames << 1));
 }
 
-u_int32_t
+uint32_t
 mfi_gen2_fw_state(struct mfi_softc *sc)
 {
 	return (mfi_read(sc, MFI_OSP));
@@ -2554,7 +2554,7 @@ mfi_gen2_intr_ena(struct mfi_softc *sc)
 int
 mfi_gen2_intr(struct mfi_softc *sc)
 {
-	u_int32_t status;
+	uint32_t status;
 
 	status = mfi_read(sc, MFI_OSTS);
 	if (!ISSET(status, MFI_OSTS_GEN2_INTR_VALID))
@@ -2577,7 +2577,7 @@ mfi_gen2_post(struct mfi_softc *sc, struct mfi_ccb *ccb)
 #endif
 //#define MFI_FUSION_ENABLE_INTERRUPT_MASK	(0x00000008)
 
-u_int32_t
+uint32_t
 mfi_tbolt_fw_state(struct mfi_softc *sc)
 {
 	return (mfi_read(sc, MFI_OSP));
@@ -2593,7 +2593,7 @@ mfi_tbolt_intr_ena(struct mfi_softc *sc)
 int
 mfi_tbolt_intr(struct mfi_softc *sc)
 {
-	u_int32_t status;
+	uint32_t status;
 
 	status = mfi_read(sc, MFI_OSTS);
 	if (!ISSET(status, MFI_FUSION_ENABLE_INTERRUPT_MASK))

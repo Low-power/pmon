@@ -286,7 +286,7 @@ rtredirect(dst, gateway, netmask, flags, src, rtp)
 {
 	register struct rtentry *rt;
 	int error = 0;
-	u_int32_t *stat = NULL;
+	uint32_t *stat = NULL;
 	struct rt_addrinfo info;
 	struct ifaddr *ifa;
 

@@ -29,23 +29,23 @@
  */
 #if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 7)
 typedef signed   int   int8_t    __attribute__((__mode__(__QI__)));
-typedef unsigned int   u_int8_t  __attribute__((__mode__(__QI__)));
+typedef unsigned int   uint8_t  __attribute__((__mode__(__QI__)));
 typedef          int   int16_t   __attribute__((__mode__(__HI__)));
-typedef unsigned int   u_int16_t __attribute__((__mode__(__HI__)));
+typedef unsigned int   uint16_t __attribute__((__mode__(__HI__)));
 typedef          int   int32_t   __attribute__((__mode__(__SI__)));
-typedef unsigned int   u_int32_t __attribute__((__mode__(__SI__)));
+typedef unsigned int   uint32_t __attribute__((__mode__(__SI__)));
 typedef          int   int64_t   __attribute__((__mode__(__DI__)));
-typedef unsigned int   u_int64_t __attribute__((__mode__(__DI__)));
+typedef unsigned int   uint64_t __attribute__((__mode__(__DI__)));
 #else
 typedef signed   char  int8_t;
-typedef unsigned char  u_int8_t;
+typedef unsigned char  uint8_t;
 typedef          short int16_t;
-typedef unsigned short u_int16_t;
+typedef unsigned short uint16_t;
 typedef          int   int32_t;
-typedef unsigned int   u_int32_t;
+typedef unsigned int   uint32_t;
 #ifdef __GNUC__
 __extension__ typedef          long long  int64_t;
-__extension__ typedef unsigned long long  u_int64_t;
+__extension__ typedef unsigned long long  uint64_t;
 #endif
 #endif
 
@@ -59,14 +59,14 @@ typedef unsigned long  u_long;
  * typedef if not possible for a machine/compiler combination.
  */
 typedef int8_t              int8m_t;
-typedef u_int8_t            u_int8m_t;
+typedef uint8_t            u_int8m_t;
 typedef int16_t             int16m_t;
-typedef u_int16_t           u_int16m_t;
+typedef uint16_t           u_int16m_t;
 typedef int32_t             int32m_t;
-typedef u_int32_t           u_int32m_t;
+typedef uint32_t           u_int32m_t;
 #ifdef __GNUC__
 typedef int64_t             int64m_t;
-typedef u_int64_t	    u_int64m_t;
+typedef uint64_t	    u_int64m_t;
 #endif
 
 /* The longest/most efficient integer register type. */

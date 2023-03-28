@@ -1267,7 +1267,7 @@ em_init_hw(struct em_hw *hw)
 	else if (hw->mac_type == em_ich9lan ||
 		 hw->mac_type == em_ich10lan ||
 		 hw->mac_type == em_pchlan)
-		snoop = (u_int32_t) ~(PCI_EX_NO_SNOOP_ALL);
+		snoop = (uint32_t) ~(PCI_EX_NO_SNOOP_ALL);
 	if (hw->mac_type == em_ich8lan ||
 	    hw->mac_type == em_ich9lan ||
 	    hw->mac_type == em_ich10lan ||

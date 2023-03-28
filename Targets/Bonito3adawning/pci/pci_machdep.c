@@ -306,7 +306,7 @@ _pci_conf_read(pcitag_t tag,int reg)
 pcireg_t
 _pci_conf_readn(pcitag_t tag, int reg, int width)
 {
-    u_int32_t addr, type;
+    uint32_t addr, type;
     unsigned long ht_conf_rd_addr;
     pcireg_t data;
     int bus, device, function;
@@ -393,7 +393,7 @@ _pci_conf_write(pcitag_t tag, int reg, pcireg_t data)
 void
 _pci_conf_writen(pcitag_t tag, int reg, pcireg_t data,int width)
 {
-    u_int32_t addr, type;
+    uint32_t addr, type;
     unsigned long ht_conf_rd_addr;
     int bus, device, function;
 

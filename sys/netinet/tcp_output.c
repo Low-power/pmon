@@ -492,11 +492,11 @@ send:
 	if (flags & TH_SYN) {
 		tp->snd_nxt = tp->iss;
 		if ((tp->t_flags & TF_NOOPT) == 0) {
-			u_int16_t mss;
+			uint16_t mss;
 
 			opt[0] = TCPOPT_MAXSEG;
 			opt[1] = 4;
-			mss = htons((u_int16_t) tcp_mss(tp, 0));
+			mss = htons((uint16_t) tcp_mss(tp, 0));
 			bcopy((caddr_t)&mss, (caddr_t)(opt + 2), sizeof(mss));
 			optlen = 4;
 #ifdef TCP_SACK
@@ -508,7 +508,7 @@ send:
 			 */
 			if (!tp->sack_disable && ((flags & TH_ACK) == 0 ||
 			    (tp->t_flags & TF_SACK_PERMIT))) {
-				*((u_int32_t *) (opt + optlen)) =
+				*((uint32_t *) (opt + optlen)) =
 				    htonl(TCPOPT_SACK_PERMIT_HDR);
 				optlen += 4;
 			}
@@ -517,7 +517,7 @@ send:
 			if ((tp->t_flags & TF_REQ_SCALE) &&
 			    ((flags & TH_ACK) == 0 ||
 			    (tp->t_flags & TF_RCVD_SCALE))) {
-				*((u_int32_t *) (opt + optlen)) = htonl(
+				*((uint32_t *) (opt + optlen)) = htonl(
 					TCPOPT_NOP << 24 |
 					TCPOPT_WINDOW << 16 |
 					TCPOLEN_WINDOW << 8 |
@@ -536,7 +536,7 @@ send:
 	     (flags & TH_RST) == 0 &&
 	    ((flags & (TH_SYN|TH_ACK)) == TH_SYN ||
 	     (tp->t_flags & TF_RCVD_TSTMP))) {
-		u_int32_t *lp = (u_int32_t *)(opt + optlen);
+		uint32_t *lp = (uint32_t *)(opt + optlen);
  
 		/* Form timestamp option as shown in appendix A of RFC 1323. */
 		*lp++ = htonl(TCPOPT_TSTAMP_HDR);
@@ -547,7 +547,7 @@ send:
 
 #ifdef TCP_SIGNATURE
 	if (tp->t_flags & TF_SIGNATURE) {
-		u_int8_t *bp = (u_int8_t *)(opt + optlen);
+		uint8_t *bp = (uint8_t *)(opt + optlen);
 
 		/* Send signature option */
 		*(bp++) = TCPOPT_SIGNATURE;
@@ -581,8 +581,8 @@ send:
 	if (!tp->sack_disable && tp->t_state == TCPS_ESTABLISHED &&
 	    (tp->t_flags & (TF_SACK_PERMIT|TF_NOOPT)) == TF_SACK_PERMIT &&
 	    tp->rcv_numsacks) {
-		u_int32_t *lp = (u_int32_t *)(opt + optlen);
-		u_int32_t *olp = lp++;
+		uint32_t *lp = (uint32_t *)(opt + optlen);
+		uint32_t *olp = lp++;
 		int count = 0;  /* actual number of SACKs inserted */
 		int maxsack = (MAX_TCPOPTLEN - (optlen + 4))/TCPOLEN_SACK;
 
@@ -784,12 +784,12 @@ send:
 		win = (long)(tp->rcv_adv - tp->rcv_nxt);
 	if (flags & TH_RST)
 		win = 0;
-	th->th_win = htons((u_int16_t) (win>>tp->rcv_scale));
+	th->th_win = htons((uint16_t) (win>>tp->rcv_scale));
 	if (SEQ_GT(tp->snd_up, tp->snd_nxt)) {
-		u_int32_t urp = tp->snd_up - tp->snd_nxt;
+		uint32_t urp = tp->snd_up - tp->snd_nxt;
 		if (urp > IP_MAXPACKET)
 			urp = IP_MAXPACKET;
-		th->th_urp = htons((u_int16_t)urp);
+		th->th_urp = htons((uint16_t)urp);
 		th->th_flags |= TH_URG;
 	} else
 		/*
@@ -806,7 +806,7 @@ send:
 #ifdef INET
 	case AF_INET:
 		if (len + optlen)
-			mtod(m, struct ipovly *)->ih_len = htons((u_int16_t)(
+			mtod(m, struct ipovly *)->ih_len = htons((uint16_t)(
 				sizeof (struct tcphdr) + optlen + len));
 		break;
 #endif /* INET */

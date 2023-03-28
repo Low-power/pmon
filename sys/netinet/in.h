@@ -137,9 +137,9 @@ struct in_addr {
  */
 struct in6_addr {
 	union {
-		u_int8_t s6u_addr8[16];
-		u_int16_t s6u_addr16[8];
-		u_int32_t s6u_addr32[4];
+		uint8_t s6u_addr8[16];
+		uint16_t s6u_addr16[8];
+		uint32_t s6u_addr32[4];
 	} s6_u;
 #define s6_addr s6_u.s6u_addr8
 /*
@@ -161,32 +161,32 @@ struct in6_addr {
  * on these macros not doing byte-swapping.
  */
 #ifdef _KERNEL
-#define	__IPADDR(x)	((u_int32_t) htonl((u_int32_t)(x)))
+#define	__IPADDR(x)	((uint32_t) htonl((uint32_t)(x)))
 #else
-#define	__IPADDR(x)	((u_int32_t)(x))
+#define	__IPADDR(x)	((uint32_t)(x))
 #endif
 
-#define	IN_CLASSA(i)		(((u_int32_t)(i) & __IPADDR(0x80000000)) == \
+#define	IN_CLASSA(i)		(((uint32_t)(i) & __IPADDR(0x80000000)) == \
 				 __IPADDR(0x00000000))
 #define	IN_CLASSA_NET		__IPADDR(0xff000000)
 #define	IN_CLASSA_NSHIFT	24
 #define	IN_CLASSA_HOST		__IPADDR(0x00ffffff)
 #define	IN_CLASSA_MAX		128
 
-#define	IN_CLASSB(i)		(((u_int32_t)(i) & __IPADDR(0xc0000000)) == \
+#define	IN_CLASSB(i)		(((uint32_t)(i) & __IPADDR(0xc0000000)) == \
 				 __IPADDR(0x80000000))
 #define	IN_CLASSB_NET		__IPADDR(0xffff0000)
 #define	IN_CLASSB_NSHIFT	16
 #define	IN_CLASSB_HOST		__IPADDR(0x0000ffff)
 #define	IN_CLASSB_MAX		65536
 
-#define	IN_CLASSC(i)		(((u_int32_t)(i) & __IPADDR(0xe0000000)) == \
+#define	IN_CLASSC(i)		(((uint32_t)(i) & __IPADDR(0xe0000000)) == \
 				 __IPADDR(0xc0000000))
 #define	IN_CLASSC_NET		__IPADDR(0xffffff00)
 #define	IN_CLASSC_NSHIFT	8
 #define	IN_CLASSC_HOST		__IPADDR(0x000000ff)
 
-#define	IN_CLASSD(i)		(((u_int32_t)(i) & __IPADDR(0xf0000000)) == \
+#define	IN_CLASSD(i)		(((uint32_t)(i) & __IPADDR(0xf0000000)) == \
 				 __IPADDR(0xe0000000))
 /* These ones aren't really net and host fields, but routing needn't know. */
 #define	IN_CLASSD_NET		__IPADDR(0xf0000000)
@@ -194,12 +194,12 @@ struct in6_addr {
 #define	IN_CLASSD_HOST		__IPADDR(0x0fffffff)
 #define	IN_MULTICAST(i)		IN_CLASSD(i)
 
-#define	IN_EXPERIMENTAL(i)	(((u_int32_t)(i) & __IPADDR(0xf0000000)) == \
+#define	IN_EXPERIMENTAL(i)	(((uint32_t)(i) & __IPADDR(0xf0000000)) == \
 				 __IPADDR(0xf0000000))
-#define	IN_BADCLASS(i)		(((u_int32_t)(i) & __IPADDR(0xf0000000)) == \
+#define	IN_BADCLASS(i)		(((uint32_t)(i) & __IPADDR(0xf0000000)) == \
 				 __IPADDR(0xf0000000))
 
-#define	IN_LOCAL_GROUP(i)	(((u_int32_t)(i) & __IPADDR(0xffffff00)) == \
+#define	IN_LOCAL_GROUP(i)	(((uint32_t)(i) & __IPADDR(0xffffff00)) == \
 				 __IPADDR(0xe0000000))
 
 #define	INADDR_ANY		__IPADDR(0x00000000)
@@ -298,7 +298,7 @@ extern const struct in6_addr in6addr_loopback;
  * IP Version 4 socket address.
  */
 struct sockaddr_in {
-	u_int8_t    sin_len;
+	uint8_t    sin_len;
 	sa_family_t sin_family;
 	in_port_t   sin_port;
 	struct	    in_addr sin_addr;
@@ -310,12 +310,12 @@ struct sockaddr_in {
  */
 #define SIN6_LEN 1
 struct sockaddr_in6 {
-	u_int8_t	sin6_len;
+	uint8_t	sin6_len;
 	sa_family_t	sin6_family;
 	in_port_t	sin6_port;
-	u_int32_t	sin6_flowinfo;
+	uint32_t	sin6_flowinfo;
 	struct in6_addr	sin6_addr;
-	u_int32_t	sin6_scope_id;
+	uint32_t	sin6_scope_id;
 };
 
 /*

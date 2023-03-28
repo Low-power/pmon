@@ -274,7 +274,7 @@ _pci_conf_write(pcitag_t tag, int reg, pcireg_t data)
 pcireg_t
 _pci_conf_readn(pcitag_t tag, int reg, int width)
 {
-    u_int32_t addr, type;
+    uint32_t addr, type;
     pcireg_t data;
     int bus, device, function;
 
@@ -332,7 +332,7 @@ _pci_conf_readn(pcitag_t tag, int reg, int width)
 void
 _pci_conf_writen(pcitag_t tag, int reg, pcireg_t data,int width)
 {
-    u_int32_t addr, type;
+    uint32_t addr, type;
     int bus, device, function;
 
     if ((reg &(width-1)) || reg < 0 || reg >= 0x100) {

@@ -47,18 +47,18 @@
 #define	trapframe(p)	((struct trapframe *)((void *)(p)->p_addr + USPACE - FRAMELEN + 8))
 
 struct trapframe {
-	u_int32_t fixreg[32];
-	u_int32_t lr;			/* 32 */
-	u_int32_t cr;			/* 33 */
-	u_int32_t xer;			/* 34 */
-	u_int32_t ctr;			/* 35 */
+	uint32_t fixreg[32];
+	uint32_t lr;			/* 32 */
+	uint32_t cr;			/* 33 */
+	uint32_t xer;			/* 34 */
+	uint32_t ctr;			/* 35 */
 	int srr0;			/* 36 */
 	int srr1;			/* 37 */
         int dar;                        /* dar & dsisr only on a DSI trap */
 	int dsisr;			/* 39 */
-	u_int32_t exc;			/* 40 */
-	u_int32_t fill1[21];		/* 41 */
-	u_int32_t fsr[2];		/* 62 */
+	uint32_t exc;			/* 40 */
+	uint32_t fill1[21];		/* 41 */
+	uint32_t fsr[2];		/* 62 */
 	double	  floatreg[32];		/* 64 */
 	struct bat batreg[16];		/* 128 */
 };

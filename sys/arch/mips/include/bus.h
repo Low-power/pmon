@@ -47,14 +47,14 @@
 /*
  * Bus access types.
  */
-typedef u_int32_t bus_addr_t;
-typedef u_int32_t bus_size_t;
-typedef u_int32_t bus_space_handle_t;
+typedef uint32_t bus_addr_t;
+typedef uint32_t bus_size_t;
+typedef uint32_t bus_space_handle_t;
 typedef struct tgt_bus_space *bus_space_tag_t;
 
 struct tgt_bus_space {
-	u_int32_t	bus_base;
-	u_int32_t	bus_reverse;	/* Reverse bus ops (dummy) */
+	uint32_t	bus_base;
+	uint32_t	bus_reverse;	/* Reverse bus ops (dummy) */
 };
 
 /*
@@ -73,14 +73,14 @@ struct tgt_bus_space {
 #define	htole8(x)	(x)
 
 #define bus_space_read(n,m)						      \
-static __inline CAT3(u_int,m,_t)					      \
+static __inline CAT3(uint,m,_t)					      \
 CAT(bus_space_read_,n)(bus_space_tag_t bst, bus_space_handle_t bsh,	      \
      bus_addr_t ba)							      \
 {									      \
 	if(bst->bus_reverse)						      \
-		return CAT(letoh,m)(*(volatile CAT3(u_int,m,_t) *)(bsh + ba));\
+		return CAT(letoh,m)(*(volatile CAT3(uint,m,_t) *)(bsh + ba));\
 	else								      \
-		return *(volatile CAT3(u_int,m,_t) *)(bsh + ba);	      \
+		return *(volatile CAT3(uint,m,_t) *)(bsh + ba);	      \
 }
 
 bus_space_read(1,8)
@@ -91,7 +91,7 @@ bus_space_read(4,32)
 #define bus_space_read_multi(n, m)						  \
 static __inline void									  \
 CAT(bus_space_read_multi_,n)(bus_space_tag_t bst, bus_space_handle_t bsh,	  \
-	bus_size_t ba, CAT3(u_int,m,_t) *buf, bus_size_t cnt)			  \
+	bus_size_t ba, CAT3(uint,m,_t) *buf, bus_size_t cnt)			  \
 {										  \
 	while (cnt--)								  \
 		*buf++ = CAT(bus_space_read_,n)(bst, bsh, ba);			  \
@@ -103,15 +103,15 @@ bus_space_read_multi(4,32)
 
 #if 0
 #define bus_space_read_multi_1(t, h, o, a, c) do {			      \
-		insb((u_int8_t *)((h) + (o)), (a), (c));		      \
+		insb((uint8_t *)((h) + (o)), (a), (c));		      \
 	} while(0)
 
 #define bus_space_read_multi_2(t, h, o, a, c) do {			      \
-		insw((u_int16_t *)((h) + (o)), (a), (c));		      \
+		insw((uint16_t *)((h) + (o)), (a), (c));		      \
 	} while(0)
 
 #define bus_space_read_multi_4(t, h, o, a, c) do {			      \
-		insl((u_int32_t *)((h) + (o)), (a), (c));		      \
+		insl((uint32_t *)((h) + (o)), (a), (c));		      \
 	} while(0)
 #endif
 #define	bus_space_read_multi_8	!!! bus_space_read_multi_8 not implemented !!!
@@ -119,7 +119,7 @@ bus_space_read_multi(4,32)
 #define bus_space_read_region(n,m)					      \
 static __inline void							      \
 CAT(bus_space_read_region_,n)(bus_space_tag_t bst, bus_space_handle_t bsh,    \
-     bus_size_t ba, CAT3(u_int,m,_t) *x, size_t cnt)			      \
+     bus_size_t ba, CAT3(uint,m,_t) *x, size_t cnt)			      \
 {									      \
 	while (cnt--) {							      \
 		*x++ = CAT(bus_space_read_,n)(bst, bsh, ba);		      \
@@ -136,12 +136,12 @@ bus_space_read_region(4,32)
 #define bus_space_write(n,m)						      \
 static __inline void							      \
 CAT(bus_space_write_,n)(bus_space_tag_t bst, bus_space_handle_t bsh,	      \
-     bus_addr_t ba, CAT3(u_int,m,_t) x)					      \
+     bus_addr_t ba, CAT3(uint,m,_t) x)					      \
 {									      \
 	if(bst->bus_reverse)						      \
-		*(volatile CAT3(u_int,m,_t) *)(bsh + ba) = CAT(htole,m)(x);   \
+		*(volatile CAT3(uint,m,_t) *)(bsh + ba) = CAT(htole,m)(x);   \
 	else								      \
-		*(volatile CAT3(u_int,m,_t) *)(bsh + ba) = x;		      \
+		*(volatile CAT3(uint,m,_t) *)(bsh + ba) = x;		      \
 }
 
 bus_space_write(1,8)
@@ -152,7 +152,7 @@ bus_space_write(4,32)
 #define bus_space_write_multi(n, m) 					  \
 static __inline void									  \
 CAT(bus_space_write_multi_,n)(bus_space_tag_t bst, bus_space_handle_t bsh,	  \
-	bus_size_t ba, const CAT3(u_int,m,_t) *buf, bus_size_t cnt) 		  \
+	bus_size_t ba, const CAT3(uint,m,_t) *buf, bus_size_t cnt) 		  \
 {										  \
 	while (cnt--)								  \
 		CAT(bus_space_write_,n)(bst, bsh, ba, *buf++);			  \
@@ -164,15 +164,15 @@ bus_space_write_multi(4,32)
 
 #if 0
 #define bus_space_write_multi_1(t, h, o, a, c) do {			      \
-		outsb((u_int8_t *)((h) + (o)), (a), (c));		      \
+		outsb((uint8_t *)((h) + (o)), (a), (c));		      \
 	} while(0)
 
 #define bus_space_write_multi_2(t, h, o, a, c) do {			      \
-		outsw((u_int16_t *)((h) + (o)), (a), (c));		      \
+		outsw((uint16_t *)((h) + (o)), (a), (c));		      \
 	} while(0)
 
 #define bus_space_write_multi_4(t, h, o, a, c) do {			      \
-		outsl((u_int32_t *)((h) + (o)), (a), (c));		      \
+		outsl((uint32_t *)((h) + (o)), (a), (c));		      \
 	} while(0)
 #endif
 #define	bus_space_write_multi_8	!!! bus_space_write_multi_8 not implemented !!!
@@ -180,7 +180,7 @@ bus_space_write_multi(4,32)
 #define bus_space_write_region(n,m)					      \
 static __inline void							      \
 CAT(bus_space_write_region_,n)(bus_space_tag_t bst, bus_space_handle_t bsh,   \
-     bus_size_t ba, const CAT3(u_int,m,_t) *x, size_t cnt)		      \
+     bus_size_t ba, const CAT3(uint,m,_t) *x, size_t cnt)		      \
 {									      \
 	while (cnt--) {							      \
 		CAT(bus_space_write_,n)(bst, bsh, ba, *x++);		      \
@@ -198,7 +198,7 @@ bus_space_write_region(4,32)
 #define bus_space_set_region(n,m)					      \
 static __inline void							      \
 CAT(bus_space_set_region_,n)(bus_space_tag_t bst, bus_space_handle_t bsh,     \
-     bus_addr_t ba, CAT3(u_int,m,_t) x, size_t cnt)			      \
+     bus_addr_t ba, CAT3(uint,m,_t) x, size_t cnt)			      \
 {									      \
 	while (cnt--)							      \
 		CAT(bus_space_write_,n)(bst, bsh, ba++, x);		      \
@@ -215,9 +215,9 @@ bus_space_set_region(4,32)
 #define	bus_space_read_raw_multi(n,m,l)					      \
 static __inline void							      \
 CAT(bus_space_read_raw_multi_,n)(bus_space_tag_t bst, bus_space_handle_t bsh, \
-    bus_addr_t ba, u_int8_t *buf, bus_size_t cnt)			      \
+    bus_addr_t ba, uint8_t *buf, bus_size_t cnt)			      \
 {									      \
-	CAT(bus_space_read_multi_,n)(bst, bsh, ba, (CAT3(u_int,m,_t) *)buf,   \
+	CAT(bus_space_read_multi_,n)(bst, bsh, ba, (CAT3(uint,m,_t) *)buf,   \
 	    cnt >> l);							      \
 }
 
@@ -230,10 +230,10 @@ bus_space_read_raw_multi(4,32,2)
 #define	bus_space_write_raw_multi(n,m,l)				      \
 static __inline void							      \
 CAT(bus_space_write_raw_multi_,n)(bus_space_tag_t bst, bus_space_handle_t bsh,\
-    bus_addr_t ba, const u_int8_t *buf, bus_size_t cnt)			      \
+    bus_addr_t ba, const uint8_t *buf, bus_size_t cnt)			      \
 {									      \
 	CAT(bus_space_write_multi_,n)(bst, bsh, ba,			      \
-	    (const CAT3(u_int,m,_t) *)buf, cnt >> l);			      \
+	    (const CAT3(uint,m,_t) *)buf, cnt >> l);			      \
 }
 
 bus_space_write_raw_multi(2,16,1)

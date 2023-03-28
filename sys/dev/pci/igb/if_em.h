@@ -298,13 +298,13 @@ typedef enum _XSUM_CONTEXT_T {
 
 /* For 82544 PCI-X Workaround */
 typedef struct _ADDRESS_LENGTH_PAIR {
-	u_int64_t	address;
-	u_int32_t	length;
+	uint64_t	address;
+	uint32_t	length;
 } ADDRESS_LENGTH_PAIR, *PADDRESS_LENGTH_PAIR;
 
 typedef struct _DESCRIPTOR_PAIR {
 	ADDRESS_LENGTH_PAIR descriptor[4];
-	u_int32_t	elements;
+	uint32_t	elements;
 } DESC_ARRAY, *PDESC_ARRAY;
 
 /* Our adapter structure */
@@ -326,19 +326,19 @@ struct em_softc {
 #ifdef __STRICT_ALIGNMENT
 	/* Used for carrying forward alignment adjustments */
 	unsigned char	align_buf[ETHER_ALIGN];	/* tail of unaligned packet */
-	u_int8_t	align_buf_len;		/* bytes in tail */
+	uint8_t	align_buf_len;		/* bytes in tail */
 #endif /* __STRICT_ALIGNMENT */
 
 	/* Info about the board itself */
-	u_int32_t	part_num;
-	u_int8_t	link_active;
-	u_int16_t	link_speed;
-	u_int16_t	link_duplex;
-	u_int32_t	smartspeed;
-	u_int32_t	tx_int_delay;
-	u_int32_t	tx_abs_int_delay;
-	u_int32_t	rx_int_delay;
-	u_int32_t	rx_abs_int_delay;
+	uint32_t	part_num;
+	uint8_t	link_active;
+	uint16_t	link_speed;
+	uint16_t	link_duplex;
+	uint32_t	smartspeed;
+	uint32_t	tx_int_delay;
+	uint32_t	tx_abs_int_delay;
+	uint32_t	rx_int_delay;
+	uint32_t	rx_abs_int_delay;
 
 	XSUM_CONTEXT_T	active_checksum_context;
 
@@ -353,11 +353,11 @@ struct em_softc {
 	 */
 	struct em_dma_alloc	txdma;		/* bus_dma glue for tx desc */
 	struct em_tx_desc	*tx_desc_base;
-	u_int32_t		next_avail_tx_desc;
-	u_int32_t		next_tx_to_clean;
-	volatile u_int16_t	num_tx_desc_avail;
-	u_int16_t		num_tx_desc;
-	u_int32_t		txd_cmd;
+	uint32_t		next_avail_tx_desc;
+	uint32_t		next_tx_to_clean;
+	volatile uint16_t	num_tx_desc_avail;
+	uint16_t		num_tx_desc;
+	uint32_t		txd_cmd;
 	struct em_buffer	*tx_buffer_area;
 	bus_dma_tag_t		txtag;		/* dma tag for tx */
 
@@ -371,11 +371,11 @@ struct em_softc {
 	 */
 	struct em_dma_alloc	rxdma;		/* bus_dma glue for rx desc */
 	struct em_rx_desc	*rx_desc_base;
-	u_int32_t		next_rx_desc_to_check;
-	u_int32_t		last_rx_desc_filled;
+	uint32_t		next_rx_desc_to_check;
+	uint32_t		last_rx_desc_filled;
 	int			rx_ndescs;
-	u_int32_t		rx_buffer_len;
-	u_int16_t		num_rx_desc;
+	uint32_t		rx_buffer_len;
+	uint16_t		num_rx_desc;
 	struct em_buffer	*rx_buffer_area;
 	bus_dma_tag_t		rxtag;
 
@@ -405,12 +405,12 @@ struct em_softc {
 
 	#define EM_82547_PKT_THRESH	0x3e0
 
-	u_int32_t	tx_fifo_size;
-	u_int32_t	tx_fifo_head;
-	u_int32_t	tx_fifo_head_addr;
-	u_int64_t	tx_fifo_reset_cnt;
-	u_int64_t	tx_fifo_wrk_cnt;
-	u_int32_t	tx_head_addr;
+	uint32_t	tx_fifo_size;
+	uint32_t	tx_fifo_head;
+	uint32_t	tx_fifo_head_addr;
+	uint64_t	tx_fifo_reset_cnt;
+	uint64_t	tx_fifo_wrk_cnt;
+	uint32_t	tx_head_addr;
 
 	/* For 82544 PCI-X Workaround */
 	boolean_t	pcix_82544;

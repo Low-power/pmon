@@ -90,7 +90,7 @@ nppb_attach(parent, self, aux)
 {
 	struct pci_attach_args *pa = aux;
 	struct nppb_softc *sc = (struct nppb_softc *)self;
-	u_int32_t ioaddr;
+	uint32_t ioaddr;
 	size_t iosize;
 	pcitag_t tag;
 	pcireg_t rval;
@@ -303,9 +303,9 @@ int nppbscan(ptr)
  */
 
 struct nppb_init {
-	u_int32_t csroffs;
-	u_int32_t value;
-	u_int32_t mask;
+	uint32_t csroffs;
+	uint32_t value;
+	uint32_t mask;
 };
 
 struct nppb_init nppb_devspec[] = {

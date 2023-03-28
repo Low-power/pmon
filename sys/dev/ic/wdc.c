@@ -135,8 +135,8 @@ int wdc_nxfer = 0;
 
 int at_poll = AT_POLL;
 
-u_int8_t wdc_default_read_reg __P((struct channel_softc *, enum wdc_regs));
-void wdc_default_write_reg __P((struct channel_softc *, enum wdc_regs, u_int8_t));
+uint8_t wdc_default_read_reg __P((struct channel_softc *, enum wdc_regs));
+void wdc_default_write_reg __P((struct channel_softc *, enum wdc_regs, uint8_t));
 void wdc_default_read_raw_multi_2 __P((struct channel_softc *, 
     void *, unsigned int));
 void wdc_default_write_raw_multi_2 __P((struct channel_softc *, 
@@ -163,12 +163,12 @@ struct channel_softc_vtbl wdc_default_vtbl = {
 
 
 
-u_int8_t
+uint8_t
 wdc_default_read_reg(chp, reg)
 	struct channel_softc *chp;
 	enum wdc_regs reg;
 {
-	u_int8_t rv;
+	uint8_t rv;
 #ifdef DIAGNOSTIC	
 	if (reg & _WDC_WRONLY) {
 		printf ("wdc_default_read_reg: reading from a write-only register %d\n", reg);
@@ -188,7 +188,7 @@ void
 wdc_default_write_reg(chp, reg, val)
 	struct channel_softc *chp;
 	enum wdc_regs reg;
-	u_int8_t val;
+	uint8_t val;
 {
 #ifdef DIAGNOSTIC	
 	if (reg & _WDC_RDONLY) {
@@ -224,7 +224,7 @@ wdc_default_read_raw_multi_2(chp, data, nbytes)
 if((long)data&1)
 {
 unsigned int i;
-u_int16_t data16;
+uint16_t data16;
 
 for(i=0;i<nbytes;i+=2)
  {
@@ -258,7 +258,7 @@ wdc_default_write_raw_multi_2(chp, data, nbytes)
 if((long)data&1)
 {
 unsigned int i;
-u_int16_t data16;
+uint16_t data16;
 
 for(i=0;i<nbytes;i+=2)
  {
@@ -291,7 +291,7 @@ wdc_default_write_raw_multi_4(chp, data, nbytes)
 if((long)data&3)
 {
 unsigned int i;
-u_int32_t data32;
+uint32_t data32;
 
 for(i=0;i<nbytes;i+=4)
  {
@@ -326,7 +326,7 @@ wdc_default_read_raw_multi_4(chp, data, nbytes)
 if((long)data&3)
 {
 unsigned int i;
-u_int32_t data32;
+uint32_t data32;
 
 for(i=0;i<nbytes;i+=4)
  {
@@ -421,9 +421,9 @@ int
 wdcprobe(chp) //yh
 	struct channel_softc *chp;
 {
-	u_int8_t st0, st1, sc, sn, cl, ch;
-	u_int8_t ret_value = 0x03;
-	u_int8_t drive;
+	uint8_t st0, st1, sc, sn, cl, ch;
+	uint8_t ret_value = 0x03;
+	uint8_t drive;
 
 	if (!chp->_vtbl)
 		chp->_vtbl = &wdc_default_vtbl;
@@ -910,7 +910,7 @@ __wdcwait_reset(chp, drv_mask)
 	int drv_mask;
 {
 	int timeout;
-	u_int8_t st0, st1;
+	uint8_t st0, st1;
 
 	/* Wait 50ms for drive firmware to settle */
 	delay(50000);
@@ -1269,7 +1269,7 @@ wdc_output_bytes(drvp, bytes, buflen)
 		roundlen = len & ~3;
 
 		CHP_WRITE_RAW_MULTI_4(chp, 
-		    (void *)((u_int8_t *)bytes + off), roundlen);
+		    (void *)((uint8_t *)bytes + off), roundlen);
 
 		off += roundlen;
 		len -= roundlen;
@@ -1280,7 +1280,7 @@ wdc_output_bytes(drvp, bytes, buflen)
 		roundlen = (len + 1) & ~0x1;
 
 	        CHP_WRITE_RAW_MULTI_2(chp,
-		    (void *)((u_int8_t *)bytes + off), roundlen);
+		    (void *)((uint8_t *)bytes + off), roundlen);
 	}
 
 	return;
@@ -1300,7 +1300,7 @@ wdc_input_bytes(drvp, bytes, buflen)
 		roundlen = len & ~3;
 
 		CHP_READ_RAW_MULTI_4(chp,
-		    (void *)((u_int8_t *)bytes + off), roundlen);
+		    (void *)((uint8_t *)bytes + off), roundlen);
 
 		off += roundlen;
 		len -= roundlen;
@@ -1310,7 +1310,7 @@ wdc_input_bytes(drvp, bytes, buflen)
 		roundlen = (len + 1) & ~0x1;
 
 		CHP_READ_RAW_MULTI_2(chp,
-		    (void *)((u_int8_t *)bytes + off), roundlen);
+		    (void *)((uint8_t *)bytes + off), roundlen);
 	}
 
 	return;
@@ -1605,10 +1605,10 @@ __wdccommand_done(chp, xfer)
 void
 wdccommand(chp, drive, command, cylin, head, sector, count, precomp)
 	struct channel_softc *chp;
-	u_int8_t drive;
-	u_int8_t command;
-	u_int16_t cylin;
-	u_int8_t head, sector, count, precomp;
+	uint8_t drive;
+	uint8_t command;
+	uint16_t cylin;
+	uint8_t head, sector, count, precomp;
 {
 	WDCDEBUG_PRINT(("wdccommand %s:%d:%d: command=0x%x cylin=%d head=%d "
 	    "sector=%d count=%d precomp=%d\n", chp->wdc->sc_dev.dv_xname,

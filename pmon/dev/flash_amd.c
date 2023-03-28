@@ -70,7 +70,7 @@ struct fl_functions fl_func_amd = {fl_erase_chip_amd,
 static quad_t widedata;
 
 #define	SETWIDE(x) do {						\
-			u_int32_t __a = x;			\
+			uint32_t __a = x;			\
 			__a |= __a << 8;				\
 			__a |= __a << 16;				\
 			widedata = (quad_t)__a << 32 | __a;		\
@@ -428,7 +428,7 @@ fl_isbusy_amd(map, dev, what, offset, erase)
 #else
 
 		while (1) {
-			u_int8_t poll1, poll2;
+			uint8_t poll1, poll2;
 			poll1 = inb(map->fl_map_base + offset);
 			poll2 = inb(map->fl_map_base + offset);
 			if ((poll1 ^ poll2) & 0x40) {   /* toggle */ 

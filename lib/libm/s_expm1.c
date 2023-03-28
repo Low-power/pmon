@@ -140,7 +140,7 @@ Q5  =  -2.01099218183624371326e-07; /* BE8AFDB7 6E09C32D */
 {
 	double y,hi,lo,c,t,e,hxs,hfx,r1;
 	int32_t k,xsb;
-	u_int32_t hx;
+	uint32_t hx;
 
 	/* XXX Without this, gcc complains about c being used before
 	 * initialization.  It is not clear to me what c's purpose
@@ -156,7 +156,7 @@ Q5  =  -2.01099218183624371326e-07; /* BE8AFDB7 6E09C32D */
 	if(hx >= 0x4043687A) {			/* if |x|>=56*ln2 */
 	    if(hx >= 0x40862E42) {		/* if |x|>=709.78... */
                 if(hx>=0x7ff00000) {
-		    u_int32_t low;
+		    uint32_t low;
 		    GET_LOW_WORD(low,x);
 		    if(((hx&0xfffff)|low)!=0) 
 		         return x+x; 	 /* NaN */
@@ -208,7 +208,7 @@ Q5  =  -2.01099218183624371326e-07; /* BE8AFDB7 6E09C32D */
 	       	else 	      return  one+2.0*(x-e);
 	    }
 	    if (k <= -2 || k>56) {   /* suffice to return exp(x)-1 */
-	        u_int32_t high;
+	        uint32_t high;
 	        y = one-(e-x);
 		GET_HIGH_WORD(high,y);
 		SET_HIGH_WORD(y,high+(k<<20));	/* add k to y's exponent */
@@ -216,13 +216,13 @@ Q5  =  -2.01099218183624371326e-07; /* BE8AFDB7 6E09C32D */
 	    }
 	    t = one;
 	    if(k<20) {
-	        u_int32_t high;
+	        uint32_t high;
 	        SET_HIGH_WORD(t,0x3ff00000 - (0x200000>>k));  /* t=1-2^-k */
 	       	y = t-(e-x);
 		GET_HIGH_WORD(high,y);
 		SET_HIGH_WORD(y,high+(k<<20));	/* add k to y's exponent */
 	   } else {
-	        u_int32_t high;
+	        uint32_t high;
 		SET_HIGH_WORD(t,((0x3ff-k)<<20));	/* 2^-k */
 	       	y = x-(e+t);
 	       	y += one;

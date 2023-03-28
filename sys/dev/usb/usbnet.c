@@ -477,7 +477,7 @@ usbnet_ether_ioctl(ifp, cmd, data)
 	return (error);
 }
 
-static inline int is_valid_ether_addr( u_int8_t *addr )
+static inline int is_valid_ether_addr( uint8_t *addr )
 {
     const char zaddr[6] = {0,};
 

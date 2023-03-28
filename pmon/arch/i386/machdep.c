@@ -58,7 +58,7 @@
 #include "mainbus.h"
 
 extern struct trapframe DBGREG;
-extern u_int32_t FPREG[];
+extern uint32_t FPREG[];
 extern int memorysize;
 
 extern int trapcode, trapsize;
@@ -90,16 +90,16 @@ volatile struct	timeval time;
 int
 copytoram(void *rom, void *ram)
 {
-extern u_int8_t edata[];
-extern u_int8_t end[];
-	u_int32_t *rdata, *pdata;
+extern uint8_t edata[];
+extern uint8_t end[];
+	uint32_t *rdata, *pdata;
 	u_int count;
 
 	/*
 	 *  Copy ROM to RAM memory. 
 	 */
-	pdata = (u_int32_t *)rom;
-	rdata = (u_int32_t *)ram;
+	pdata = (uint32_t *)rom;
+	rdata = (uint32_t *)ram;
 	count = (int)end - (int)ram;
 	while(count > 0) {
 		*rdata++ = *pdata++;
@@ -109,8 +109,8 @@ extern u_int8_t end[];
 	/*
 	 *  Verify copy ROM to RAM memory. 
 	 */
-	pdata = (u_int32_t *)rom;
-	rdata = (u_int32_t *)ram;
+	pdata = (uint32_t *)rom;
+	rdata = (uint32_t *)ram;
 	count = (int)end - (int)ram;
 	while(count > 0) {
 		if(*rdata++ != *pdata++) {
@@ -125,7 +125,7 @@ extern u_int8_t end[];
 	/*
 	 *  Clear BSS.
 	 */
-	rdata = (u_int32_t *)edata;
+	rdata = (uint32_t *)edata;
 	count = (end - edata) / 4;
 	while(count--) {
 		*rdata++ = 0;

@@ -181,7 +181,7 @@ const struct siop_product_desc siop_products[] = {
 
 const struct siop_product_desc *
 siop_lookup_product(id, rev)
-	u_int32_t id;
+	uint32_t id;
 	int rev;
 {
 	const struct siop_product_desc *pp;

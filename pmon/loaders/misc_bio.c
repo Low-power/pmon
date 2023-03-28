@@ -194,7 +194,7 @@ devio_open(fd, name, flags, mode)
 	int flags, mode;
 {
 	int mj;
-	u_int32_t v;
+	uint32_t v;
 	dev_t dev;
 	struct biodev *devstat;
 	char strbuf[64], *strp, *p;

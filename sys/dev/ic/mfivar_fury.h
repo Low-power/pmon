@@ -373,27 +373,27 @@ union desc_value {
 
 struct scsi_rw_6
 {
-	u_int8_t opcode;
-	u_int8_t addr[3];
+	uint8_t opcode;
+	uint8_t addr[3];
 /* only 5 bits are valid in the MSB address byte */
 #define	SRW_TOPADDR	0x1F
-	u_int8_t length;
-	u_int8_t control;
+	uint8_t length;
+	uint8_t control;
 };
 
 struct scsi_rw_10
 {
-	u_int8_t opcode;
+	uint8_t opcode;
 #define	SRW10_RELADDR	0x01
 /* EBP defined for WRITE(10) only */
 #define	SRW10_EBP	0x04
 #define	SRW10_FUA	0x08
 #define	SRW10_DPO	0x10
-	u_int8_t byte2;
-	u_int8_t addr[4];
-	u_int8_t reserved;
-	u_int8_t length[2];
-	u_int8_t control;
+	uint8_t byte2;
+	uint8_t addr[4];
+	uint8_t reserved;
+	uint8_t length[2];
+	uint8_t control;
 };
 struct scsi_write_atomic_16
 {
@@ -407,7 +407,7 @@ struct scsi_write_atomic_16
 };
 
 static __inline void
-scsi_ulto2b(u_int32_t val, u_int8_t *bytes)
+scsi_ulto2b(uint32_t val, uint8_t *bytes)
 {
 
 	bytes[0] = (val >> 8) & 0xff;
@@ -415,7 +415,7 @@ scsi_ulto2b(u_int32_t val, u_int8_t *bytes)
 }
 
 static __inline void
-scsi_ulto3b(u_int32_t val, u_int8_t *bytes)
+scsi_ulto3b(uint32_t val, uint8_t *bytes)
 {
 
 	bytes[0] = (val >> 16) & 0xff;
@@ -424,7 +424,7 @@ scsi_ulto3b(u_int32_t val, u_int8_t *bytes)
 }
 
 static __inline void
-scsi_ulto4b(u_int32_t val, u_int8_t *bytes)
+scsi_ulto4b(uint32_t val, uint8_t *bytes)
 {
 
 	bytes[0] = (val >> 24) & 0xff;
@@ -434,7 +434,7 @@ scsi_ulto4b(u_int32_t val, u_int8_t *bytes)
 }
 
 static __inline void
-scsi_u64to8b(u_int64_t val, u_int8_t *bytes)
+scsi_u64to8b(uint64_t val, uint8_t *bytes)
 {
 
 	bytes[0] = (val >> 56) & 0xff;
@@ -510,7 +510,7 @@ scsi_8btou64(const uint8_t *bytes)
 
 
 static int
-mfi_build_cdb(int readop, uint8_t byte2, u_int64_t lba, u_int32_t block_count, uint8_t *cdb)
+mfi_build_cdb(int readop, uint8_t byte2, uint64_t lba, uint32_t block_count, uint8_t *cdb)
 {
 	int cdb_len;
 

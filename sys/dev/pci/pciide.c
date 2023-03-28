@@ -130,12 +130,12 @@ int wdcdebug_pciide_mask = DEBUG_DMA|DEBUG_XFERS|DEBUG_FUNCS|DEBUG_PROBE;
 #endif
 
 /* inlines for reading/writing 8-bit PCI registers */
-static __inline u_int8_t pciide_pci_read __P((pci_chipset_tag_t, pcitag_t,
+static __inline uint8_t pciide_pci_read __P((pci_chipset_tag_t, pcitag_t,
 					      int));
 static __inline void pciide_pci_write __P((pci_chipset_tag_t, pcitag_t,
-					   int, u_int8_t));
+					   int, uint8_t));
 
-static __inline u_int8_t
+static __inline uint8_t
 pciide_pci_read(pc, pa, reg)
 	pci_chipset_tag_t pc;
 	pcitag_t pa;
@@ -151,7 +151,7 @@ pciide_pci_write(pc, pa, reg, val)
 	pci_chipset_tag_t pc;
 	pcitag_t pa;
 	int reg;
-	u_int8_t val;
+	uint8_t val;
 {
 	pcireg_t pcival;
 
@@ -196,9 +196,9 @@ void piix_chip_map __P((struct pciide_softc*, struct pci_attach_args*));
 void piix_setup_channel __P((struct channel_softc*));
 void piix3_4_setup_channel __P((struct channel_softc*));
 
-static u_int32_t piix_setup_idetim_timings __P((u_int8_t, u_int8_t, u_int8_t));
-static u_int32_t piix_setup_idetim_drvs __P((struct ata_drive_datas*));
-static u_int32_t piix_setup_sidetim_timings __P((u_int8_t, u_int8_t, u_int8_t));
+static uint32_t piix_setup_idetim_timings __P((uint8_t, uint8_t, uint8_t));
+static uint32_t piix_setup_idetim_drvs __P((struct ata_drive_datas*));
+static uint32_t piix_setup_sidetim_timings __P((uint8_t, uint8_t, uint8_t));
 
 void amd756_chip_map __P((struct pciide_softc*, struct pci_attach_args*));
 void amd756_setup_channel __P((struct channel_softc*));
@@ -248,7 +248,7 @@ void pciide_print_modes __P((struct pciide_channel *));
 void pciide_print_channels __P((int, pcireg_t));;
 
 struct pciide_product_desc {
-	u_int32_t ide_product;
+	uint32_t ide_product;
 	u_short ide_flags;
 	/* map and setup chip, probe drives */
 	void (*chip_map) __P((struct pciide_softc*, struct pci_attach_args*));
@@ -387,7 +387,7 @@ const struct pciide_product_desc pciide_promise_products[] =  {
 };
 
 struct pciide_vendor_desc {
-	u_int32_t ide_vendor;
+	uint32_t ide_vendor;
 	const struct pciide_product_desc *ide_products;
 	int ide_nproducts;
 };
@@ -454,11 +454,11 @@ void	pciide_map_compat_intr __P(( struct pci_attach_args *,
 int	pciide_print __P((void *, const char *pnp));
 int	pciide_compat_intr __P((void *));
 int	pciide_pci_intr __P((void *));
-const struct pciide_product_desc* pciide_lookup_product __P((u_int32_t));
+const struct pciide_product_desc* pciide_lookup_product __P((uint32_t));
 
 const struct pciide_product_desc *
 pciide_lookup_product(id)
-	u_int32_t id;
+	uint32_t id;
 {
 	const struct pciide_product_desc *pp;
 	const struct pciide_vendor_desc *vp;
@@ -999,7 +999,7 @@ pciide_dma_finish(v, channel, drive, flags)
 	int flags;
 {
 	struct pciide_softc *sc = v;
-	u_int8_t status;
+	uint8_t status;
 	struct pciide_dma_maps *dma_maps =
 	    &sc->pciide_channels[channel].dma_maps[drive];
 
@@ -1219,7 +1219,7 @@ default_chip_map(sc, pa)
 #if !defined(PMON)||defined(IDE_DMA)
 	int drive;
 	struct ata_drive_datas *drvp;
-	u_int8_t idedma_ctl;
+	uint8_t idedma_ctl;
 #endif
 	bus_size_t cmdsize, ctlsize;
 	char *failreason;
@@ -1379,7 +1379,7 @@ piix_chip_map(sc, pa)
 {
 	struct pciide_channel *cp;
 	int channel;
-	u_int32_t idetim;
+	uint32_t idetim;
 	bus_size_t cmdsize, ctlsize;
 
 	pcireg_t interface = PCI_INTERFACE(pci_conf_read(sc->sc_pc,
@@ -1496,8 +1496,8 @@ void
 piix_setup_channel(chp)
 	struct channel_softc *chp;
 {
-	u_int8_t mode[2], drive;
-	u_int32_t oidetim, idetim, idedma_ctl;
+	uint8_t mode[2], drive;
+	uint32_t oidetim, idetim, idedma_ctl;
 	struct pciide_channel *cp = (struct pciide_channel*)chp;
 	struct pciide_softc *sc = (struct pciide_softc *)cp->wdc_channel.wdc;
 	struct ata_drive_datas *drvp = cp->wdc_channel.ch_drive;
@@ -1606,7 +1606,7 @@ piix3_4_setup_channel(chp)
 	struct channel_softc *chp;
 {
 	struct ata_drive_datas *drvp;
-	u_int32_t oidetim, idetim, sidetim, udmareg, ideconf, idedma_ctl;
+	uint32_t oidetim, idetim, sidetim, udmareg, ideconf, idedma_ctl;
 	struct pciide_channel *cp = (struct pciide_channel*)chp;
 	struct pciide_softc *sc = (struct pciide_softc *)cp->wdc_channel.wdc;
 	int drive;
@@ -1705,11 +1705,11 @@ pio:		/* use PIO mode */
 
 
 /* setup ISP and RTC fields, based on mode */
-static u_int32_t
+static uint32_t
 piix_setup_idetim_timings(mode, dma, channel)
-	u_int8_t mode;
-	u_int8_t dma;
-	u_int8_t channel;
+	uint8_t mode;
+	uint8_t dma;
+	uint8_t channel;
 {
 	
 	if (dma)
@@ -1725,14 +1725,14 @@ piix_setup_idetim_timings(mode, dma, channel)
 }
 
 /* setup DTE, PPE, IE and TIME field based on PIO mode */
-static u_int32_t
+static uint32_t
 piix_setup_idetim_drvs(drvp)
 	struct ata_drive_datas *drvp;
 {
-	u_int32_t ret = 0;
+	uint32_t ret = 0;
 	struct channel_softc *chp = drvp->chnl_softc;
-	u_int8_t channel = chp->channel;
-	u_int8_t drive = drvp->drive;
+	uint8_t channel = chp->channel;
+	uint8_t drive = drvp->drive;
 
 	/*
 	 * If drive is using UDMA, timings setups are independant
@@ -1781,11 +1781,11 @@ piix_setup_idetim_drvs(drvp)
 }
 
 /* setup values in SIDETIM registers, based on mode */
-static u_int32_t
+static uint32_t
 piix_setup_sidetim_timings(mode, dma, channel)
-	u_int8_t mode;
-	u_int8_t dma;
-	u_int8_t channel;
+	uint8_t mode;
+	uint8_t dma;
+	uint8_t channel;
 {
 	if (dma)
 		return PIIX_SIDETIM_ISP_SET(piix_isp_dma[mode], channel) |
@@ -1911,7 +1911,7 @@ amdcs5536_chip_map (sc, pa)
 void amdcs5536_setup_channel(chp) 
 		struct channel_softc* chp;
 {
-	u_int32_t drive_reg, cast_reg;
+	uint32_t drive_reg, cast_reg;
 	int mode, drive;
 	struct ata_drive_datas *drvp;
 	struct pciide_channel *cp = (struct pciide_channel*)chp;
@@ -1945,8 +1945,8 @@ void
 amd756_setup_channel(chp)
 	struct channel_softc *chp;
 {
-	u_int32_t udmatim_reg, datatim_reg;
-	u_int8_t idedma_ctl;
+	uint32_t udmatim_reg, datatim_reg;
+	uint8_t idedma_ctl;
 	int mode, drive;
 	struct ata_drive_datas *drvp;
 	struct pciide_channel *cp = (struct pciide_channel*)chp;
@@ -2029,7 +2029,7 @@ apollo_chip_map(sc, pa)
 	pcireg_t interface = PCI_INTERFACE(pci_conf_read(sc->sc_pc,
 				    sc->sc_tag, PCI_CLASS_REG));
 	int channel;
-	u_int32_t ideconf;
+	uint32_t ideconf;
 	bus_size_t cmdsize, ctlsize;
 
 	if (pciide_chipen(sc, pa) == 0)
@@ -2095,8 +2095,8 @@ void
 apollo_setup_channel(chp)
 	struct channel_softc *chp;
 {
-	u_int32_t udmatim_reg, datatim_reg;
-	u_int8_t idedma_ctl;
+	uint32_t udmatim_reg, datatim_reg;
+	uint8_t idedma_ctl;
 	int mode, drive;
 	struct ata_drive_datas *drvp;
 	struct pciide_channel *cp = (struct pciide_channel*)chp;
@@ -2178,7 +2178,7 @@ cmd_channel_map(pa, sc, channel)
 {
 	struct pciide_channel *cp = &sc->pciide_channels[channel];
 	bus_size_t cmdsize, ctlsize;
-	u_int8_t ctrl = pciide_pci_read(sc->sc_pc, sc->sc_tag, CMD_CTRL);
+	uint8_t ctrl = pciide_pci_read(sc->sc_pc, sc->sc_tag, CMD_CTRL);
 	pcireg_t interface =
 	    PCI_INTERFACE(pci_conf_read(sc->sc_pc, sc->sc_tag, PCI_CLASS_REG));
 
@@ -2234,7 +2234,7 @@ cmd_pci_intr(arg)
 	struct pciide_channel *cp;
 	struct channel_softc *wdc_cp;
 	int i, rv, crv; 
-	u_int32_t priirq, secirq;
+	uint32_t priirq, secirq;
 
 	rv = 0;
 	priirq = pciide_pci_read(sc->sc_pc, sc->sc_tag, CMD_CONF);
@@ -2369,8 +2369,8 @@ cmd0643_6_setup_channel(chp)
 	struct channel_softc *chp;
 {
 	struct ata_drive_datas *drvp;
-	u_int8_t tim;
-	u_int32_t idedma_ctl;
+	uint8_t tim;
+	uint32_t idedma_ctl;
 	int drive;
 	struct pciide_channel *cp = (struct pciide_channel*)chp;
 	struct pciide_softc *sc = (struct pciide_softc *)cp->wdc_channel.wdc;
@@ -2497,8 +2497,8 @@ cy693_setup_channel(chp)
 {
 	struct ata_drive_datas *drvp;
 	int drive;
-	u_int32_t cy_cmd_ctrl;
-	u_int32_t idedma_ctl;
+	uint32_t cy_cmd_ctrl;
+	uint32_t idedma_ctl;
 	struct pciide_channel *cp = (struct pciide_channel*)chp;
 	struct pciide_softc *sc = (struct pciide_softc *)cp->wdc_channel.wdc;
 	int dma_mode = -1;
@@ -2547,7 +2547,7 @@ sis_chip_map(sc, pa)
 {
 	struct pciide_channel *cp;
 	int channel;
-	u_int8_t sis_ctr0 = pciide_pci_read(sc->sc_pc, sc->sc_tag, SIS_CTRL0);
+	uint8_t sis_ctr0 = pciide_pci_read(sc->sc_pc, sc->sc_tag, SIS_CTRL0);
 	pcireg_t interface = PCI_INTERFACE(pci_conf_read(sc->sc_pc,
 				    sc->sc_tag, PCI_CLASS_REG));
 	pcireg_t rev = PCI_REVISION(pci_conf_read(sc->sc_pc, sc->sc_tag,
@@ -2617,8 +2617,8 @@ sis_setup_channel(chp)
 {
 	struct ata_drive_datas *drvp;
 	int drive;
-	u_int32_t sis_tim;
-	u_int32_t idedma_ctl;
+	uint32_t sis_tim;
+	uint32_t idedma_ctl;
 	struct pciide_channel *cp = (struct pciide_channel*)chp;
 	struct pciide_softc *sc = (struct pciide_softc *)cp->wdc_channel.wdc;
 
@@ -2688,7 +2688,7 @@ acer_chip_map(sc, pa)
 	int channel;
 	pcireg_t cr, interface;
 	bus_size_t cmdsize, ctlsize;
-	u_int8_t pif, cfg;
+	uint8_t pif, cfg;
 
 	if (pciide_chipen(sc, pa) == 0)
 		return;
@@ -2774,8 +2774,8 @@ acer_setup_channel(chp)
 {
 	struct ata_drive_datas *drvp;
 	int drive;
-	u_int32_t acer_fifo_udma;
-	u_int32_t idedma_ctl;
+	uint32_t acer_fifo_udma;
+	uint32_t idedma_ctl;
 	struct pciide_channel *cp = (struct pciide_channel*)chp;
 	struct pciide_softc *sc = (struct pciide_softc *)cp->wdc_channel.wdc;
 
@@ -2854,7 +2854,7 @@ acer_pci_intr(arg)
 	struct pciide_channel *cp;
 	struct channel_softc *wdc_cp;
 	int i, rv, crv; 
-	u_int32_t chids;
+	uint32_t chids;
 
 	rv = 0;
 	chids = pciide_pci_read(sc->sc_pc, sc->sc_tag, ACER_CHIDS);
@@ -3069,7 +3069,7 @@ pdc202xx_setup_channel(chp)
 	struct ata_drive_datas *drvp;
 	int drive;
 	pcireg_t mode, st;
-	u_int32_t idedma_ctl, scr, atapi;
+	uint32_t idedma_ctl, scr, atapi;
 	struct pciide_channel *cp = (struct pciide_channel*)chp;
 	struct pciide_softc *sc = (struct pciide_softc *)cp->wdc_channel.wdc;
 	int channel = chp->channel;
@@ -3185,7 +3185,7 @@ pdc20268_setup_channel(chp)
 {
 	struct ata_drive_datas *drvp;
 	int drive, cable;
-	u_int32_t idedma_ctl;
+	uint32_t idedma_ctl;
 	struct pciide_channel *cp = (struct pciide_channel*)chp;
 	struct pciide_softc *sc = (struct pciide_softc *)cp->wdc_channel.wdc;
 
@@ -3231,7 +3231,7 @@ pdc202xx_pci_intr(arg)
 	struct pciide_channel *cp;
 	struct channel_softc *wdc_cp;
 	int i, rv, crv; 
-	u_int32_t scr;
+	uint32_t scr;
 
 	rv = 0;
 	scr = bus_space_read_4(sc->sc_dma_iot, sc->sc_dma_ioh, PDC2xx_SCR);
@@ -3268,7 +3268,7 @@ pdc20265_pci_intr(arg)
 	struct pciide_channel *cp;
 	struct channel_softc *wdc_cp;
 	int i, rv, crv; 
-	u_int32_t dmastat;
+	uint32_t dmastat;
 
 	/* process our own interrupts only during IRQ sharing */
 	if (PDC_IS_268(sc)) {

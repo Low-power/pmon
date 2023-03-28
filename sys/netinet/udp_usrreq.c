@@ -78,7 +78,7 @@ didn't get a copy, you may request one from <license@ipv6.nrl.navy.mil>.
 #ifdef IPSEC
 #include <netinet/ip_ipsp.h>
 
-extern int     	check_ipsec_policy  __P((struct inpcb *, u_int32_t));
+extern int     	check_ipsec_policy  __P((struct inpcb *, uint32_t));
 #endif
 
 #include <machine/stdarg.h>
@@ -140,7 +140,7 @@ udp_input(m, va_alist)
 	struct ip save_ip;
 	int iphlen;
 	va_list ap;
-	u_int16_t savesum;
+	uint16_t savesum;
 	union {
 		struct sockaddr sa;
 		struct sockaddr_in sin;
@@ -232,7 +232,7 @@ udp_input(m, va_alist)
 	 * Make mbuf data length reflect UDP length.
 	 * If not enough data to reflect UDP length, drop.
 	 */
-	len = ntohs((u_int16_t)uh->uh_ulen);
+	len = ntohs((uint16_t)uh->uh_ulen);
 	if (m->m_pkthdr.len - iphlen != len) {
 		if (len > (m->m_pkthdr.len - iphlen) ||
 			len < sizeof(struct udphdr)) {
@@ -831,7 +831,7 @@ udp_output(m, va_alist)
 		ui = mtod(m, struct udpiphdr *);
 		bzero(ui->ui_x1, sizeof ui->ui_x1);
 		ui->ui_pr = IPPROTO_UDP;
-		ui->ui_len = htons((u_int16_t)len + sizeof (struct udphdr));
+		ui->ui_len = htons((uint16_t)len + sizeof (struct udphdr));
 		ui->ui_src = inp->inp_laddr;
 		ui->ui_dst = inp->inp_faddr;
 		ui->ui_sport = inp->inp_lport;

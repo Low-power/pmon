@@ -73,13 +73,13 @@ const Optdesc cmd_password_opts[]=
 static int
 cksum(void *p, size_t s, int set)
 {
-	u_int16_t sum = 0;
-	u_int8_t *sp = p + 3;
+	uint16_t sum = 0;
+	uint8_t *sp = p + 3;
 	int sz = s / 2;
 
 	if(set) {
-		*(u_int8_t *)p = 0;
-		*((u_int8_t *)p+1) = 0;
+		*(uint8_t *)p = 0;
+		*((uint8_t *)p+1) = 0;
 	}
 	while(sz--) {
 		sum += (*sp++) << 8;
@@ -87,8 +87,8 @@ cksum(void *p, size_t s, int set)
 	}
 	if(set) {
 		sum = -sum;
-		*(u_int8_t *)p = sum >> 8;
-		*((u_int8_t *)p+1) = sum;
+		*(uint8_t *)p = sum >> 8;
+		*((uint8_t *)p+1) = sum;
 		//printf("%d, %d\n", sum>>8, sum);
 	}
 	return(sum);
@@ -98,7 +98,7 @@ int pwd_clear(char *user)
 {
     char buf[PASSRAM_SIZE + 1];
     char* passram;
-    u_int8_t flag;
+    uint8_t flag;
     passram = tgt_flashmap()->fl_map_base + FLASH_OFFS;
     memcpy(buf, passram , PASSRAM_SIZE);
     if (strcmp(user, "all") == 0)
@@ -209,7 +209,7 @@ int pwd_set(char *user,char* npwd)
 {
     char* passram;
     char buf[PASSRAM_SIZE + 1];
-    u_int8_t flag;
+    uint8_t flag;
     char crypted[50];
     int index = user_index(user);
 
@@ -238,7 +238,7 @@ int pwd_cmp(char *user,char* npwd)
 {
     char* passram;
     char buf[PASSRAM_SIZE + 1];
-    u_int8_t flag;
+    uint8_t flag;
     char crypted[50];
     int index = user_index(user);
 
@@ -261,7 +261,7 @@ void pwd_set_used(char *user,int used)
 {
     char* passram;
     char buf[PASSRAM_SIZE + 1];
-    u_int8_t flag;
+    uint8_t flag;
     int index = user_index(user);
 
     passram = tgt_flashmap()->fl_map_base + FLASH_OFFS;
@@ -281,7 +281,7 @@ int pwd_is_used(char *user)
 {
     char* passram;
     char buf[PASSRAM_SIZE + 1];
-    u_int8_t flag;
+    uint8_t flag;
     int index = user_index(user);
 
     passram = tgt_flashmap()->fl_map_base + FLASH_OFFS;
@@ -296,7 +296,7 @@ int pwd_is_set(char *user)
 {
     char* passram;
     char buf[PASSRAM_SIZE + 1];
-    u_int8_t flag;
+    uint8_t flag;
     int index = user_index(user);
 
     passram = tgt_flashmap()->fl_map_base + FLASH_OFFS;

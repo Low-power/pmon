@@ -92,8 +92,8 @@ static pcireg_t
 _pci_conf_readn(pcitag_t tag, int reg, int width)
 {
 	pcireg_t data;
-	u_int32_t addr;
-	u_int32_t addrp;
+	uint32_t addr;
+	uint32_t addrp;
 	int bus, device, function;
 	pcireg_t cfgaddr, cfgdata;
 
@@ -154,8 +154,8 @@ _pci_conf_read(pcitag_t tag, int reg)
 static void
 _pci_conf_writen(pcitag_t tag, int reg, pcireg_t data, int width)
 {
-	u_int32_t addr;
-	u_int32_t addrp;
+	uint32_t addr;
+	uint32_t addrp;
 	int bus, device, function;
 	pcireg_t cfgaddr, cfgdata;
 

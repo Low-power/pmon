@@ -46,16 +46,16 @@
 #define	DOSACTIVE	0x80		/* active partition */
 
 struct dos_partition {
-	u_int8_t	dp_flag;	/* bootstrap flags */
-	u_int8_t	dp_shd;		/* starting head */
-	u_int8_t	dp_ssect;	/* starting sector */
-	u_int8_t	dp_scyl;	/* starting cylinder */
-	u_int8_t	dp_typ;		/* partition type (see below) */
-	u_int8_t	dp_ehd;		/* end head */
-	u_int8_t	dp_esect;	/* end sector */
-	u_int8_t	dp_ecyl;	/* end cylinder */
-	u_int32_t	dp_start;	/* absolute starting sector number */
-	u_int32_t	dp_size;	/* partition size in sectors */
+	uint8_t	dp_flag;	/* bootstrap flags */
+	uint8_t	dp_shd;		/* starting head */
+	uint8_t	dp_ssect;	/* starting sector */
+	uint8_t	dp_scyl;	/* starting cylinder */
+	uint8_t	dp_typ;		/* partition type (see below) */
+	uint8_t	dp_ehd;		/* end head */
+	uint8_t	dp_esect;	/* end sector */
+	uint8_t	dp_ecyl;	/* end cylinder */
+	uint32_t	dp_start;	/* absolute starting sector number */
+	uint32_t	dp_size;	/* partition size in sectors */
 };
 
 /* Known DOS partition types. */
@@ -75,9 +75,9 @@ struct dos_partition {
 #define DOSPTYP_NETBSD	0xa9		/* NetBSD partition type */
 
 struct dos_mbr {
-	u_int8_t		dmbr_boot[DOSPARTOFF];
+	uint8_t		dmbr_boot[DOSPARTOFF];
 	struct dos_partition	dmbr_parts[NDOSPART];
-	u_int16_t		dmbr_sign;
+	uint16_t		dmbr_sign;
 } __attribute__((__packed__));
 
 #define DOSMBR_SIGNATURE	(0xaa55)
@@ -95,9 +95,9 @@ struct cpu_disklabel {
 #define	DPSECT(s)	((s) & 0x3f)
 #define	DPCYL(c, s)	((c) + (((s) & 0xc0) << 2))
 
-static __inline u_int32_t get_le(void *);
+static __inline uint32_t get_le(void *);
 
-static __inline u_int32_t
+static __inline uint32_t
 #ifdef __cplusplus
 get_le(void *p)
 #else
@@ -105,8 +105,8 @@ get_le(p)
 	void *p;
 #endif
 {
-	u_int8_t *_p = (u_int8_t *)p;
-	u_int32_t x;
+	uint8_t *_p = (uint8_t *)p;
+	uint32_t x;
 	x = _p[0];
 	x |= _p[1] << 8;
 	x |= _p[2] << 16;

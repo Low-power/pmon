@@ -101,7 +101,7 @@ static void res_setoptions __P((char *, char *));
 #ifdef RESOLVSORT
 static const char sort_mask[] = "/&";
 #define ISSORTMASK(ch) (strchr(sort_mask, ch) != NULL)
-static u_int32_t net_mask __P((struct in_addr));
+static uint32_t net_mask __P((struct in_addr));
 #endif
 
 /*

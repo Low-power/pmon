@@ -88,8 +88,8 @@ _pci_conf_read(tag, reg)
 	int reg;
 {
 	pcireg_t data;
-	u_int32_t addr;
-	u_int32_t addrp;
+	uint32_t addr;
+	uint32_t addrp;
 	int bus, device, function;
 
 	if (reg & 3 || reg < 0 || reg >= 0x100) {
@@ -127,8 +127,8 @@ _pci_conf_write(tag, reg, data)
 	int reg;
 	pcireg_t data;
 {
-	u_int32_t addr;
-	u_int32_t addrp;
+	uint32_t addr;
+	uint32_t addrp;
 	int bus, device, function;
 
 	if (reg & 3 || reg < 0 || reg >= 0x100) {

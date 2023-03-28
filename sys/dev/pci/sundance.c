@@ -2390,8 +2390,8 @@ int cmd_setmac_ste(int ac, char *av[])
 #else
         if(ac != 2){
         long long macaddr;
-        u_int8_t *paddr;
-        u_int8_t enaddr[6];
+        uint8_t *paddr;
+        uint8_t enaddr[6];
         macaddr=ste_read_mac(nic);
         paddr=(uint8_t*)&macaddr;
         enaddr[0] = paddr[5- 0];

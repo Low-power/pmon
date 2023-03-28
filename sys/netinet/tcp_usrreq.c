@@ -87,7 +87,7 @@ didn't get a copy, you may request one from <license@ipv6.nrl.navy.mil>.
 #endif /* PMON */
 
 #ifdef IPSEC
-extern int	check_ipsec_policy __P((struct inpcb *, u_int32_t));
+extern int	check_ipsec_policy __P((struct inpcb *, uint32_t));
 #endif
 
 #ifdef INET6

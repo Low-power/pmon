@@ -44,11 +44,11 @@ int
 chg_heaptop (name, value)
 	char *name, *value;
 {
-	u_int32_t top;
+	uint32_t top;
 
 	if (atob (&top, value, 16)) {
 #ifdef HEAP_ALLOC_UPWORD
-		if(top < (u_int32_t)allocp1) {
+		if(top < (uint32_t)allocp1) {
 			printf ("%x: heap is already above this point\n", top);
 			return 0;
 		}

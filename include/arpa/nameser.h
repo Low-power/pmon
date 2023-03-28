@@ -346,8 +346,8 @@ typedef struct {
  */
 #define INDIR_MASK	0xc0
 
-extern	u_int16_t	_getshort __P((const u_char *));
-extern	u_int32_t	_getlong __P((const u_char *));
+extern	uint16_t	_getshort __P((const u_char *));
+extern	uint32_t	_getlong __P((const u_char *));
 
 /*
  * Inline versions of get/put short/long.  Pointer is advanced.
@@ -357,24 +357,24 @@ extern	u_int32_t	_getlong __P((const u_char *));
  */
 #define GETSHORT(s, cp) { \
 	register u_char *t_cp = (u_char *)(cp); \
-	(s) = ((u_int16_t)t_cp[0] << 8) \
-	    | ((u_int16_t)t_cp[1]) \
+	(s) = ((uint16_t)t_cp[0] << 8) \
+	    | ((uint16_t)t_cp[1]) \
 	    ; \
 	(cp) += INT16SZ; \
 }
 
 #define GETLONG(l, cp) { \
 	register u_char *t_cp = (u_char *)(cp); \
-	(l) = ((u_int32_t)t_cp[0] << 24) \
-	    | ((u_int32_t)t_cp[1] << 16) \
-	    | ((u_int32_t)t_cp[2] << 8) \
-	    | ((u_int32_t)t_cp[3]) \
+	(l) = ((uint32_t)t_cp[0] << 24) \
+	    | ((uint32_t)t_cp[1] << 16) \
+	    | ((uint32_t)t_cp[2] << 8) \
+	    | ((uint32_t)t_cp[3]) \
 	    ; \
 	(cp) += INT32SZ; \
 }
 
 #define PUTSHORT(s, cp) { \
-	register u_int16_t t_s = (u_int16_t)(s); \
+	register uint16_t t_s = (uint16_t)(s); \
 	register u_char *t_cp = (u_char *)(cp); \
 	*t_cp++ = t_s >> 8; \
 	*t_cp   = t_s; \
@@ -382,7 +382,7 @@ extern	u_int32_t	_getlong __P((const u_char *));
 }
 
 #define PUTLONG(l, cp) { \
-	register u_int32_t t_l = (u_int32_t)(l); \
+	register uint32_t t_l = (uint32_t)(l); \
 	register u_char *t_cp = (u_char *)(cp); \
 	*t_cp++ = t_l >> 24; \
 	*t_cp++ = t_l >> 16; \

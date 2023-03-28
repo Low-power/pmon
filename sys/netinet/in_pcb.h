@@ -69,8 +69,8 @@ struct inpcb {
 #define	inp_faddr6	inp_faddru.iau_addr6
 #define	inp_laddr	inp_laddru.iau_a4u.inaddr
 #define	inp_laddr6	inp_laddru.iau_addr6
-	u_int16_t inp_fport;		/* foreign port */
-	u_int16_t inp_lport;		/* local port */
+	uint16_t inp_fport;		/* foreign port */
+	uint16_t inp_lport;		/* local port */
 	struct	  socket *inp_socket;	/* back pointer to socket */
 	caddr_t	  inp_ppcb;		/* pointer to per-protocol pcb */
 	union {				/* Route (notice increased size). */
@@ -107,7 +107,7 @@ struct inpcb {
 #define SL_AUTH           0             /* Authentication level */
 #define SL_ESP_TRANS      1             /* ESP transport level */
 #define SL_ESP_NETWORK    2             /* ESP network (encapsulation) level */
-	u_int8_t  inp_secrequire:4,     /* Condensed State from above */
+	uint8_t  inp_secrequire:4,     /* Condensed State from above */
 	          inp_secresult:4;	/* Result from Key Management */
 #define SR_FAILED         1             /* Negotiation failed permanently */
 #define SR_SUCCESS        2             /* SA successfully established */
@@ -125,7 +125,7 @@ struct inpcbtable {
 	CIRCLEQ_HEAD(, inpcb) inpt_queue;
 	LIST_HEAD(inpcbhead, inpcb) *inpt_hashtbl;
 	u_long	  inpt_hash;
-	u_int16_t inpt_lastport;
+	uint16_t inpt_lastport;
 };
 
 /* flags in inp_flags: */
@@ -165,7 +165,7 @@ struct inpcbtable {
 #define	sotoinpcb(so)	((struct inpcb *)(so)->so_pcb)
 
 /* macros for handling bitmap of ports not to allocate dynamically */
-#define	DP_MAPBITS	(sizeof(u_int32_t) * NBBY)
+#define	DP_MAPBITS	(sizeof(uint32_t) * NBBY)
 #define	DP_MAPSIZE	(howmany(IPPORT_RESERVED/2, DP_MAPBITS))
 #define	DP_SET(m, p)	((m)[((p) - IPPORT_RESERVED/2) / DP_MAPBITS] |= (1 << ((p) % DP_MAPBITS)))
 #define	DP_CLR(m, p)	((m)[((p) - IPPORT_RESERVED/2) / DP_MAPBITS] &= ~(1 << ((p) % DP_MAPBITS)))
@@ -176,8 +176,8 @@ struct inpcbtable {
 #define	DEFBADDYNAMICPORTS_UDP	{ 750, 751, 0 }
 
 struct baddynamicports {
-	u_int32_t tcp[DP_MAPSIZE];
-	u_int32_t udp[DP_MAPSIZE];
+	uint32_t tcp[DP_MAPSIZE];
+	uint32_t udp[DP_MAPSIZE];
 };
 
 #ifdef _KERNEL
@@ -214,5 +214,5 @@ void	 in_pcbrehash __P((struct inpcb *));
 void	 in_rtchange __P((struct inpcb *, int));
 void	 in_setpeeraddr __P((struct inpcb *, struct mbuf *));
 void	 in_setsockaddr __P((struct inpcb *, struct mbuf *));
-int	 in_baddynamic __P((u_int16_t, u_int16_t));
+int	 in_baddynamic __P((uint16_t, uint16_t));
 #endif

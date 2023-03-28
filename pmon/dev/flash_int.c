@@ -70,7 +70,7 @@ struct fl_functions fl_func_int = {fl_erase_chip_int,
 static quad_t widedata;
 
 #define	SETWIDE(x) do {						\
-			u_int32_t __a = x;			\
+			uint32_t __a = x;			\
 			__a |= __a << 8;				\
 			__a |= __a << 16;				\
 			widedata = (quad_t)__a << 32 | __a;		\

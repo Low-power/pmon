@@ -155,14 +155,14 @@ int fxp_debug = 0;
 /*
  * Inline function to copy a 16-bit aligned 32-bit quantity.
  */
-static __inline void fxp_lwcopy __P((volatile u_int32_t *,
-	volatile u_int32_t *));
+static __inline void fxp_lwcopy __P((volatile uint32_t *,
+	volatile uint32_t *));
 static __inline void
 fxp_lwcopy(src, dst)
-	volatile u_int32_t *src, *dst;
+	volatile uint32_t *src, *dst;
 {
-	volatile u_int16_t *a = (u_int16_t *)src;
-	volatile u_int16_t *b = (u_int16_t *)dst;
+	volatile uint16_t *a = (uint16_t *)src;
+	volatile uint16_t *b = (uint16_t *)dst;
 
 	b[0] = a[0];
 	b[1] = a[1];
@@ -251,11 +251,11 @@ static int fxp_mdi_read		__P((struct device *, int, int));
 static void fxp_mdi_write	__P((struct device *, int, int, int));
 static void fxp_autosize_eeprom	__P((struct fxp_softc *));
 static void fxp_statchg		__P((struct device *));
-void fxp_read_eeprom	__P((struct fxp_softc *, u_int16_t *,
+void fxp_read_eeprom	__P((struct fxp_softc *, uint16_t *,
 				    int, int));
-void fxp_write_eeprom	__P((struct fxp_softc *, u_int16_t *,
+void fxp_write_eeprom	__P((struct fxp_softc *, uint16_t *,
 				    int, int));
-static int fxp_attach_common	__P((struct fxp_softc *, u_int8_t *));
+static int fxp_attach_common	__P((struct fxp_softc *, uint8_t *));
 
 void fxp_stats_update		__P((void *));
 #ifdef USE_FXP_MCAST
@@ -364,7 +364,7 @@ int32_t fxp_update_eeprom_checksum(struct fxp_softc *sc)
     uint16_t i, eeprom_data;
     printf("\n e100_update_eeprom_checksum\n");
     for(i = 0; i < EEPROM_CHECKSUM_REG; i++) {
-        fxp_read_eeprom(sc,  (u_int16_t *)&eeprom_data,i,1);
+        fxp_read_eeprom(sc,  (uint16_t *)&eeprom_data,i,1);
         checksum += eeprom_data;
     }
     checksum = (uint16_t) E100_EEPROM_SUM - checksum;
@@ -388,7 +388,7 @@ int32_t fxp_validate_eeprom_checksum(struct fxp_softc *sc)
     uint16_t i, eeprom_data;
     printf("\n e100_validate_eeprom_checksum\n");
     for(i = 0; i < (EEPROM_CHECKSUM_REG + 1); i++) {
-        fxp_read_eeprom(sc,  (u_int16_t *)&eeprom_data,i,1);
+        fxp_read_eeprom(sc,  (uint16_t *)&eeprom_data,i,1);
         checksum += eeprom_data;
     }
 
@@ -457,7 +457,7 @@ fxp_attach(parent, self, aux)
 	pci_chipset_tag_t pc = pa->pa_pc;
 	pci_intr_handle_t ih;
 	const char *intrstr = NULL;
-	u_int8_t enaddr[6];
+	uint8_t enaddr[6];
 	struct ifnet *ifp;
 #ifdef __OpenBSD__
 	bus_space_tag_t iot = pa->pa_iot;
@@ -733,9 +733,9 @@ fxp_ether_ioctl(ifp, cmd, data)
 static int
 fxp_attach_common(sc, enaddr)
 	struct fxp_softc *sc;
-	u_int8_t *enaddr;
+	uint8_t *enaddr;
 {
-	u_int16_t data;
+	uint16_t data;
 	int i;
 
 	/*
@@ -814,12 +814,12 @@ fxp_attach_common(sc, enaddr)
 #if   defined(GODSONEV1)
 	data=0x4701;
 #else	
-	fxp_read_eeprom(sc, (u_int16_t *)&data, 6, 1);
+	fxp_read_eeprom(sc, (uint16_t *)&data, 6, 1);
 #endif
 //	if(data!=0x4701)
 //		cmd_wrprom_fxp0();
 
-	fxp_read_eeprom(sc, (u_int16_t *)&data, 6, 1);
+	fxp_read_eeprom(sc, (uint16_t *)&data, 6, 1);
 	sc->phy_primary_addr = data & 0xff;
 	sc->phy_primary_device = (data >> 8) & 0x3f;
 	sc->phy_10Mbps_only = data >> 15;
@@ -835,7 +835,7 @@ fxp_attach_common(sc, enaddr)
 	enaddr[4]=0x9a;
 	enaddr[5]=0xbc;
 #else
-	fxp_read_eeprom(sc, (u_int16_t *)enaddr, 0, 3);
+	fxp_read_eeprom(sc, (uint16_t *)enaddr, 0, 3);
 #endif
 	return (0);
 
@@ -886,7 +886,7 @@ static void
 fxp_autosize_eeprom(sc)
 	struct fxp_softc *sc;
 {
-	u_int16_t reg;
+	uint16_t reg;
 	int x;
 
 	CSR_WRITE_2(sc, FXP_CSR_EEPROMCONTROL, FXP_EEPROM_EECS);
@@ -938,7 +938,7 @@ fxp_read_eeprom(sc, data, offset, words)
 	int offset;
 	int words;
 {
-	u_int16_t reg;
+	uint16_t reg;
 	int i, x;
 
 	for (i = 0; i < words; i++) {
@@ -1011,7 +1011,7 @@ fxp_write_eeprom(sc, data, offset, words)
 	int offset;
 	int words;
 {
-	u_int16_t reg;
+	uint16_t reg;
 	int i, x;
 	int d;
 
@@ -1262,7 +1262,7 @@ fxp_intr(arg)
 {
 	struct fxp_softc *sc = arg;
 	struct ifnet *ifp = &sc->sc_if;
-	u_int8_t statack;
+	uint8_t statack;
 #if defined(__NetBSD__) || defined(__OpenBSD__)
 	int claimed = 0;
 
@@ -1326,7 +1326,7 @@ fxp_intr(arg)
 		 */
 		if (statack & (FXP_SCB_STATACK_FR | FXP_SCB_STATACK_RNR)) {
 			struct mbuf *m;
-			u_int8_t *rfap;
+			uint8_t *rfap;
             int retry = 500;
 rcvloop:
 			//printf("recving a packet\n");
@@ -1340,14 +1340,14 @@ rcvloop:
 			 */
 			//printf("rfap=%x\n",rfap);
 #ifdef LS3_HT
-			if (*(u_int16_t *)(PHYS_TO_CACHED(vtophys(rfap)) +
+			if (*(uint16_t *)(PHYS_TO_CACHED(vtophys(rfap)) +
 #else
-			if (*(u_int16_t *)(PHYS_TO_UNCACHED(vtophys(rfap)) +
+			if (*(uint16_t *)(PHYS_TO_UNCACHED(vtophys(rfap)) +
 #endif
 			    offsetof(struct fxp_rfa, rfa_status)) &
 			    htole16(FXP_RFA_STATUS_C)) {
 #else 
-			if (*(u_int16_t *)(rfap +
+			if (*(uint16_t *)(rfap +
 			    offsetof(struct fxp_rfa, rfa_status)) &
 			    htole16(FXP_RFA_STATUS_C)) {
 #endif /* __mips__ */
@@ -1365,9 +1365,9 @@ rcvloop:
 				 */
 				if (fxp_add_rfabuf(sc, m) == 0) {
 					struct ether_header *eh;
-					u_int16_t total_len;
+					uint16_t total_len;
 
-					total_len = (htole16(*(u_int16_t *)(rfap +
+					total_len = (htole16(*(uint16_t *)(rfap +
 					    offsetof(struct fxp_rfa,
 					    actual_size)))) &
 					    (MCLBYTES - 1);
@@ -1888,9 +1888,9 @@ fxp_add_rfabuf(sc, oldm)
 	struct fxp_softc *sc;
 	struct mbuf *oldm;
 {
-	u_int32_t v;
+	uint32_t v;
 	struct mbuf *m;
-	u_int8_t *rfap;
+	uint8_t *rfap;
 
 	MGETHDR(m, M_DONTWAIT, MT_DATA);
 	if (m != NULL) {
@@ -1930,9 +1930,9 @@ fxp_add_rfabuf(sc, oldm)
 	}
 	m->m_data += RFA_ALIGNMENT_FUDGE;
 #ifdef LS3_HT
-	rfap = (u_int8_t *)PHYS_TO_CACHED(vtophys(m->m_data));
+	rfap = (uint8_t *)PHYS_TO_CACHED(vtophys(m->m_data));
 #else
-	rfap = (u_int8_t *)PHYS_TO_UNCACHED(vtophys(m->m_data));
+	rfap = (uint8_t *)PHYS_TO_UNCACHED(vtophys(m->m_data));
 #endif
 	//printf("rfap=%x\n",rfap);
 #else
@@ -1940,7 +1940,7 @@ fxp_add_rfabuf(sc, oldm)
 	rfap = m->m_data;
 #endif
 	m->m_data += sizeof(struct fxp_rfa);
-	*(u_int16_t *)(rfap + offsetof(struct fxp_rfa, size)) =
+	*(uint16_t *)(rfap + offsetof(struct fxp_rfa, size)) =
 	    htole16(MCLBYTES - sizeof(struct fxp_rfa) - RFA_ALIGNMENT_FUDGE);
 
 	/*
@@ -1948,16 +1948,16 @@ fxp_add_rfabuf(sc, oldm)
 	 * is misaligned, we cannot store values directly.  Instead,
 	 * we use an optimized, inline copy.
 	 */
-	*(u_int16_t *)(rfap + offsetof(struct fxp_rfa, rfa_status)) = 0;
-	*(u_int16_t *)(rfap + offsetof(struct fxp_rfa, rfa_control)) =
+	*(uint16_t *)(rfap + offsetof(struct fxp_rfa, rfa_status)) = 0;
+	*(uint16_t *)(rfap + offsetof(struct fxp_rfa, rfa_control)) =
 	    htole16(FXP_RFA_CONTROL_EL);
-	*(u_int16_t *)(rfap + offsetof(struct fxp_rfa, actual_size)) = 0;
+	*(uint16_t *)(rfap + offsetof(struct fxp_rfa, actual_size)) = 0;
 
 	v = -1;
 	fxp_lwcopy(&v,
-	    (u_int32_t *)(rfap + offsetof(struct fxp_rfa, link_addr)));
+	    (uint32_t *)(rfap + offsetof(struct fxp_rfa, link_addr)));
 	fxp_lwcopy(&v,
-	    (u_int32_t *)(rfap + offsetof(struct fxp_rfa, rbd_addr)));
+	    (uint32_t *)(rfap + offsetof(struct fxp_rfa, rbd_addr)));
 
 	/*
 	 * If there are other buffers already on the list, attach this
@@ -1970,14 +1970,14 @@ fxp_add_rfabuf(sc, oldm)
 #if defined(__mips__)
 		/* Noone should have touched this, so no flush req. */
 #ifdef LS3_HT
-		rfap = (u_int8_t *)PHYS_TO_CACHED(vtophys(rfap));
+		rfap = (uint8_t *)PHYS_TO_CACHED(vtophys(rfap));
 #else
-		rfap = (u_int8_t *)PHYS_TO_UNCACHED(vtophys(rfap));
+		rfap = (uint8_t *)PHYS_TO_UNCACHED(vtophys(rfap));
 #endif
 #endif /* __mips__ */
 		fxp_lwcopy(&v,
-		    (u_int32_t *)(rfap + offsetof(struct fxp_rfa, link_addr)));
-		*(u_int16_t *)(rfap + offsetof(struct fxp_rfa, rfa_control)) &=
+		    (uint32_t *)(rfap + offsetof(struct fxp_rfa, link_addr)));
+		*(uint16_t *)(rfap + offsetof(struct fxp_rfa, rfa_control)) &=
 		    ~htole16(FXP_RFA_CONTROL_EL);
 	} else {
 		sc->rfa_headm = m;
@@ -2307,7 +2307,7 @@ static long long e100_read_mac(struct fxp_softc *nic)
 
         int i;
         long long mac_tmp = 0;
-	u_int16_t enaddr[3];
+	uint16_t enaddr[3];
 	unsigned short tmp=0;
 
         fxp_read_eeprom(nic, enaddr, 0, 3);
@@ -2337,8 +2337,8 @@ int cmd_setmac_fxp0(int ac, char *av[])
         
 	if(ac != 2){
         long long macaddr;
-        u_int8_t *paddr;
-        u_int8_t enaddr[6];
+        uint8_t *paddr;
+        uint8_t enaddr[6];
         macaddr=e100_read_mac(nic);
         paddr=(uint8_t*)&macaddr;
         enaddr[0] = paddr[5- 0];

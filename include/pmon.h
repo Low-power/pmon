@@ -183,7 +183,7 @@ void		rm_bpts __P((void));
 void		flush_validpc __P((void));
 int		chg_validpc __P((char *, char *));
 void		clrbpts __P((void));
-u_int32_t	getpchist __P((int));
+uint32_t	getpchist __P((int));
 
 extern int      trace_mode;
 extern Bps      Bpt[];
@@ -221,7 +221,7 @@ int		more __P((char *, int *, int));
 extern unsigned int moresz;
 
 /* rsa.c */
-int		get_rsa __P((u_int32_t *, char *));
+int		get_rsa __P((uint32_t *, char *));
 int		get_rsa_reg __P((register_t *, char *));
 
 /* set.c */
@@ -236,18 +236,18 @@ int		do_setenv __P((char *, char *, int));
 /* sym.c */
 void		syminit __P((void));
 void		clrsyms __P((void));
-int		newsym __P((char *, u_int32_t));
-void		defsyms __P((u_int32_t, u_int32_t, u_int32_t));
+int		newsym __P((char *, uint32_t));
+void		defsyms __P((uint32_t, uint32_t, uint32_t));
 int		sym2adr __P((register_t *, char *));
 char 		*adr2sym __P((char *, unsigned long));
 int		adr2symoff __P((char *, unsigned int, int));
 
 /*-----*/
-int		atob __P((u_int32_t *, char *, int));
-int		llatob __P((u_int64_t *, char *, int));
+int		atob __P((uint32_t *, char *, int));
+int		llatob __P((uint64_t *, char *, int));
 int		gethex __P((int32_t *, char *, int32_t));
-char		*btoa __P((char *, u_int32_t, int32_t));
-char		*llbtoa __P((char *, u_int64_t, int32_t));
+char		*btoa __P((char *, uint32_t, int32_t));
+char		*llbtoa __P((char *, uint64_t, int32_t));
 
 void		movequad __P((void *, void *));
 
@@ -381,10 +381,10 @@ int		spawn __P((char *, int(*) __P((int, char *[])), int, char *[]));
 
 
 #define getfield(w,s,p)	((((unsigned long)w)&(((1<<s)-1)<<p))>>p)
-#define load_byte(adr)	(*(u_int8_t *)(adr))
-#define load_half(adr)	(*(u_int16_t *)(adr))
-#define load_word(adr)	(*(u_int32_t *)(adr))
-#define load_dword(adr)	(*(u_int64_t *)(adr))
+#define load_byte(adr)	(*(uint8_t *)(adr))
+#define load_half(adr)	(*(uint16_t *)(adr))
+#define load_word(adr)	(*(uint32_t *)(adr))
+#define load_dword(adr)	(*(uint64_t *)(adr))
 #define load_reg(adr)	(*(register_t *)(adr))
 
 /* macros to increment and decrement x, modulus mod */

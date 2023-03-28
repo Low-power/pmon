@@ -59,14 +59,14 @@ extern int wdcdebug_mask; /* init'ed in wdc.c */
 int
 ata_get_params(drvp, flags, prms)
 	struct ata_drive_datas *drvp;
-	u_int8_t flags;
+	uint8_t flags;
 	struct ataparams *prms;
 {
 	char tb[ATAPARAMS_SIZE];
 	struct wdc_command wdc_c;
 
 	int i;
-	u_int16_t *p;
+	uint16_t *p;
 
 	WDCDEBUG_PRINT(("ata_get_parms\n"), DEBUG_FUNCS);
 
@@ -113,9 +113,9 @@ ata_get_params(drvp, flags, prms)
 		   The swaps below avoid touching the char strings.
 		*/
 		  
-		swap16_multi((u_int16_t *)tb, 10);
-		swap16_multi((u_int16_t *)tb + 20, 3);
-		swap16_multi((u_int16_t *)tb + 47, ATAPARAMS_SIZE / 2 - 47);
+		swap16_multi((uint16_t *)tb, 10);
+		swap16_multi((uint16_t *)tb + 20, 3);
+		swap16_multi((uint16_t *)tb + 47, ATAPARAMS_SIZE / 2 - 47);
 #endif
 		/* Read in parameter block. */
 		bcopy(tb, prms, sizeof(struct ataparams));
@@ -151,8 +151,8 @@ ata_get_params(drvp, flags, prms)
 int
 ata_set_mode(drvp, mode, flags)
 	struct ata_drive_datas *drvp;
-	u_int8_t mode;
-	u_int8_t flags;
+	uint8_t mode;
+	uint8_t flags;
 {
 	struct wdc_command wdc_c;
 

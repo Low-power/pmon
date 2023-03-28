@@ -70,8 +70,8 @@ off_t fat_lseek (int, off_t, int);
  */
 int fat_init(int , struct fat_sc *, int);
 int fat_dump_fatsc(struct fat_sc *);
-u_int32_t getFatEntry(struct fat_sc *, int );
-int readsector(struct fat_sc *, int , int , u_int8_t *);
+uint32_t getFatEntry(struct fat_sc *, int );
+int readsector(struct fat_sc *, int , int , uint8_t *);
 int parseShortFilename(struct direntry *, char *);
 int fat_getChain(struct fat_sc *, int , struct fatchain *);
 int getSectorIndex(struct fat_sc *, struct fatchain *, int ,int);
@@ -81,7 +81,7 @@ int fat_findfile(struct fat_sc *, char *);
 int fat_subdirscan(struct fat_sc *, char *, struct fatchain *);
 int fat_dump_fatsc(struct fat_sc *);
 int fat_dump_fileentry(struct fat_sc *);
-u_int8_t shortNameChkSum(u_int8_t *);
+uint8_t shortNameChkSum(uint8_t *);
 int fat_parseDirEntries(int ,struct fat_fileentry *);
 
 
@@ -406,7 +406,7 @@ int getSectorIndex(struct fat_sc *fsc, struct fatchain * chain, int index, int c
 
 int fat_getPartition(struct fat_sc *fsc, int partition)
 {
-	u_int8_t buffer[SECTORSIZE];
+	uint8_t buffer[SECTORSIZE];
 	struct mbr_t *mbr;
 
 	fsc->PartitionStart = 0;
@@ -471,12 +471,12 @@ int fat_init(int fd, struct fat_sc *fsc, int partition)
 	fsc->FatCacheNum = -1;
 
 	if (bpb->bpbFATsecs != 0)
-		fsc->FATsecs = (u_int32_t)letoh16(bpb->bpbFATsecs);
+		fsc->FATsecs = (uint32_t)letoh16(bpb->bpbFATsecs);
 	else
 		fsc->FATsecs = letoh32(bpb->efat32.bpbFATSz32);
 
 	if (bpb->bpbSectors != 0)
-		fsc->TotalSectors = (u_int32_t)letoh16(bpb->bpbSectors);
+		fsc->TotalSectors = (uint32_t)letoh16(bpb->bpbSectors);
 	else
 		fsc->TotalSectors = letoh32(bpb->bpbHugeSectors);
 
@@ -501,13 +501,13 @@ int fat_init(int fd, struct fat_sc *fsc, int partition)
 	return (1);
 }
 
-u_int32_t getFatEntry(struct fat_sc *fsc, int entry)
+uint32_t getFatEntry(struct fat_sc *fsc, int entry)
 {
-	u_int32_t fatsect;
-	u_int32_t byteoffset;
-	u_int32_t fatstart;
-	u_int32_t fatoffset;
-	u_int8_t b1,b2,b3,b4;
+	uint32_t fatsect;
+	uint32_t byteoffset;
+	uint32_t fatstart;
+	uint32_t fatoffset;
+	uint8_t b1,b2,b3,b4;
 	int res;
 
 	fatstart = fsc->ResSectors;
@@ -859,8 +859,8 @@ int fat_parseDirEntries(int dirc, struct fat_fileentry *filee)
 {
 	struct direntry *dire;
 	struct winentry *wine;
-	u_int8_t longName[290];
-	u_int8_t chksum;
+	uint8_t longName[290];
+	uint8_t chksum;
 	int c = 0;
 	int i;
 
@@ -872,8 +872,8 @@ int fat_parseDirEntries(int dirc, struct fat_fileentry *filee)
 	chksum = shortNameChkSum(filee->shortName);
 
 	if (dirc != 0) {
-		u_int8_t buffer[26];
-		u_int16_t *bp;
+		uint8_t buffer[26];
+		uint16_t *bp;
 		int j = 0;
 		for (i = dirc; i != 0; i--) {
 			wine = (struct winentry *)&dirbuf[i-1];
@@ -881,9 +881,9 @@ int fat_parseDirEntries(int dirc, struct fat_fileentry *filee)
 			bcopy(wine->wePart1, &buffer[0], sizeof(wine->wePart1));
 			bcopy(wine->wePart2, &buffer[sizeof(wine->wePart1)], sizeof(wine->wePart2));
 			bcopy(wine->wePart3, &buffer[sizeof(wine->wePart1) + sizeof(wine->wePart2)], sizeof(wine->wePart3));
-			bp = (u_int16_t *)buffer;
+			bp = (uint16_t *)buffer;
 			for (j = 0; j < 13; j++, c++) {
-				longName[c] = (u_int8_t)letoh16(bp[j]);
+				longName[c] = (uint8_t)letoh16(bp[j]);
 				if(longName[c] == '\n')
 					longName[c] = '_';
 				if (longName[c] == '\0')
@@ -897,10 +897,10 @@ done:
 	return (1);
 }
 
-u_int8_t shortNameChkSum(u_int8_t *name)
+uint8_t shortNameChkSum(uint8_t *name)
 {
-	u_int16_t len;
-	u_int8_t sum;
+	uint16_t len;
+	uint8_t sum;
 
 	sum = 0;
 
@@ -913,8 +913,8 @@ u_int8_t shortNameChkSum(u_int8_t *name)
 
 int fat_getChain(struct fat_sc *fsc, int start, struct fatchain *chain)
 {
-	u_int32_t mask;
-	u_int32_t entry;
+	uint32_t mask;
+	uint32_t entry;
 	int count;
 	int i;
 	int flag;
@@ -947,7 +947,7 @@ int fat_getChain(struct fat_sc *fsc, int start, struct fatchain *chain)
 	chain->count = count + 1;
 	chain->start = start;
 
-	chain->entries = (u_int32_t *)malloc(sizeof(u_int32_t) * chain->count);
+	chain->entries = (uint32_t *)malloc(sizeof(uint32_t) * chain->count);
 	if (chain->entries == NULL) {
 		return (-1);
 	}
@@ -988,7 +988,7 @@ int parseShortFilename(struct direntry *dire, char *name)
 	return (-1);
 }
 
-int readsector(struct fat_sc *fsc, int sector, int count, u_int8_t *buffer)
+int readsector(struct fat_sc *fsc, int sector, int count, uint8_t *buffer)
 {
 	long long res;
 

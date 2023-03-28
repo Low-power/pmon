@@ -271,7 +271,7 @@ pcisubmatch(parent, match, aux)
 	   we support the card, then we enable its IO cycles.
 	*/
 	if (success) {
-		u_int32_t csr = pci_conf_read(pa->pa_pc, pa->pa_tag,
+		uint32_t csr = pci_conf_read(pa->pa_pc, pa->pa_tag,
 					      PCI_COMMAND_STATUS_REG);
 
 		pci_conf_write(pa->pa_pc, pa->pa_tag, PCI_COMMAND_STATUS_REG,

@@ -166,11 +166,11 @@ loopattach(n)
 		ifp->if_ioctl = loioctl;
 		ifp->if_output = looutput;
 		ifp->if_type = IFT_LOOP;
-		ifp->if_hdrlen = sizeof(u_int32_t);
+		ifp->if_hdrlen = sizeof(uint32_t);
 		ifp->if_addrlen = 0;
 		if_attachhead(ifp);
 #if NBPFILTER > 0
-		bpfattach(&ifp->if_bpf, ifp, DLT_LOOP, sizeof(u_int32_t));
+		bpfattach(&ifp->if_bpf, ifp, DLT_LOOP, sizeof(uint32_t));
 #endif
 	}
 }
@@ -203,7 +203,7 @@ looutput(ifp, m, dst, rt)
 		 * try to free it or keep a pointer to it).
 		 */
 		struct mbuf m0;
-		u_int32_t af = htonl(dst->sa_family);
+		uint32_t af = htonl(dst->sa_family);
 
 		m0.m_next = m;
 		m0.m_len = sizeof(af);

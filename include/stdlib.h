@@ -199,7 +199,7 @@ long	 nrand48 __P((unsigned short[3]));
 unsigned short *seed48 __P((unsigned short[3]));
 void	 srand48 __P((long));
 
-u_int32_t arc4random __P((void));
+uint32_t arc4random __P((void));
 void	arc4random_stir __P((void));
 void	arc4random_addrandom __P((unsigned char *, int));
 

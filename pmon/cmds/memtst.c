@@ -43,7 +43,7 @@
 
 int cmd_memtst __P((int, char *[]));
 int cmd_spacescan __P((int, char *[]));
-static int do_mt __P((u_int32_t *, u_int32_t *, int));
+static int do_mt __P((uint32_t *, uint32_t *, int));
 #define u64 unsigned long long
 extern u64 __raw__readq(u64 addr);
 extern u64 __raw__writeq(u64 addr, u64 val);
@@ -83,7 +83,7 @@ int
 cmd_memtst(int ac, char **av)
 {
 	int cflag, vflag, err;
-	u_int32_t saddr, eaddr;
+	uint32_t saddr, eaddr;
 	int c;
 
 	cflag = 0;
@@ -135,10 +135,10 @@ cmd_memtst(int ac, char **av)
 			saddr, eaddr, (cflag) ? "continuous" : "");
 
 	if (cflag) {
-		while(!(err = do_mt((u_int32_t *)saddr, (u_int32_t *)eaddr, vflag)));
+		while(!(err = do_mt((uint32_t *)saddr, (uint32_t *)eaddr, vflag)));
 	}
 	else {
-		err = do_mt((u_int32_t *)saddr, (u_int32_t *)eaddr, vflag);
+		err = do_mt((uint32_t *)saddr, (uint32_t *)eaddr, vflag);
 	}
 
 	if (err) {
@@ -150,7 +150,7 @@ cmd_memtst(int ac, char **av)
 }
 
 static int
-do_mt(u_int32_t *saddr, u_int32_t *eaddr, int vflag)
+do_mt(uint32_t *saddr, uint32_t *eaddr, int vflag)
 {
 	int i, j, err, temp, siz;
 	unsigned int w, *p, r;

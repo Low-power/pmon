@@ -133,11 +133,11 @@ rz_cmd (ac, av)
 		case 'v':
 			flags |= VFLAG; break;
 		case 'o':
-			if (!get_rsa ((u_int32_t *)&buffer, optarg))
+			if (!get_rsa ((uint32_t *)&buffer, optarg))
 				return (-1);
 			break;
 		case 's':
-			if (!get_rsa ((u_int32_t *)&maxsize, optarg))
+			if (!get_rsa ((uint32_t *)&maxsize, optarg))
 				return (-1);
 			break;
 		case 'h':

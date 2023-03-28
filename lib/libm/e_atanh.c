@@ -56,7 +56,7 @@ static double zero = 0.0;
 {
 	double t;
 	int32_t hx,ix;
-	u_int32_t lx;
+	uint32_t lx;
 	EXTRACT_WORDS(hx,lx,x);
 	ix = hx&0x7fffffff;
 	if ((ix|((lx|(-lx))>>31))>0x3ff00000) /* |x|>1 */

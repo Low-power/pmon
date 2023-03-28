@@ -107,12 +107,12 @@ enum function_mask {
 
 struct opcode {
 	char *name;
-	u_int32_t mask;
-	u_int32_t code;
+	uint32_t mask;
+	uint32_t code;
 	enum function_mask func;
 };
 
-typedef u_int32_t instr_t;
+typedef uint32_t instr_t;
 typedef void (op_class_func) (char *, instr_t, void *);
 
 void dis_ppc(char *, const struct opcode *opcodeset, instr_t instr, void *);
@@ -496,7 +496,7 @@ typedef void (op_class_func) (instr_t);
 */
 void * md_disasm __P((char *buf, void *loc));
 
-static u_int32_t extract_field __P((u_int32_t, u_int32_t, u_int32_t));
+static uint32_t extract_field __P((uint32_t, uint32_t, uint32_t));
 static void disasm_fields __P((const struct opcode *, instr_t, char *, void *));
 static void dispchist __P((int, int));
 const struct opcode * search_op(const struct opcode *);
@@ -509,10 +509,10 @@ op_ill(char *buf, instr_t instr, void *pc)
 	sprintf(buf, "illegal instruction %x\n", instr);
 }
 
-static u_int32_t
-extract_field(u_int32_t value, u_int32_t base, u_int32_t width)
+static uint32_t
+extract_field(uint32_t value, uint32_t base, uint32_t width)
 {
-	u_int32_t mask = (1 << width) - 1;
+	uint32_t mask = (1 << width) - 1;
 	return ((value >> base) & mask);
 }
 
@@ -896,7 +896,7 @@ dispchist(args, siz)
 	int args, siz;
 {
 	int	i, l;
-	u_int32_t adr;
+	uint32_t adr;
 
 	l = siz;
 	for(i = 0;; i++) {
@@ -916,7 +916,7 @@ md_disasm(char *buf, void *loc)
 {
 	int class;
 	instr_t opcode;
-	opcode = (instr_t)load_word((u_int32_t *)loc);
+	opcode = (instr_t)load_word((uint32_t *)loc);
 	class = opcode >> 26;
 
 	if(!adr2symoff(buf, (int)loc, 12)) {
@@ -1100,7 +1100,7 @@ extern int optind;
 			framesize = 0;
 		}
 
-		if(!adr2symoff (p, (u_int32_t)pc, 24)) {
+		if(!adr2symoff (p, (uint32_t)pc, 24)) {
 			sprintf(p, "              0x%08x", pc);
 		}
 		p += strlen(p);

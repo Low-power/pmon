@@ -48,10 +48,10 @@
 #endif
 
 #define GT_WRITE(ofs, data) \
-    *(volatile u_int32_t *)(GT_BASE_ADDR+ofs) = HTOLE32(data)
+    *(volatile uint32_t *)(GT_BASE_ADDR+ofs) = HTOLE32(data)
 
 #define GT_READ(ofs) \
-    HTOLE32(*(volatile u_int32_t *)(GT_BASE_ADDR+ofs))
+    HTOLE32(*(volatile uint32_t *)(GT_BASE_ADDR+ofs))
 
 #define GT_BASE_ADDR			PHYS_TO_IOSPACE(0x14000000)
 #define GT_BASE_ADDR_DEFAULT		PHYS_TO_UNCACHED(0x14000000)

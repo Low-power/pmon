@@ -129,7 +129,7 @@ char	*getpass __P((const char *));
 char	*getusershell __P((void));
 char	*getwd __P((char *));			/* obsoleted by getcwd() */
 int	 initgroups __P((const char *, gid_t));
-int	 iruserok __P((u_int32_t, int, const char *, const char *));
+int	 iruserok __P((uint32_t, int, const char *, const char *));
 int	 lchown __P((const char *, uid_t, gid_t));
 char	*mkdtemp __P((char *));
 int	 mkstemp __P((char *));

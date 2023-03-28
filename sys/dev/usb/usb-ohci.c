@@ -205,7 +205,7 @@ static int hc_interrupt(void *);
 
 //QYL-2008-03-07
 void arouse_usb_int_pipe(ohci_t *);
-u_int32_t check_device_sequence(ohci_t * pohci);
+uint32_t check_device_sequence(ohci_t * pohci);
 
 #ifdef CONFIG_SM502_USB_HCD
 /* panel clock */
@@ -835,7 +835,7 @@ int sohci_submit_job(struct usb_device *dev, unsigned long pipe, void *buffer,
 	int i, size = 0;
 
 	//QYL-2008-03-07
-	u_int32_t dev_num, ed_num;
+	uint32_t dev_num, ed_num;
 
 	ohci = dev->hc_private;
 
@@ -1417,7 +1417,7 @@ static ed_t *ep_add_ed(struct usb_device *usb_dev, unsigned long pipe)
 	struct ohci_device *ohci_dev = ohci->ohci_dev;
 
 	//QYL-2008-03-07
-	u_int32_t cpued_num = 0;
+	uint32_t cpued_num = 0;
 
 //    cpued_num = ((usb_pipedevice(pipe)&0x3)<<3)|((usb_pipeendpoint(pipe)&0x3)<<1)|(usb_pipein(pipe));
 	cpued_num = find_index(ohci_dev, pipe);
@@ -1638,7 +1638,7 @@ static void td_submit_job(struct usb_device *dev, unsigned long pipe, void
 	u32 info = 0;
 	int periodic = 0;
 	unsigned int toggle = 0;
-	u_int32_t dev_num, ed_num;
+	uint32_t dev_num, ed_num;
 	urb_priv_t *lurb_priv = NULL;
 
 	for (dev_num = 0; dev_num < USB_MAX_DEVICE; dev_num++) {
@@ -1785,7 +1785,7 @@ static void dl_transfer_length(td_t * td)
 	int length = 0;
 
 	//QYL-2008-03-07
-	u_int32_t dev_num, ed_num;
+	uint32_t dev_num, ed_num;
 	struct usb_device *p_dev = NULL;
 	ed_t *p_ed = NULL;
 
@@ -1949,7 +1949,7 @@ static td_t *dl_reverse_done_list(ohci_t * ohci)
 	urb_priv_t *lurb_priv = NULL;
 
 	//QYL-2008-03-07
-	u_int32_t dev_num, ed_num;
+	uint32_t dev_num, ed_num;
 	struct usb_device *p_dev = NULL;
 	ed_t *p_ed = NULL;
 
@@ -2108,12 +2108,12 @@ static int dl_done_list(ohci_t * ohci, td_t * td_list)
 	/* urb_t *urb; */
 	urb_priv_t *lurb_priv = NULL;
 	u32 tdINFO, edHeadP, edTailP;
-	u_int32_t dev_num, ed_num;
+	uint32_t dev_num, ed_num;
 	struct usb_device *p_dev = NULL;
 	ed_t *p_ed = NULL;
 
 	//QYL-2008-03-07
-	u_int32_t bPipeBulk = FALSE;
+	uint32_t bPipeBulk = FALSE;
 	urb_priv_t *pInt_urb_priv = NULL;
 	struct usb_device *pInt_dev = NULL;
 	ed_t *pInt_ed = NULL;
@@ -2209,12 +2209,12 @@ static int dl_td_done_list(ohci_t * ohci, td_t * td_list)
 	u32 tdINFO, edHeadP, edTailP;
 
 	//QYL-2008-03-07
-	u_int32_t dev_num, ed_num;
+	uint32_t dev_num, ed_num;
 	struct usb_device *p_dev = NULL;
 	ed_t *p_ed = NULL;
 
 	//QYL-2008-03-07
-	u_int32_t bPipeBulk = FALSE;
+	uint32_t bPipeBulk = FALSE;
 	urb_priv_t *pInt_urb_priv = NULL;
 	struct usb_device *pInt_dev = NULL;
 	ed_t *pInt_ed = NULL;
@@ -2753,7 +2753,7 @@ int submit_common_msg(struct usb_device *dev, unsigned long pipe, void *buffer,
 	struct ohci *gohci = dev->hc_private;
 
 	//QYL-2008-03-07
-	u_int32_t dev_num, ed_num;
+	uint32_t dev_num, ed_num;
 	urb_priv_t *lurb_priv = NULL;
 	int oldspl;
 
@@ -2842,7 +2842,7 @@ int submit_common_msg(struct usb_device *dev, unsigned long pipe, void *buffer,
 	process_interrupt_urb(gohci);
 
 	if (timeout)
-		printf("USB timeout dev:0x%x\n", (u_int32_t) dev);
+		printf("USB timeout dev:0x%x\n", (uint32_t) dev);
 
 #endif
 
@@ -3184,7 +3184,7 @@ static int hc_interrupt(void *hc_data)
 	int stat = NOTUSBIRQ;
 
 	//QYL-2008-03-07
-	u_int32_t dev_num, ed_num;
+	uint32_t dev_num, ed_num;
 	struct usb_device *p_dev = NULL;
 	ed_t *p_ed = NULL;
 

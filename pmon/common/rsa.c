@@ -45,12 +45,12 @@
  *  Scan and input a value.
  *
  *  Note: The vp arg (dest) must be able to receive a value
- *        of 'u_int32_t' size. Assumption here is that this
+ *        of 'uint32_t' size. Assumption here is that this
  *        type will be the largets we deal with for non
  *	  register type values.
  */
 int
-get_rsa(u_int32_t *vp, char *p)
+get_rsa(uint32_t *vp, char *p)
 {
 	register_t val;
     

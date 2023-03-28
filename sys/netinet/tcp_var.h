@@ -160,8 +160,8 @@ struct tcpcb {
 	u_char	rcv_scale;		/* window scaling for recv window */
 	u_char	request_r_scale;	/* pending window scaling */
 	u_char	requested_s_scale;
-	u_int32_t ts_recent;		/* timestamp echo data */
-	u_int32_t ts_recent_age;		/* when last updated */
+	uint32_t ts_recent;		/* timestamp echo data */
+	uint32_t ts_recent_age;		/* when last updated */
 	tcp_seq	last_ack_sent;
 
 /* TUBA stuff */
@@ -209,68 +209,68 @@ struct tcpcb {
  * but that's inconvenient at the moment.
  */
 struct	tcpstat {
-	u_int32_t tcps_connattempt;	/* connections initiated */
-	u_int32_t tcps_accepts;		/* connections accepted */
-	u_int32_t tcps_connects;	/* connections established */
-	u_int32_t tcps_drops;		/* connections dropped */
-	u_int32_t tcps_conndrops;	/* embryonic connections dropped */
-	u_int32_t tcps_closed;		/* conn. closed (includes drops) */
-	u_int32_t tcps_segstimed;	/* segs where we tried to get rtt */
-	u_int32_t tcps_rttupdated;	/* times we succeeded */
-	u_int32_t tcps_delack;		/* delayed acks sent */
-	u_int32_t tcps_timeoutdrop;	/* conn. dropped in rxmt timeout */
-	u_int32_t tcps_rexmttimeo;	/* retransmit timeouts */
-	u_int32_t tcps_persisttimeo;	/* persist timeouts */
-	u_int32_t tcps_persistdrop;	/* connections dropped in persist */
-	u_int32_t tcps_keeptimeo;	/* keepalive timeouts */
-	u_int32_t tcps_keepprobe;	/* keepalive probes sent */
-	u_int32_t tcps_keepdrops;	/* connections dropped in keepalive */
+	uint32_t tcps_connattempt;	/* connections initiated */
+	uint32_t tcps_accepts;		/* connections accepted */
+	uint32_t tcps_connects;	/* connections established */
+	uint32_t tcps_drops;		/* connections dropped */
+	uint32_t tcps_conndrops;	/* embryonic connections dropped */
+	uint32_t tcps_closed;		/* conn. closed (includes drops) */
+	uint32_t tcps_segstimed;	/* segs where we tried to get rtt */
+	uint32_t tcps_rttupdated;	/* times we succeeded */
+	uint32_t tcps_delack;		/* delayed acks sent */
+	uint32_t tcps_timeoutdrop;	/* conn. dropped in rxmt timeout */
+	uint32_t tcps_rexmttimeo;	/* retransmit timeouts */
+	uint32_t tcps_persisttimeo;	/* persist timeouts */
+	uint32_t tcps_persistdrop;	/* connections dropped in persist */
+	uint32_t tcps_keeptimeo;	/* keepalive timeouts */
+	uint32_t tcps_keepprobe;	/* keepalive probes sent */
+	uint32_t tcps_keepdrops;	/* connections dropped in keepalive */
 
-	u_int32_t tcps_sndtotal;		/* total packets sent */
-	u_int32_t tcps_sndpack;		/* data packets sent */
-	u_int64_t tcps_sndbyte;		/* data bytes sent */
-	u_int32_t tcps_sndrexmitpack;	/* data packets retransmitted */
-	u_int64_t tcps_sndrexmitbyte;	/* data bytes retransmitted */
-	u_int64_t tcps_sndrexmitfast;	/* Fast retransmits */
-	u_int32_t tcps_sndacks;		/* ack-only packets sent */
-	u_int32_t tcps_sndprobe;	/* window probes sent */
-	u_int32_t tcps_sndurg;		/* packets sent with URG only */
-	u_int32_t tcps_sndwinup;	/* window update-only packets sent */
-	u_int32_t tcps_sndctrl;		/* control (SYN|FIN|RST) packets sent */
+	uint32_t tcps_sndtotal;		/* total packets sent */
+	uint32_t tcps_sndpack;		/* data packets sent */
+	uint64_t tcps_sndbyte;		/* data bytes sent */
+	uint32_t tcps_sndrexmitpack;	/* data packets retransmitted */
+	uint64_t tcps_sndrexmitbyte;	/* data bytes retransmitted */
+	uint64_t tcps_sndrexmitfast;	/* Fast retransmits */
+	uint32_t tcps_sndacks;		/* ack-only packets sent */
+	uint32_t tcps_sndprobe;	/* window probes sent */
+	uint32_t tcps_sndurg;		/* packets sent with URG only */
+	uint32_t tcps_sndwinup;	/* window update-only packets sent */
+	uint32_t tcps_sndctrl;		/* control (SYN|FIN|RST) packets sent */
 
-	u_int32_t tcps_rcvtotal;	/* total packets received */
-	u_int32_t tcps_rcvpack;		/* packets received in sequence */
-	u_int64_t tcps_rcvbyte;		/* bytes received in sequence */
-	u_int32_t tcps_rcvbadsum;	/* packets received with ccksum errs */
-	u_int32_t tcps_rcvbadoff;	/* packets received with bad offset */
-	u_int32_t tcps_rcvmemdrop;	/* packets dropped for lack of memory */
-	u_int32_t tcps_rcvnosec;	/* packets dropped for lack of ipsec */
-	u_int32_t tcps_rcvshort;	/* packets received too short */
-	u_int32_t tcps_rcvduppack;	/* duplicate-only packets received */
-	u_int64_t tcps_rcvdupbyte;	/* duplicate-only bytes received */
-	u_int32_t tcps_rcvpartduppack;	/* packets with some duplicate data */
-	u_int64_t tcps_rcvpartdupbyte;	/* dup. bytes in part-dup. packets */
-	u_int32_t tcps_rcvoopack;	/* out-of-order packets received */
-	u_int64_t tcps_rcvoobyte;	/* out-of-order bytes received */
-	u_int32_t tcps_rcvpackafterwin;	/* packets with data after window */
-	u_int64_t tcps_rcvbyteafterwin;	/* bytes rcvd after window */
-	u_int32_t tcps_rcvafterclose;	/* packets rcvd after "close" */
-	u_int32_t tcps_rcvwinprobe;	/* rcvd window probe packets */
-	u_int32_t tcps_rcvdupack;	/* rcvd duplicate acks */
-	u_int32_t tcps_rcvacktoomuch;	/* rcvd acks for unsent data */
-	u_int32_t tcps_rcvackpack;	/* rcvd ack packets */
-	u_int64_t tcps_rcvackbyte;	/* bytes acked by rcvd acks */
-	u_int32_t tcps_rcvwinupd;	/* rcvd window update packets */
-	u_int32_t tcps_pawsdrop;	/* segments dropped due to PAWS */
-	u_int32_t tcps_predack;		/* times hdr predict ok for acks */
-	u_int32_t tcps_preddat;		/* times hdr predict ok for data pkts */
+	uint32_t tcps_rcvtotal;	/* total packets received */
+	uint32_t tcps_rcvpack;		/* packets received in sequence */
+	uint64_t tcps_rcvbyte;		/* bytes received in sequence */
+	uint32_t tcps_rcvbadsum;	/* packets received with ccksum errs */
+	uint32_t tcps_rcvbadoff;	/* packets received with bad offset */
+	uint32_t tcps_rcvmemdrop;	/* packets dropped for lack of memory */
+	uint32_t tcps_rcvnosec;	/* packets dropped for lack of ipsec */
+	uint32_t tcps_rcvshort;	/* packets received too short */
+	uint32_t tcps_rcvduppack;	/* duplicate-only packets received */
+	uint64_t tcps_rcvdupbyte;	/* duplicate-only bytes received */
+	uint32_t tcps_rcvpartduppack;	/* packets with some duplicate data */
+	uint64_t tcps_rcvpartdupbyte;	/* dup. bytes in part-dup. packets */
+	uint32_t tcps_rcvoopack;	/* out-of-order packets received */
+	uint64_t tcps_rcvoobyte;	/* out-of-order bytes received */
+	uint32_t tcps_rcvpackafterwin;	/* packets with data after window */
+	uint64_t tcps_rcvbyteafterwin;	/* bytes rcvd after window */
+	uint32_t tcps_rcvafterclose;	/* packets rcvd after "close" */
+	uint32_t tcps_rcvwinprobe;	/* rcvd window probe packets */
+	uint32_t tcps_rcvdupack;	/* rcvd duplicate acks */
+	uint32_t tcps_rcvacktoomuch;	/* rcvd acks for unsent data */
+	uint32_t tcps_rcvackpack;	/* rcvd ack packets */
+	uint64_t tcps_rcvackbyte;	/* bytes acked by rcvd acks */
+	uint32_t tcps_rcvwinupd;	/* rcvd window update packets */
+	uint32_t tcps_pawsdrop;	/* segments dropped due to PAWS */
+	uint32_t tcps_predack;		/* times hdr predict ok for acks */
+	uint32_t tcps_preddat;		/* times hdr predict ok for data pkts */
 
-	u_int32_t tcps_pcbhashmiss;	/* input packets missing pcb hash */
-	u_int32_t tcps_noport;		/* no socket on port */
-	u_int32_t tcps_badsyn;		/* SYN packet with src==dst rcv'ed */
+	uint32_t tcps_pcbhashmiss;	/* input packets missing pcb hash */
+	uint32_t tcps_noport;		/* no socket on port */
+	uint32_t tcps_badsyn;		/* SYN packet with src==dst rcv'ed */
 
-	u_int32_t tcps_rcvbadsig;	/* rcvd bad/missing TCP signatures */
-	u_int64_t tcps_rcvgoodsig;	/* rcvd good TCP signatures */
+	uint32_t tcps_rcvbadsig;	/* rcvd bad/missing TCP signatures */
+	uint64_t tcps_rcvgoodsig;	/* rcvd good TCP signatures */
 };
 
 /*
@@ -313,7 +313,7 @@ struct tcp_ident_mapping {
 #ifdef _KERNEL
 struct	inpcbtable tcbtable;	/* head of queue of active tcpcb's */
 struct	tcpstat tcpstat;	/* tcp statistics */
-u_int32_t tcp_now;		/* for RFC 1323 timestamps */
+uint32_t tcp_now;		/* for RFC 1323 timestamps */
 extern	int tcp_do_rfc1323;	/* enabled/disabled? */
 extern	int tcp_mssdflt;	/* default maximum segment size */
 #ifdef TCP_SACK
@@ -334,7 +334,7 @@ struct tcpcb *
 struct tcpcb *
 	 tcp_drop __P((struct tcpcb *, int));
 void	 tcp_dooptions __P((struct tcpcb *, u_char *, int, struct tcphdr *,
-		int *, u_int32_t *, u_int32_t *)); 
+		int *, uint32_t *, uint32_t *)); 
 void	 tcp_drain __P((void));
 void	 tcp_fasttimo __P((void));
 void	 tcp_init __P((void));
@@ -369,7 +369,7 @@ int	 tcp6_usrreq __P((struct socket *,
 int	 tcp_usrreq __P((struct socket *,
 	    int, struct mbuf *, struct mbuf *, struct mbuf *));
 void	 tcp_xmit_timer __P((struct tcpcb *, int));
-void	 tcpdropoldhalfopen __P((struct tcpcb *, u_int16_t));
+void	 tcpdropoldhalfopen __P((struct tcpcb *, uint16_t));
 #ifdef TCP_SACK
 int	 tcp_sack_option __P((struct tcpcb *,struct tcphdr *,u_char *,int));
 void	 tcp_update_sack_list __P((struct tcpcb *tp));

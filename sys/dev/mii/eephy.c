@@ -78,7 +78,7 @@ int
 eephymatch(struct device *parent, void *match, void *aux)
 {
 	struct mii_attach_args *ma = aux;
-	u_int32_t id;
+	uint32_t id;
 
 	id = ((ma->mii_id1 << 16) | ma->mii_id2) & E1000_ID_MASK;
 	if (id == E1000_ID_88E1000 || id == E1000_ID_88E1000S) {
@@ -157,7 +157,7 @@ eephyattach(struct device *parent, struct device *self, void *aux)
 static void
 eephy_reset(struct mii_softc *sc)
 {
-	u_int32_t reg;
+	uint32_t reg;
 	int i;
 
 	/* initialize custom E1000 registers to magic values */

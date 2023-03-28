@@ -65,7 +65,7 @@ pi_lo   = 1.2246467991473531772E-16; /* 0x3CA1A626, 0x33145C07 */
 {  
 	double z;
 	int32_t k,m,hx,hy,ix,iy;
-	u_int32_t lx,ly;
+	uint32_t lx,ly;
 
 	EXTRACT_WORDS(hx,lx,x);
 	ix = hx&0x7fffffff;
@@ -118,7 +118,7 @@ pi_lo   = 1.2246467991473531772E-16; /* 0x3CA1A626, 0x33145C07 */
 	switch (m) {
 	    case 0: return       z  ;	/* atan(+,+) */
 	    case 1: {
-	    	      u_int32_t zh;
+	    	      uint32_t zh;
 		      GET_HIGH_WORD(zh,z);
 		      SET_HIGH_WORD(z,zh ^ 0x80000000);
 		    }

@@ -98,7 +98,7 @@ int
 in_canforward(in)
 	struct in_addr in;
 {
-	register u_int32_t net;
+	register uint32_t net;
 
 	if (IN_EXPERIMENTAL(in.s_addr) || IN_MULTICAST(in.s_addr))
 		return (0);
@@ -363,7 +363,7 @@ in_ifinit(ifp, ia, sin, scrub)
 	struct sockaddr_in *sin;
 	int scrub;
 {
-	register u_int32_t i = sin->sin_addr.s_addr;
+	register uint32_t i = sin->sin_addr.s_addr;
 	struct sockaddr_in oldaddr;
 	int s = splimp(), flags = RTF_UP, error;
 

@@ -63,8 +63,8 @@ typedef union
   double value;
   struct 
   {
-    u_int32_t msw;
-    u_int32_t lsw;
+    uint32_t msw;
+    uint32_t lsw;
   } parts;
 } ieee_double_shape_type;
 
@@ -77,8 +77,8 @@ typedef union
   double value;
   struct 
   {
-    u_int32_t lsw;
-    u_int32_t msw;
+    uint32_t lsw;
+    uint32_t msw;
   } parts;
 } ieee_double_shape_type;
 
@@ -148,7 +148,7 @@ do {								\
 typedef union
 {
   float value;
-  u_int32_t word;
+  uint32_t word;
 } ieee_float_shape_type;
 
 /* Get a 32 bit int from a float.  */

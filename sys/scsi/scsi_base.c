@@ -51,7 +51,7 @@
 #include <scsi/scsi_disk.h>
 #include <scsi/scsiconf.h>
 
-static __inline void asc2ascii(u_int8_t, u_int8_t ascq, char *result,
+static __inline void asc2ascii(uint8_t, uint8_t ascq, char *result,
     size_t len);
 int	scsi_xs_error(struct scsi_xfer *);
 char   *scsi_decode_sense(struct scsi_sense_data *, int);
@@ -807,7 +807,7 @@ scsi_xs_put(struct scsi_xfer *xs)
  * Find out from the device what its capacity is.
  */
 int64_t
-scsi_size(struct scsi_link *sc_link, int flags, u_int32_t *blksize)
+scsi_size(struct scsi_link *sc_link, int flags, uint32_t *blksize)
 {
 	struct scsi_read_cap_data_16 *rdcap16;
 	struct scsi_read_capacity_16 *cmd;
@@ -989,7 +989,7 @@ scsi_inquire(struct scsi_link *link, struct scsi_inquiry_data *inqbuf,
  */
 int
 scsi_inquire_vpd(struct scsi_link *sc_link, void *buf, u_int buflen,
-    u_int8_t page, int flags)
+    uint8_t page, int flags)
 {
 	struct scsi_inquiry *cmd;
 	struct scsi_xfer *xs;
@@ -1190,8 +1190,8 @@ scsi_mode_sense_big_page(struct scsi_mode_header_big *hdr, const int page_len)
 
 int
 scsi_do_mode_sense(struct scsi_link *sc_link, int page,
-    union scsi_mode_sense_buf *buf, void **page_data, u_int32_t *density,
-    u_int64_t *block_count, u_int32_t *block_size, int page_len, int flags,
+    union scsi_mode_sense_buf *buf, void **page_data, uint32_t *density,
+    uint64_t *block_count, uint32_t *block_size, int page_len, int flags,
     int *big)
 {
 	struct scsi_direct_blk_desc		*direct;
@@ -1275,7 +1275,7 @@ blk_desc:
 		if (block_size != NULL)
 			*block_size = _3btol(general->blklen);
 		if (block_count != NULL)
-			*block_count = (u_int64_t)_3btol(general->nblocks);
+			*block_count = (uint64_t)_3btol(general->nblocks);
 		break;
 
 	default:
@@ -1285,7 +1285,7 @@ blk_desc:
 		if (block_size != NULL)
 			*block_size = _3btol(direct->blklen);
 		if (block_count != NULL)
-			*block_count = (u_int64_t)_4btol(direct->nblocks);
+			*block_count = (uint64_t)_4btol(direct->nblocks);
 		break;
 	}
 
@@ -1298,7 +1298,7 @@ scsi_mode_select(struct scsi_link *sc_link, int byte2,
 {
 	struct scsi_mode_select *cmd;
 	struct scsi_xfer *xs;
-	u_int32_t len;
+	uint32_t len;
 	int error;
 
 	len = data->data_length + 1; /* 1 == sizeof(data_length) */
@@ -1333,7 +1333,7 @@ scsi_mode_select_big(struct scsi_link *sc_link, int byte2,
 {
 	struct scsi_mode_select_big *cmd;
 	struct scsi_xfer *xs;
-	u_int32_t len;
+	uint32_t len;
 	int error;
 
 	len = _2btol(data->data_length) + 2; /* 2 == sizeof data_length */
@@ -1365,7 +1365,7 @@ scsi_mode_select_big(struct scsi_link *sc_link, int byte2,
 
 int
 scsi_report_luns(struct scsi_link *sc_link, int selectreport,
-    struct scsi_report_luns_data *data, u_int32_t datalen, int flags,
+    struct scsi_report_luns_data *data, uint32_t datalen, int flags,
     int timeout)
 {
 	struct scsi_report_luns *cmd;
@@ -1647,7 +1647,7 @@ scsi_interpret_sense(struct scsi_xfer *xs)
 {
 	struct scsi_sense_data			*sense = &xs->sense;
 	struct scsi_link			*sc_link = xs->sc_link;
-	u_int8_t				serr, skey;
+	uint8_t				serr, skey;
 	int					error;
 
 	/* Default sense interpretation. */
@@ -1824,13 +1824,13 @@ static const char *sense_keys[16] = {
 
 #ifdef SCSITERSE
 static __inline void
-asc2ascii(u_int8_t asc, u_int8_t ascq, char *result, size_t len)
+asc2ascii(uint8_t asc, uint8_t ascq, char *result, size_t len)
 {
 	snprintf(result, len, "ASC 0x%02x ASCQ 0x%02x", asc, ascq);
 }
 #else
 static const struct {
-	u_int8_t asc, ascq;
+	uint8_t asc, ascq;
 	char *description;
 } adesc[] = {
 	{ 0x00, 0x00, "No Additional Sense Information" },
@@ -2365,7 +2365,7 @@ static const struct {
 };
 
 static __inline void
-asc2ascii(u_int8_t asc, u_int8_t ascq, char *result, size_t len)
+asc2ascii(uint8_t asc, uint8_t ascq, char *result, size_t len)
 {
 	int					i;
 
@@ -2408,7 +2408,7 @@ void
 scsi_print_sense(struct scsi_xfer *xs)
 {
 	struct scsi_sense_data			*sense = &xs->sense;
-	u_int8_t				serr = sense->error_code &
+	uint8_t				serr = sense->error_code &
 						    SSD_ERRCODE;
 	int32_t					info;
 	char					*sbs;
@@ -2479,8 +2479,8 @@ char *
 scsi_decode_sense(struct scsi_sense_data *sense, int flag)
 {
 	static char				rqsbuf[132];
-	u_int16_t				count;
-	u_int8_t				skey, spec_1;
+	uint16_t				count;
+	uint8_t				skey, spec_1;
 	int					len;
 
 	bzero(rqsbuf, sizeof(rqsbuf));
@@ -2584,8 +2584,8 @@ scsi_show_mem(u_char *address, int num)
 #endif /* SCSIDEBUG */
 
 void
-scsi_cmd_rw_decode(struct scsi_generic *cmd, u_int64_t *blkno,
-    u_int32_t *nblks)
+scsi_cmd_rw_decode(struct scsi_generic *cmd, uint64_t *blkno,
+    uint32_t *nblks)
 {
 	switch (cmd->opcode) {
 	case READ_COMMAND:

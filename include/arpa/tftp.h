@@ -54,10 +54,10 @@
 #define	ERROR	05			/* error code */
 
 struct	tftphdr {
-	u_int16_t th_opcode;		/* packet type */
+	uint16_t th_opcode;		/* packet type */
 	union {
-		u_int16_t tu_block;	/* block # */
-		u_int16_t tu_code;	/* error code */
+		uint16_t tu_block;	/* block # */
+		uint16_t tu_code;	/* error code */
 		char	tu_stuff[1];	/* request packet stuff */
 	} th_u;
 	char	th_data[1];		/* data or error string */

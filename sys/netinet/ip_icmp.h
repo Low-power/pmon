@@ -53,11 +53,11 @@ struct icmp_ra_addr {
  * Structure of an icmp header.
  */
 struct icmp {
-	u_int8_t  icmp_type;		/* type of message, see below */
-	u_int8_t  icmp_code;		/* type sub code */
-	u_int16_t icmp_cksum;		/* ones complement cksum of struct */
+	uint8_t  icmp_type;		/* type of message, see below */
+	uint8_t  icmp_code;		/* type sub code */
+	uint16_t icmp_cksum;		/* ones complement cksum of struct */
 	union {
-		u_int8_t  ih_pptr;		/* ICMP_PARAMPROB */
+		uint8_t  ih_pptr;		/* ICMP_PARAMPROB */
 		struct in_addr ih_gwaddr;	/* ICMP_REDIRECT */
 		struct ih_idseq {
 			  n_short icd_id;
@@ -72,8 +72,8 @@ struct icmp {
 		} ih_pmtu;
 
 		struct ih_rtradv {
-			u_int8_t irt_num_addrs;
-			u_int8_t irt_wpa;
+			uint8_t irt_num_addrs;
+			uint8_t irt_wpa;
 			n_short irt_lifetime;
 		} ih_rtradv;
 	} icmp_hun;
@@ -97,7 +97,7 @@ struct icmp {
 			  struct ip idi_ip;
 			  /* options and then 64 bits of data */
 		} id_ip;
-		u_int32_t id_mask;
+		uint32_t id_mask;
 		int8_t	  id_data[1];
 	} icmp_dun;
 #define	icmp_otime	  icmp_dun.id_ts.its_otime

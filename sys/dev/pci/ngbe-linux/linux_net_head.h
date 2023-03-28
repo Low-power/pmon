@@ -1123,7 +1123,7 @@ static int pci_resource_len(struct pci_dev *pdev, int bar)
 #define ioremap(a,l) (a)
 #define iounmap(...)
 
-static inline int is_valid_ether_addr(u_int8_t *addr)
+static inline int is_valid_ether_addr(uint8_t *addr)
 {
     const char zaddr[6] = {0,};
 

@@ -633,7 +633,7 @@ skb->len=skb->len+4;//bug
 struct dev_mc_list 
 {
     struct dev_mc_list  *next;
-    u_int8_t       dmi_addr[MAX_ADDR_LEN];
+    uint8_t       dmi_addr[MAX_ADDR_LEN];
     unsigned char       dmi_addrlen;
     int         dmi_users;
     int         dmi_gusers;

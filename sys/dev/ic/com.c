@@ -269,7 +269,7 @@ comattach(parent, self, aux)
 	int iobase, irq;
 	bus_space_tag_t iot;
 	bus_space_handle_t ioh;
-	u_int8_t lcr;
+	uint8_t lcr;
 
 	/*
 	 * XXX should be broken out into functions for isa attach and
@@ -360,7 +360,7 @@ comattach(parent, self, aux)
 
 	bus_space_write_1(iot, ioh, com_lcr, lcr);
 	if (sc->sc_uarttype == COM_UART_16450) { /* Probe for 8250 */
-		u_int8_t scr0, scr1, scr2;
+		uint8_t scr0, scr1, scr2;
 
 		scr0 = bus_space_read_1(iot, ioh, com_scratch);
 		bus_space_write_1(iot, ioh, com_scratch, 0xa5);
@@ -580,8 +580,8 @@ comopen(dev, flag, mode, p)
 		}
 
 		if (ISSET(sc->sc_hwflags, COM_HW_FIFO)) {
-			u_int8_t fifo = FIFO_ENABLE|FIFO_RCV_RST|FIFO_XMT_RST;
-			u_int8_t lcr;
+			uint8_t fifo = FIFO_ENABLE|FIFO_RCV_RST|FIFO_XMT_RST;
+			uint8_t lcr;
 
 			if (tp->t_ispeed <= 1200)
 				fifo |= FIFO_TRIGGER_1;

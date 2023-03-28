@@ -357,7 +357,7 @@ get_cmd (p)
   char *p;
 {
     char *q, buf[20], *t;
-    u_int32_t v;
+    uint32_t v;
     int i;
 
     *p = '\0';
@@ -573,7 +573,7 @@ cmd_hi (ac, av)
      char           *av[];
 {
     int             i, n, l;
-    u_int32_t	    siz;
+    uint32_t	    siz;
 
     if (ac == 2) {
 	if (!get_rsa (&siz, av[1]))

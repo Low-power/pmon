@@ -180,7 +180,7 @@ vsscanf (const char *buf, const char *s, va_list ap)
 		tmp[width] = '\0';
 		buf += width;
 		if (!noassign)
-		    atob (va_arg (ap, u_int32_t *), tmp, base);
+		    atob (va_arg (ap, uint32_t *), tmp, base);
 	    }
 	    if (!noassign)
 		count++;

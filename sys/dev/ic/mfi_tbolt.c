@@ -960,7 +960,7 @@ mfi_tbolt_build_io(struct mfi_softc *sc, struct mfi_command *mfi_cmd,
 	uint32_t sge_count;
 	uint8_t cdb_len;
 	int readop;
-	u_int64_t lba;
+	uint64_t lba;
 
 struct scsi_xfer *xs = mfi_cmd->cm_private;
 	io_request = cmd->io_request;

@@ -55,13 +55,13 @@
 #undef DEBUG
 #undef DEBUG_DR
 
-int siop_find_lun0_quirks __P((struct siop_softc *, u_int8_t, u_int16_t));
+int siop_find_lun0_quirks __P((struct siop_softc *, uint8_t, uint16_t));
 
 void
 siop_common_reset(sc)
 	struct siop_softc *sc;
 {
-	u_int32_t stest3;
+	uint32_t stest3;
 
 	/* reset the chip */
 	bus_space_write_1(sc->sc_rt, sc->sc_rh, SIOP_ISTAT, ISTAT_SRST);
@@ -129,8 +129,8 @@ siop_common_reset(sc)
 int
 siop_find_lun0_quirks(sc, bus, target)
 	struct siop_softc *sc;
-	u_int8_t bus;
-	u_int16_t target;
+	uint8_t bus;
+	uint16_t target;
 {
 	struct scsi_link *sc_link;
 	struct device *dev;
@@ -489,7 +489,7 @@ siop_ppr_msg(siop_cmd, offset, ssync, soff)
 	int offset, ssync, soff;
 {
 	struct siop_softc *sc = siop_cmd->siop_sc;
-	u_int8_t protocol;
+	uint8_t protocol;
 
 	siop_cmd->siop_tables.msg_out[offset + 0] = MSG_EXTENDED;
 	siop_cmd->siop_tables.msg_out[offset + 1] = MSG_EXT_PPR_LEN;
@@ -732,7 +732,7 @@ siop_print_info(sc, target)
         int target;
 {
 	struct siop_target *siop_target;
-	u_int8_t scf, offset;
+	uint8_t scf, offset;
 	int scf_index, factors, i;
 
 	siop_target = sc->targets[target];

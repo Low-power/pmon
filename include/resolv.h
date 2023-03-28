@@ -122,7 +122,7 @@ struct __res_state {
 	char	unused[3];
 	struct {
 		struct in_addr	addr;
-		u_int32_t	mask;
+		uint32_t	mask;
 	} sort_list[MAXRESOLVSORT];
 	char    lookups[MAXDNSLUS];
 	char	pad[68];		/* on an i386 this means 512b total */
@@ -261,10 +261,10 @@ void		fp_resstat __P((struct __res_state *, FILE *));
 void		fp_query __P((const u_char *, FILE *));
 void		fp_nquery __P((const u_char *, int, FILE *));
 const char *	hostalias __P((const char *));
-void		putlong __P((u_int32_t, u_char *));
-void		putshort __P((u_int16_t, u_char *));
+void		putlong __P((uint32_t, u_char *));
+void		putshort __P((uint16_t, u_char *));
 const char *	p_class __P((int));
-const char *	p_time __P((u_int32_t));
+const char *	p_time __P((uint32_t));
 const char *	p_type __P((int));
 void		p_query __P((const u_char *));
 const u_char *	p_cdnname __P((const u_char *, const u_char *, int, FILE *));

@@ -350,10 +350,10 @@ tcp_respond(tp, template, m, ack, seq, flags)
 #endif /* INET6 */
 		{
 			m->m_len = sizeof (struct tcpiphdr);
-			xchg(ti->ti_dst.s_addr, ti->ti_src.s_addr, u_int32_t);
+			xchg(ti->ti_dst.s_addr, ti->ti_src.s_addr, uint32_t);
 			th = (void *)ti + sizeof(struct ip);
 		}
-		xchg(th->th_dport, th->th_sport, u_int16_t);
+		xchg(th->th_dport, th->th_sport, uint16_t);
 #undef xchg
 	}
 #ifdef INET6
@@ -363,7 +363,7 @@ tcp_respond(tp, template, m, ack, seq, flags)
 	} else
 #endif /* INET6 */
 	{
-		ti->ti_len = htons((u_int16_t)(sizeof (struct tcphdr) + tlen));
+		ti->ti_len = htons((uint16_t)(sizeof (struct tcphdr) + tlen));
 		tlen += sizeof (struct tcpiphdr);
 		th = (struct tcphdr *)((caddr_t)ti + sizeof(struct ip));
 	}
@@ -380,7 +380,7 @@ tcp_respond(tp, template, m, ack, seq, flags)
 		win >>= tp->rcv_scale;
 	if (win > TCP_MAXWIN)
 		win = TCP_MAXWIN;
-	th->th_win = htons((u_int16_t)win);
+	th->th_win = htons((uint16_t)win);
 	th->th_urp = 0;
 
 #ifdef INET6

@@ -57,61 +57,61 @@
 /* Where PCI devices sees CPU memory. */
 #define	MPC106_PCI_CPUMEM	0x80000000
 
-static __inline void mpc_cfg_write_1 __P((u_int32_t reg, u_int8_t val));
+static __inline void mpc_cfg_write_1 __P((uint32_t reg, uint8_t val));
 static __inline void
 mpc_cfg_write_1(reg, val)
-	u_int32_t reg;
-	u_int8_t val;
+	uint32_t reg;
+	uint8_t val;
 {
 	out32(MPC106_CONF_BASE, MPC106_REGOFFS(reg));
 	outb(MPC106_CONF_DATA + (reg & 3), val);
 }
 
-static __inline void mpc_cfg_write_2 __P((u_int32_t reg, u_int16_t val));
+static __inline void mpc_cfg_write_2 __P((uint32_t reg, uint16_t val));
 static __inline void
 mpc_cfg_write_2(reg, val)
-	u_int32_t reg;
-	u_int16_t val;
+	uint32_t reg;
+	uint16_t val;
 {
-        u_int32_t _p_ = MPC106_CONF_DATA + (reg & 2);
+        uint32_t _p_ = MPC106_CONF_DATA + (reg & 2);
 
 	out32(MPC106_CONF_BASE, MPC106_REGOFFS(reg));
 	__asm__ volatile("sthbrx %0, 0, %1\n" :: "r"(val), "r"(_p_));
 	__asm__ volatile("sync"); __asm__ volatile("eieio");
 }
 
-static __inline void mpc_cfg_write_4 __P((u_int32_t reg, u_int32_t val));
+static __inline void mpc_cfg_write_4 __P((uint32_t reg, uint32_t val));
 static __inline void
 mpc_cfg_write_4(reg, val)
-	u_int32_t reg;
-	u_int32_t val;
+	uint32_t reg;
+	uint32_t val;
 {
-        u_int32_t _p_ = MPC106_CONF_DATA;
+        uint32_t _p_ = MPC106_CONF_DATA;
 
 	out32(MPC106_CONF_BASE, MPC106_REGOFFS(reg));
 	__asm__ volatile("stwbrx %0, 0, %1\n" :: "r"(val), "r"(_p_));
 	__asm__ volatile("sync"); __asm__ volatile("eieio");
 }
 
-static __inline u_int8_t mpc_cfg_read_1 __P((u_int32_t reg));
-static __inline u_int8_t
+static __inline uint8_t mpc_cfg_read_1 __P((uint32_t reg));
+static __inline uint8_t
 mpc_cfg_read_1(reg)
-	u_int32_t reg;
+	uint32_t reg;
 {
-	u_int8_t _v_;
+	uint8_t _v_;
 
 	out32(MPC106_CONF_BASE, MPC106_REGOFFS(reg));
 	_v_ = inb(MPC106_CONF_DATA);
 	return(_v_);
 }
 
-static __inline u_int16_t mpc_cfg_read_2 __P((u_int32_t reg));
-static __inline u_int16_t
+static __inline uint16_t mpc_cfg_read_2 __P((uint32_t reg));
+static __inline uint16_t
 mpc_cfg_read_2(reg)
-	u_int32_t reg;
+	uint32_t reg;
 {
-	u_int16_t _v_;
-        u_int32_t _p_ = MPC106_CONF_DATA + (reg & 2);
+	uint16_t _v_;
+        uint32_t _p_ = MPC106_CONF_DATA + (reg & 2);
 
 	out32(MPC106_CONF_BASE, MPC106_REGOFFS(reg));
 	__asm__ volatile("lhbrx %0, 0, %1\n" : "=r"(_v_) : "r"(_p_));
@@ -119,13 +119,13 @@ mpc_cfg_read_2(reg)
 	return(_v_);
 }
 
-static __inline u_int32_t mpc_cfg_read_4 __P((u_int32_t reg));
-static __inline u_int32_t
+static __inline uint32_t mpc_cfg_read_4 __P((uint32_t reg));
+static __inline uint32_t
 mpc_cfg_read_4(reg)
-	u_int32_t reg;
+	uint32_t reg;
 {
-	u_int32_t _v_;
-        u_int32_t _p_ = MPC106_CONF_DATA;
+	uint32_t _v_;
+        uint32_t _p_ = MPC106_CONF_DATA;
 
 	out32(MPC106_CONF_BASE, MPC106_REGOFFS(reg));
 	__asm__ volatile("lwbrx %0, 0, %1\n" : "=r"(_v_) : "r"(_p_));

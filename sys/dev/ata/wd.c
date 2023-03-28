@@ -248,7 +248,7 @@ void  wdstrategy	__P((struct buf *));
 void  wdstart	__P((void *));
 void  __wdstart	__P((struct wd_softc*, struct buf *));
 void  wdrestart __P((void*));
-int   wd_get_params __P((struct wd_softc *, u_int8_t, struct ataparams *));
+int   wd_get_params __P((struct wd_softc *, uint8_t, struct ataparams *));
 void  wd_flushcache __P((struct wd_softc *, int));
 void  wd_shutdown __P((void*));
 
@@ -1424,7 +1424,7 @@ bad144intern(wd)
 int
 wd_get_params(wd, flags, params)
 	struct wd_softc *wd;
-	u_int8_t flags;
+	uint8_t flags;
 	struct ataparams *params;
 {
 	switch (ata_get_params(wd->drvp, flags, params)) {

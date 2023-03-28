@@ -97,7 +97,7 @@ extern int _pciverbose;
 /* Prototypes */
 static int gt_match 		(struct device *, void *, void *);
 void gt_attach 			(struct device *, struct device *, void *);
-static void abort 		(struct gt_softc *, u_int32_t);
+static void abort 		(struct gt_softc *, uint32_t);
 static void reset_tx 		(struct gt_softc *);
 static void reset_rx 		(struct gt_softc *);
 static int gt_ioctl 		(struct ifnet *, u_long, caddr_t);
@@ -107,7 +107,7 @@ static void gt_stop 		(struct gt_softc *, int);
 static void gt_watchdog 	(struct ifnet *);
 static int gt_add_rfabuf 	(struct gt_softc *, struct mbuf **);
 static int gt_intr 		(void *);
-static int gt_rx		(struct gt_softc *, u_int32_t);
+static int gt_rx		(struct gt_softc *, uint32_t);
 static void read_mib_counters 	(struct gt_softc *);
 int gt_miibus_readreg(void *, int, int);
 int gt_miibus_writereg(void *, int, int, int);
@@ -118,7 +118,7 @@ int initAddressTable 	(int, int, int, int);
 int addAddressTableEntry (int, uint, uint, uint, uint);
 
 /* Compensate for lack of a generic ether_ioctl() */
-static int      gt_ether_ioctl (struct ifnet *, u_int32_t, caddr_t);
+static int      gt_ether_ioctl (struct ifnet *, uint32_t, caddr_t);
 #define ether_ioctl     gt_ether_ioctl
 
 struct cfattach gt_ca = {                              
@@ -154,7 +154,7 @@ gt_attach (parent, self, aux)
     struct gt_softc *sc = (struct gt_softc *)self;
     struct confargs *cf = aux;
     struct ifnet *ifp;
-    u_int32_t macH, macL;
+    uint32_t macH, macL;
     int i, isrmii;
 
     ifp = &sc->arpcom.ac_if;
@@ -289,7 +289,7 @@ gt_start(ifp)
     struct ifnet *ifp;
 {
     struct gt_softc *sc = ifp->if_softc;
-    u_int16_t total_len;
+    uint16_t total_len;
     char *p;
 
    /*
@@ -303,7 +303,7 @@ gt_start(ifp)
 
     while (ifp->if_snd.ifq_head != NULL) {
         struct mbuf *m, *mb_head;
-        u_int32_t nextTx;
+        uint32_t nextTx;
 
         /*
          *  Grab a packet to transmit.
@@ -370,7 +370,7 @@ gt_stop(struct gt_softc *sc, int drain)
 }
 
 static void
-abort(struct gt_softc *sc, u_int32_t abort_bits)
+abort(struct gt_softc *sc, uint32_t abort_bits)
 {
     /* Return if neither Rx or Tx abort bits are set */
     if (!(abort_bits & (sdcmrAR | sdcmrAT)))
@@ -409,8 +409,8 @@ reset_tx(struct gt_softc *sc)
     for (i=0; i < TX_RING_SIZE; i++) {
 	sc->tx_ring[i].cmdstat  = 0; /* CPU owns */
 	sc->tx_ring[i].byte_cnt_res = 0;
-	sc->tx_ring[i].buff_ptr = (u_int32_t)VA_TO_PA(sc->tx_bp+i*TX_BUF_SZ);
-	sc->tx_ring[i].next     = (u_int32_t)VA_TO_PA(sc->tx_ring + (i+1));
+	sc->tx_ring[i].buff_ptr = (uint32_t)VA_TO_PA(sc->tx_bp+i*TX_BUF_SZ);
+	sc->tx_ring[i].next     = (uint32_t)VA_TO_PA(sc->tx_ring + (i+1));
     }
 
     /* Wrap the ring. */
@@ -579,7 +579,7 @@ gt_init(xsc)
 static int
 gt_ether_ioctl(ifp, cmd, data)
         struct ifnet *ifp;
-        u_int32_t cmd;
+        uint32_t cmd;
         caddr_t data;
 {
         struct ifaddr *ifa = (struct ifaddr *) data;
@@ -686,20 +686,20 @@ gt_intr(arg)
 }
 
 static int
-gt_rx(struct gt_softc *sc, u_int32_t status)
+gt_rx(struct gt_softc *sc, uint32_t status)
 {
     struct ifnet *ifp = &sc->arpcom.ac_if;
     struct mbuf *m;
     int nextRx, cdp;
     RX_DESC *rd;
-    u_int32_t cmdstat;
-    u_int16_t total_len;
+    uint32_t cmdstat;
+    uint16_t total_len;
 
     /*
      *  Determine index to current descriptor
      */
     cdp = (GTETH_READ(sc, ETH0_CURRENT_RX_DESC_PTR0)
-           - (u_int32_t)sc->rx_ring) / sizeof(RX_DESC);
+           - (uint32_t)sc->rx_ring) / sizeof(RX_DESC);
 
     /* 
      *  Process to current descriptor
@@ -709,20 +709,20 @@ gt_rx(struct gt_softc *sc, u_int32_t status)
 
         rd = &sc->rx_ring[nextRx];
 	CACHESYNC(rd, sizeof(RX_DESC), SYNC_R);
-        cmdstat = (u_int32_t)rd->cmdstat;
+        cmdstat = (uint32_t)rd->cmdstat;
 
 	/* 
          *  Bail if gt owns descriptor.  This is the workaround for
          *  not relying on the icr register.
          */
-        if (cmdstat & (u_int32_t)rxOwn) {
+        if (cmdstat & (uint32_t)rxOwn) {
             break;
 	}
 
         /* 
          *  Must be first and last (ie only) buffer of packet
          */
-        if (!(cmdstat & (u_int32_t)rxFirst) || !(cmdstat & (u_int32_t)rxLast)) {
+        if (!(cmdstat & (uint32_t)rxFirst) || !(cmdstat & (uint32_t)rxLast)) {
             printf("%s: descriptor not first and last!\n", sc->sc_dev.dv_xname);
             goto next;
         }
@@ -730,7 +730,7 @@ gt_rx(struct gt_softc *sc, u_int32_t status)
         /* 
          *  Drop this packet if there were any errors
          */
-        if ((cmdstat & (u_int32_t)rxErrorSummary) || (status & icrRxError)) {
+        if ((cmdstat & (uint32_t)rxErrorSummary) || (status & icrRxError)) {
 #ifdef DEBUG_GT
             printf("%s: dropped packet %p:%p\n",
 		sc->sc_dev.dv_xname, cmdstat, status);
@@ -790,7 +790,7 @@ next:
 	/* 
          *  Release ownership to device, set first and last, enable interrupt
          */
-	rd->cmdstat = (u_int32_t)(rxFirst | rxLast | rxOwn | rxEI);
+	rd->cmdstat = (uint32_t)(rxFirst | rxLast | rxOwn | rxEI);
 	CACHESYNC(rd, sizeof(RX_DESC), SYNC_W);
     }
     sc->rx_next_out = nextRx;
@@ -857,11 +857,11 @@ void
 read_mib_counters (sc)
     struct gt_softc *sc;
 {
-    u_int32_t *mib_reg = (u_int32_t *)&sc->mib;
+    uint32_t *mib_reg = (uint32_t *)&sc->mib;
     int i;
 
-    for (i=0; i<sizeof(mib_counters_t)/sizeof(u_int32_t); i++) {
-        mib_reg[i] = GTETH_READ(sc, ETH0_MIB_COUNTER_BASE + i*sizeof(u_int32_t));
+    for (i=0; i<sizeof(mib_counters_t)/sizeof(uint32_t); i++) {
+        mib_reg[i] = GTETH_READ(sc, ETH0_MIB_COUNTER_BASE + i*sizeof(uint32_t));
     }
 }
 
@@ -873,7 +873,7 @@ gt_miibus_readreg(arg, phy, reg)
 {
 	struct gt_softc *sc = (struct gt_softc *)arg;
 	unsigned int data = 0;
-	u_int32_t phyreg;
+	uint32_t phyreg;
 
 	phyreg = GT_READ(ETH_PHY_ADDR_REG);
 
@@ -905,7 +905,7 @@ gt_miibus_writereg(arg, phy, reg, data)
 	int data;
 {
 	struct gt_softc *sc = (struct gt_softc *)arg;
-	u_int32_t phyreg;
+	uint32_t phyreg;
 
 	phyreg = GT_READ(ETH_PHY_ADDR_REG);
 
@@ -952,7 +952,7 @@ unsigned int addressTableBase[NUM_ETH_PORTS];
 */
 int initAddressTable(int port,int hashMode,int hashSize,int hashDefaultMode)
 {
-u_int32_t portControlReg;
+uint32_t portControlReg;
 unsigned int hashLengh[NUM_ETH_PORTS];
 
     hashLengh[0] = EIGHT_K; 
@@ -1165,7 +1165,7 @@ unsigned int ethernetAddLSwapped = 0;
 */
 boolean_t enableFiltering(int port)
 {
-u_int32_t portControlReg;
+uint32_t portControlReg;
 
     portControlReg = GT_READ(ETH0_PORT_CONFIG_REG+port*ETHERNET_PORTS_DIFFERENCE_OFFSETS);
 
@@ -1193,7 +1193,7 @@ u_int32_t portControlReg;
 */
 boolean_t disableFiltering(int port)
 {
-u_int32_t portControlReg;
+uint32_t portControlReg;
 
     portControlReg = GT_READ(ETH0_PORT_CONFIG_REG+port*ETHERNET_PORTS_DIFFERENCE_OFFSETS);
 
@@ -1315,15 +1315,15 @@ unsigned int firstEntry;
 boolean_t addressTableDefragment(int port,int hashMode,int hashSize,int hashDefaultMode)
 {
 ADDRESS_TABLE_STORE addresses[MAX_NUMBER_OF_ADDRESSES_TO_STORE];
-u_int32_t numberOfAddresses = 0;
-u_int32_t entry;
-u_int32_t endTable;
-u_int32_t addressLowRead;
-u_int32_t addressHighRead;
-u_int32_t addressLowValue;
-u_int32_t addressHighValue;
-u_int32_t hashLengh[NUM_ETH_PORTS];
-u_int32_t portControlReg;
+uint32_t numberOfAddresses = 0;
+uint32_t entry;
+uint32_t endTable;
+uint32_t addressLowRead;
+uint32_t addressHighRead;
+uint32_t addressLowValue;
+uint32_t addressHighValue;
+uint32_t hashLengh[NUM_ETH_PORTS];
+uint32_t portControlReg;
 int i;
 
     hashLengh[0] = EIGHT_K; 

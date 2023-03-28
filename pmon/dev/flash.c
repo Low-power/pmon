@@ -65,7 +65,7 @@ extern void delay __P((int));
 static quad_t widedata;
 
 #define	SETWIDE(x) do {						\
-			u_int32_t __a = x;			\
+			uint32_t __a = x;			\
 			__a |= __a << 8;			\
 			__a |= __a << 16;			\
 			widedata = (quad_t)__a << 32 | __a;	\
@@ -244,8 +244,8 @@ fl_find_map(void *base)
 {
 	struct fl_map *map;
 	for(map = tgt_flashmap(); map->fl_map_size != 0; map++) {
-		if(map->fl_map_base > (u_int32_t)base ||
-		   (map->fl_map_base + map->fl_map_size - 1) < (u_int32_t)base) {
+		if(map->fl_map_base > (uint32_t)base ||
+		   (map->fl_map_base + map->fl_map_size - 1) < (uint32_t)base) {
 			continue;	/* Not this one */
 		}
 		else {
@@ -365,7 +365,7 @@ int
 
 	dev = fl_devident(base, &map);
 	if(dev == NULL) {
-		printf("No flash found at %x\n",(u_int32_t)base);
+		printf("No flash found at %x\n",(uint32_t)base);
 		return(-3);	/* No flash device found at address */
 	}
 

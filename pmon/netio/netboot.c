@@ -225,7 +225,7 @@ net_boot (argc, argv)
 		case 'i':
 			flags |= IFLAG; break;
 		case 'f':
-			if (!get_rsa ((u_int32_t *)&flashaddr, optarg)) {
+			if (!get_rsa ((uint32_t *)&flashaddr, optarg)) {
 				err++;
 			}
 			flags |= FFLAG; break;
@@ -246,7 +246,7 @@ net_boot (argc, argv)
 		case 'k':
 			flags |= KFLAG; break;
 		case 'o':
-			if (!get_rsa ((u_int32_t *)&offset, optarg)) {
+			if (!get_rsa ((uint32_t *)&offset, optarg)) {
 				err++;
 			}
 			break;

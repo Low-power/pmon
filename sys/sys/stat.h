@@ -48,21 +48,21 @@
 
 #ifdef _KERNEL
 struct ostat {
-	u_int16_t st_dev;		/* inode's device */
+	uint16_t st_dev;		/* inode's device */
 	ino_t	  st_ino;		/* inode's number */
 	mode_t	  st_mode;		/* inode protection mode */
 	nlink_t	  st_nlink;		/* number of hard links */
-	u_int16_t st_uid;		/* user ID of the file's owner */
-	u_int16_t st_gid;		/* group ID of the file's group */
-	u_int16_t st_rdev;		/* device type */
+	uint16_t st_uid;		/* user ID of the file's owner */
+	uint16_t st_gid;		/* group ID of the file's group */
+	uint16_t st_rdev;		/* device type */
 	int32_t	  st_size;		/* file size, in bytes */
 	struct	timespec st_atimespec;	/* time of last access */
 	struct	timespec st_mtimespec;	/* time of last data modification */
 	struct	timespec st_ctimespec;	/* time of last file status change */
 	int32_t	  st_blksize;		/* optimal blocksize for I/O */
 	int32_t	  st_blocks;		/* blocks allocated for file */
-	u_int32_t st_flags;		/* user defined flags for file */
-	u_int32_t st_gen;		/* file generation number */
+	uint32_t st_flags;		/* user defined flags for file */
+	uint32_t st_gen;		/* file generation number */
 };
 #endif /* !_KERNEL */
 
@@ -88,9 +88,9 @@ struct stat {
 #endif
 	off_t	  st_size;		/* file size, in bytes */
 	int64_t	  st_blocks;		/* blocks allocated for file */
-	u_int32_t st_blksize;		/* optimal blocksize for I/O */
-	u_int32_t st_flags;		/* user defined flags for file */
-	u_int32_t st_gen;		/* file generation number */
+	uint32_t st_blksize;		/* optimal blocksize for I/O */
+	uint32_t st_flags;		/* user defined flags for file */
+	uint32_t st_gen;		/* file generation number */
 	int32_t	  st_lspare;
 	int64_t	  st_qspare[2];
 };

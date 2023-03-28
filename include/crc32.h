@@ -41,7 +41,7 @@ u_int	crc32_check(void *, size_t);
 #define	CRC32_ERR_CRC		-2
 #define	CRC32_ERR_SIG		-3
 
-int	crc32sig_check(const char *, u_int64_t, int);
+int	crc32sig_check(const char *, uint64_t, int);
 
 
 #endif /* __CRC32_H__ */

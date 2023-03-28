@@ -492,8 +492,8 @@ int	copykstack __P((struct user *));
 void	switch_exit __P((void));
 void	MipsSaveCurFPState __P((struct proc *));
 
-extern u_int32_t cpu_counter_interval;  /* Number of counter ticks/tick */
-extern u_int32_t cpu_counter_last;      /* Last compare value loaded    */
+extern uint32_t cpu_counter_interval;  /* Number of counter ticks/tick */
+extern uint32_t cpu_counter_last;      /* Last compare value loaded    */
 
 #else
 #ifndef _LOCORE

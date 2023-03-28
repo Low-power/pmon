@@ -52,9 +52,9 @@
 #include "mod_debugger.h"
 
 extern struct trapframe DBGREG;
-extern u_int32_t FPREG[];
+extern uint32_t FPREG[];
 extern int memorysize;
-extern u_int8_t end[];
+extern uint8_t end[];
 
 
 /*

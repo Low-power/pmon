@@ -187,15 +187,15 @@ static	struct ip_srcrt {
 
 static void save_rte __P((u_char *, struct in_addr));
 #ifndef PMON
-static int ip_weadvertise(u_int32_t);
+static int ip_weadvertise(uint32_t);
 #endif
 
 /*
  * IP initialization: fill in IP protocol switch table.
  * All protocols not implemented in kernel go to raw IP protocol handler.
  */
-const u_int16_t defbaddynamicports_tcp[] = DEFBADDYNAMICPORTS_TCP;
-const u_int16_t defbaddynamicports_udp[] = DEFBADDYNAMICPORTS_UDP;
+const uint16_t defbaddynamicports_tcp[] = DEFBADDYNAMICPORTS_TCP;
+const uint16_t defbaddynamicports_udp[] = DEFBADDYNAMICPORTS_UDP;
 void
 ip_init()
 {
@@ -203,8 +203,8 @@ ip_init()
 	register int i;
 #if 0
 
-	u_int16_t defbaddynamicports_tcp[7];
-	u_int16_t defbaddynamicports_udp[3];
+	uint16_t defbaddynamicports_tcp[7];
+	uint16_t defbaddynamicports_udp[3];
 	defbaddynamicports_tcp[0]=749;
 	defbaddynamicports_tcp[1]=750;
 	defbaddynamicports_tcp[2]=751;
@@ -216,8 +216,8 @@ ip_init()
 	defbaddynamicports_udp[1]=751;
 	defbaddynamicports_udp[2]=0;
 #else
-	const u_int16_t defbaddynamicports_tcp[] = DEFBADDYNAMICPORTS_TCP;
-	const u_int16_t defbaddynamicports_udp[] = DEFBADDYNAMICPORTS_UDP;
+	const uint16_t defbaddynamicports_tcp[] = DEFBADDYNAMICPORTS_TCP;
+	const uint16_t defbaddynamicports_udp[] = DEFBADDYNAMICPORTS_UDP;
 #endif
 	pr = pffindproto(PF_INET, IPPROTO_RAW, SOCK_RAW);
 	if (pr == 0)
@@ -1119,7 +1119,7 @@ save_rte(option, dst)
  */
 static int
 ip_weadvertise(addr)
-	u_int32_t addr;
+	uint32_t addr;
 {
 	register struct rtentry *rt;
 	register struct ifnet *ifp;
@@ -1359,7 +1359,7 @@ ip_forward(m, srcrt)
 		    code = ICMP_REDIRECT_HOST;
 #ifdef DIAGNOSTIC
 		    if (ipprintfs)
-			printf("redirect (%d) to %x\n", code, (u_int32_t)dest);
+			printf("redirect (%d) to %x\n", code, (uint32_t)dest);
 #endif
 		}
 	}

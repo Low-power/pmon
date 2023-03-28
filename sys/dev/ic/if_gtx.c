@@ -112,7 +112,7 @@ static void gtx_reset 		__P((struct gtx_softc *, int));
 static void gtx_watchdog 	__P((struct ifnet *));
 static int gtx_add_rfabuf 	__P((struct gtx_softc *, struct mbuf **));
 static int gtx_intr 		__P((void *));
-static int gtx_rx		__P((struct gtx_softc *, u_int32_t, u_int32_t));
+static int gtx_rx		__P((struct gtx_softc *, uint32_t, uint32_t));
 void gtx_read_mib_counters 	__P((struct gtx_softc *));
 void tgt_netstats 		__P((int));
 
@@ -126,7 +126,7 @@ static char *ocram = (char *)OC_SRAM_BASE;
 	ocram += ALIGN(size * sizeof(* what)); 
 
 /* Compensate for lack of a generic ether_ioctl() */
-static int      gtx_ether_ioctl __P((struct ifnet *, u_int32_t, caddr_t));
+static int      gtx_ether_ioctl __P((struct ifnet *, uint32_t, caddr_t));
 #define ether_ioctl     gtx_ether_ioctl
 
 /* MII access functions */
@@ -217,7 +217,7 @@ gtx_attach (parent, self, aux)
 	ocramalloc(sc->tx_buff, TX_RING_SIZE * TX_BUF_SZ);
 	ocramalloc(sc->rx_buff, RX_RING_SIZE * RX_BUF_SZ);
 #else
-	sc->tx_buff = (u_int8_t *)(malloc(TX_BUF_SZ*TX_RING_SIZE, 
+	sc->tx_buff = (uint8_t *)(malloc(TX_BUF_SZ*TX_RING_SIZE, 
                               M_DEVBUF, M_NOWAIT));
 #endif
 
@@ -298,7 +298,7 @@ gtx_start(ifp)
     struct ifnet *ifp;
 {
     struct gtx_softc *sc = ifp->if_softc;
-    u_int16_t total_len;
+    uint16_t total_len;
     char *p;
 
    /*
@@ -312,7 +312,7 @@ gtx_start(ifp)
 
     while (ifp->if_snd.ifq_head != NULL) {
         struct mbuf *m, *mb_head;
-        u_int32_t nextTx;
+        uint32_t nextTx;
 
         /*
          *  Grab a packet to transmit.
@@ -368,8 +368,8 @@ gtx_start(ifp)
 void
 gtx_reset(struct gtx_softc *sc, int drain)
 {
-	u_int32_t status;
-	u_int32_t das, dao;
+	uint32_t status;
+	uint32_t das, dao;
 	int index;
 
 	status = GT_READ(ETH_TRANSMIT_QUEUE_COMMAND_REG(sc->sc_port)) << 8;
@@ -437,13 +437,13 @@ reset_tx(struct gtx_softc *sc)
 		txp = &sc->tx_ring[i];
 		txp->cmdstat  = 0; /* CPU owns */
 		txp->byte_cnt = 0;
-		txp->next     = (u_int32_t)OCRAM_TO_PA(sc->tx_ring + (i+1));
+		txp->next     = (uint32_t)OCRAM_TO_PA(sc->tx_ring + (i+1));
 #if defined JAGUAR_ATX
 		txp->vbuff_ptr = (char *)(sc->tx_buff + (i * TX_BUF_SZ));
-		txp->buff_ptr = (u_int32_t)OCRAM_TO_PA(txp->vbuff_ptr);
+		txp->buff_ptr = (uint32_t)OCRAM_TO_PA(txp->vbuff_ptr);
 #else
 		txp->vbuff_ptr = (char *)(sc->tx_buff + (i * TX_BUF_SZ));
-		txp->buff_ptr = (u_int32_t)VA_TO_PA(txp->vbuff_ptr);
+		txp->buff_ptr = (uint32_t)VA_TO_PA(txp->vbuff_ptr);
 #endif
 		CACHESYNC(txp, sizeof(TX_DESC), SYNC_W);
 	}
@@ -586,7 +586,7 @@ gtx_init(xsc)
 static int
 gtx_ether_ioctl(ifp, cmd, data)
         struct ifnet *ifp;
-        u_int32_t cmd;
+        uint32_t cmd;
         caddr_t data;
 {
         struct ifaddr *ifa = (struct ifaddr *) data;
@@ -638,7 +638,7 @@ gtx_intr(arg)
 {
 	struct gtx_softc *sc = arg;
 	struct ifnet *ifp = &sc->arpcom.ac_if;
-	u_int32_t icr, xicr;
+	uint32_t icr, xicr;
 
 	/* Read Interrupt Cause Register and ACK interrupts */
 	icr = GT_READ(ETH_INTERRUPT_CAUSE_REG(sc->sc_port));
@@ -680,14 +680,14 @@ gtx_intr(arg)
 }
 
 static int
-gtx_rx(struct gtx_softc *sc, u_int32_t status, u_int32_t xstatus)
+gtx_rx(struct gtx_softc *sc, uint32_t status, uint32_t xstatus)
 {
 	struct ifnet *ifp = &sc->arpcom.ac_if;
 	struct mbuf *m;
 	int nextRx;
 	RX_DESC *rd;
-	u_int32_t cmdstat;
-	u_int16_t total_len;
+	uint32_t cmdstat;
+	uint16_t total_len;
 
 	/* 
 	 *  Process to current descriptor
@@ -696,7 +696,7 @@ gtx_rx(struct gtx_softc *sc, u_int32_t status, u_int32_t xstatus)
 
 		/* This is the only place where we touch rx descriptors */
 		rd = &sc->rx_ring[nextRx];
-		cmdstat = (u_int32_t)rd->cmdstat;
+		cmdstat = (uint32_t)rd->cmdstat;
 
 		/* 
 		 *  Bail if gt owns descriptor.  This is the workaround for
@@ -850,11 +850,11 @@ gtx_read_mib_counters (sc)
     struct gtx_softc *sc;
 {
 #if 0
-    u_int32_t *mib_reg = (u_int32_t *)&sc->mib;
+    uint32_t *mib_reg = (uint32_t *)&sc->mib;
     int i;
 
-    for (i=0; i<sizeof(mib_counters_t)/sizeof(u_int32_t); i++) {
-        mib_reg[i] = GTETH_READ(sc, ETH0_MIB_COUNTER_BASE + i*sizeof(u_int32_t));
+    for (i=0; i<sizeof(mib_counters_t)/sizeof(uint32_t); i++) {
+        mib_reg[i] = GTETH_READ(sc, ETH0_MIB_COUNTER_BASE + i*sizeof(uint32_t));
     }
 #endif
 }

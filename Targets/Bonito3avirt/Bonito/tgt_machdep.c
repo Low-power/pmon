@@ -760,7 +760,7 @@ tgt_mapenv(int (*func) __P((char *, char *)))
                 }
         }
 
-	printf("NVRAM@%x\n",(u_int32_t)nvram);
+	printf("NVRAM@%x\n",(uint32_t)nvram);
 
 #ifndef NVRAM_IN_FLASH
 	free(nvram);
@@ -1031,8 +1031,8 @@ tgt_setenv(char *name, char *value)
 static int
 cksum(void *p, size_t s, int set)
 {
-	u_int16_t sum = 0;
-	u_int8_t *sp = p;
+	uint16_t sum = 0;
+	uint8_t *sp = p;
 	int sz = s / 2;
 
 	if(set) {
@@ -1045,8 +1045,8 @@ cksum(void *p, size_t s, int set)
 	}
 	if(set) {
 		sum = -sum;
-		*(u_int8_t *)p = sum >> 8;
-		*((u_int8_t *)p+1) = sum;
+		*(uint8_t *)p = sum >> 8;
+		*((uint8_t *)p+1) = sum;
 	}
 	return(sum);
 }

@@ -83,10 +83,10 @@ int	arpt_down = 20;		/* once declared down, don't send for 20 secs */
 #define	rt_expire rt_rmx.rmx_expire
 
 static	void arprequest
-	    __P((struct arpcom *, u_int32_t *, u_int32_t *, u_int8_t *));
+	    __P((struct arpcom *, uint32_t *, uint32_t *, uint8_t *));
 static	void arptfree __P((struct llinfo_arp *));
 static	void arptimer __P((void *));
-static	struct llinfo_arp *arplookup __P((u_int32_t, int, int));
+static	struct llinfo_arp *arplookup __P((uint32_t, int, int));
 static	void in_arpinput __P((struct mbuf *));
 
 extern	struct ifnet loif;
@@ -104,11 +104,11 @@ static int revarp_in_progress = 0;
 struct ifnet *myip_ifp = NULL;
 
 static void arptimer __P((void *));
-static void arprequest __P((struct arpcom *, u_int32_t *, u_int32_t *,
-			    u_int8_t *));
+static void arprequest __P((struct arpcom *, uint32_t *, uint32_t *,
+			    uint8_t *));
 static void in_arpinput __P((struct mbuf *));
 static void arptfree __P((struct llinfo_arp *));
-static struct llinfo_arp *arplookup __P((u_int32_t, int, int ));
+static struct llinfo_arp *arplookup __P((uint32_t, int, int ));
 #ifdef DDB
 #include <vm/vm.h>
 
@@ -271,8 +271,8 @@ arp_rtrequest(req, rt, sa)
 static void
 arprequest(ac, sip, tip, enaddr)
 	register struct arpcom *ac;
-	register u_int32_t *sip, *tip;
-	register u_int8_t *enaddr;
+	register uint32_t *sip, *tip;
+	register uint8_t *enaddr;
 {
 	register struct mbuf *m;
 	register struct ether_header *eh;
@@ -600,7 +600,7 @@ arptfree(la)
  */
 static struct llinfo_arp *
 arplookup(addr, create, proxy)
-	u_int32_t addr;
+	uint32_t addr;
 	int create, proxy;
 {
 	register struct rtentry *rt;

@@ -55,9 +55,9 @@ struct cmdline_mtd_partition {
 };
 struct mtd_partition {
 	char *name;			/* identifier string */
-	u_int32_t size;			/* partition size */
-	u_int32_t offset;		/* offset within the master MTD space */
-	u_int32_t mask_flags;		/* master MTD flags to mask out for this partition */
+	uint32_t size;			/* partition size */
+	uint32_t offset;		/* offset within the master MTD space */
+	uint32_t mask_flags;		/* master MTD flags to mask out for this partition */
 	struct nand_ecclayout *ecclayout;	/* out of band layout for this partition (NAND only)*/
 	struct mtd_info **mtdp;		/* pointer to store the MTD object */
 };

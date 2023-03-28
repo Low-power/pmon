@@ -46,22 +46,22 @@
 
 typedef union {
 	struct {
-	u_int32_t TULIP_BITFIELD3(bd_length1 : 11,
+	uint32_t TULIP_BITFIELD3(bd_length1 : 11,
 			          bd_length2 : 11,
 			          bd_flag : 10);
 	}s;
-	u_int32_t f;
+	uint32_t f;
 } tulip_desc_bitfield_t;
 #define bd_length1 s.bd_length1
 #define bd_length2 s.bd_length2
 #define bd_flag    s.bd_flag
 typedef struct {
-    u_int32_t d_status;
+    uint32_t d_status;
     tulip_desc_bitfield_t u;
-    u_int32_t d_addr1;
-    u_int32_t d_addr2;
+    uint32_t d_addr1;
+    uint32_t d_addr2;
 #ifdef powerpc
-    u_int32_t fill[4];		/* Make descr. 32 bytes avoiding MPC106 bug! */
+    uint32_t fill[4];		/* Make descr. 32 bytes avoiding MPC106 bug! */
 #endif
 } tulip_desc_t;
 
@@ -588,16 +588,16 @@ typedef struct {
  */
 
 typedef struct {
-    u_int8_t sh_idbuf[18];
-    u_int8_t sh_version;
-    u_int8_t sh_adapter_count;
-    u_int8_t sh_ieee802_address[6];
+    uint8_t sh_idbuf[18];
+    uint8_t sh_version;
+    uint8_t sh_adapter_count;
+    uint8_t sh_ieee802_address[6];
 } tulip_srom_header_t;
 
 typedef struct {
-    u_int8_t sai_device;
-    u_int8_t sai_leaf_offset_lowbyte;
-    u_int8_t sai_leaf_offset_highbyte;
+    uint8_t sai_device;
+    uint8_t sai_leaf_offset_lowbyte;
+    uint8_t sai_leaf_offset_highbyte;
 } tulip_srom_adapter_info_t;
 
 typedef enum {

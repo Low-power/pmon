@@ -60,9 +60,9 @@ cmd_flash(ac, av)
 	int	c;
 	int	opt_erase = 0;
 	int	opt_verify = 0;
-	u_int32_t base_addr;
-	u_int32_t offset = -1;
-	u_int32_t flashsize = -1;
+	uint32_t base_addr;
+	uint32_t offset = -1;
+	uint32_t flashsize = -1;
 
 	if(tgt_flashwrite_enable() == 0) {
 		printf("FLASH can't be write enabled by PMON2000. Please\n");
@@ -94,7 +94,7 @@ cmd_flash(ac, av)
 
 #ifdef PFLASH_PAGED_FLASH
 		case 'p':
-			if (!get_rsa ((u_int32_t *)&page, optarg) || 
+			if (!get_rsa ((uint32_t *)&page, optarg) || 
 			    tgt_flashsetpageno(page) != 0) {
 				printf("Invalid page number\n");
 				return 0;

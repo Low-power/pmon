@@ -89,13 +89,13 @@ static inline long IS_ERR(const void *ptr)
 #define min_t(type,x,y) ({ type __x = (x); type __y = (y); __x < __y ? __x: __y; })
 
 struct erase_info_user {
-	u_int32_t start;
-	u_int32_t length;
+	uint32_t start;
+	uint32_t length;
 };
 
 struct mtd_oob_buf {
-	u_int32_t start;
-	u_int32_t length;
+	uint32_t start;
+	uint32_t length;
 	unsigned char *ptr;
 };
 
@@ -142,22 +142,22 @@ struct mtd_oob_buf {
 
 struct mtd_info_user {
 	u_char type;
-	u_int32_t flags;
-	u_int32_t size;	 // Total size of the MTD
-	u_int32_t erasesize;
-	u_int32_t writesieze; //added by zw
-	u_int32_t oobblock;  // Size of OOB blocks (e.g. 512)
-	u_int32_t oobsize;   // Amount of OOB data per block (e.g. 16)
-	u_int32_t ecctype;
-	u_int32_t eccsize;
+	uint32_t flags;
+	uint32_t size;	 // Total size of the MTD
+	uint32_t erasesize;
+	uint32_t writesieze; //added by zw
+	uint32_t oobblock;  // Size of OOB blocks (e.g. 512)
+	uint32_t oobsize;   // Amount of OOB data per block (e.g. 16)
+	uint32_t ecctype;
+	uint32_t eccsize;
 };
 
 struct region_info_user {
-	u_int32_t offset;		/* At which this region starts, 
+	uint32_t offset;		/* At which this region starts, 
 					 * from the beginning of the MTD */
-	u_int32_t erasesize;		/* For this region */
-	u_int32_t numblocks;		/* Number of blocks in this region */
-	u_int32_t regionindex;
+	uint32_t erasesize;		/* For this region */
+	uint32_t numblocks;		/* Number of blocks in this region */
+	uint32_t regionindex;
 };
 
 #define MEMGETINFO              _IOR('M', 1, struct mtd_info_user)
@@ -179,9 +179,9 @@ struct region_info_user {
 
 struct erase_info {
 	struct mtd_info *mtd;
-	u_int32_t addr;
-	u_int32_t fail_addr;
-	u_int32_t len;
+	uint32_t addr;
+	uint32_t fail_addr;
+	uint32_t len;
 	u_long time;
 	u_long retries;
 	u_int dev;
@@ -193,9 +193,9 @@ struct erase_info {
 };
 
 struct mtd_erase_region_info {
-	u_int32_t offset;			/* At which this region starts, from the beginning of the MTD */
-	u_int32_t erasesize;		/* For this region */
-	u_int32_t numblocks;		/* Number of blocks of erasesize in this region */
+	uint32_t offset;			/* At which this region starts, from the beginning of the MTD */
+	uint32_t erasesize;		/* For this region */
+	uint32_t numblocks;		/* Number of blocks of erasesize in this region */
 	unsigned long *lockmap;//added by zw
 };
 
@@ -292,19 +292,19 @@ struct nand_ecclayout {
 
 struct mtd_info {
 	u_char type;
-	u_int32_t flags;
-	u_int64_t size;	 // Total size of the MTD
+	uint32_t flags;
+	uint64_t size;	 // Total size of the MTD
 
 	/* "Major" erase size for the device. Naïve users may take this
 	 * to be the only erase size available, or may use the more detailed
 	 * information below if they desire
 	 */
-	u_int32_t erasesize;
-	u_int32_t oobavail; //added by zw
-	u_int32_t oobblock;  // Size of OOB blocks (e.g. 512)
-	u_int32_t oobsize;   // Amount of OOB data per block (e.g. 16)
-	u_int32_t ecctype;
-	u_int32_t eccsize;
+	uint32_t erasesize;
+	uint32_t oobavail; //added by zw
+	uint32_t oobblock;  // Size of OOB blocks (e.g. 512)
+	uint32_t oobsize;   // Amount of OOB data per block (e.g. 16)
+	uint32_t ecctype;
+	uint32_t eccsize;
 
 	// Kernel-only stuff starts here.
 	char *name;
@@ -317,7 +317,7 @@ struct mtd_info {
 	struct mtd_erase_region_info *eraseregions; 
 
 	/* This really shouldn't be here. It can go away in 2.5 */
-	u_int32_t bank_size;
+	uint32_t bank_size;
 
 	struct module *module;
 
@@ -386,7 +386,7 @@ struct mtd_info {
 	/* ECC status information */
 	struct mtd_ecc_stats ecc_stats;
 	int subpage_sft;
-	u_int32_t writesize;
+	uint32_t writesize;
 	struct module *owner;
 	int usecount;
 

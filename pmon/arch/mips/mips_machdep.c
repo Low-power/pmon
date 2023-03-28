@@ -70,12 +70,12 @@ void clearbss __P((void));
 void clearbss(void)
 {
 	u_int count;
-	u_int64_t *rdata;
+	uint64_t *rdata;
 	/*
 	 *  Clear BSS.
 	 */
-	rdata = (u_int64_t *)CACHED_TO_UNCACHED(edata);
-	rdata = (u_int64_t *)edata;
+	rdata = (uint64_t *)CACHED_TO_UNCACHED(edata);
+	rdata = (uint64_t *)edata;
 	while((int)rdata & (sizeof(*rdata) - 1)) {
 		*((char *)rdata) = 0;
 		rdata = (char *)rdata + 1;
@@ -90,13 +90,13 @@ int
 copytoram(void *rom, void *ram)
 {
 	u_int count;
-	u_int64_t *rdata, *pdata;
+	uint64_t *rdata, *pdata;
 
 	/*
 	 *  Copy ROM to RAM memory. 
 	 */
-	pdata = (u_int64_t *)rom;
-	rdata = (u_int64_t *)CACHED_TO_UNCACHED(ram);
+	pdata = (uint64_t *)rom;
+	rdata = (uint64_t *)CACHED_TO_UNCACHED(ram);
 	count = CACHED_TO_PHYS(end) - CACHED_TO_PHYS(ram);
 	while(count > 0) {
 		*rdata++ = *pdata++;
@@ -106,8 +106,8 @@ copytoram(void *rom, void *ram)
 	/*
 	 *  Verify copy ROM to RAM memory. 
 	 */
-	pdata = (u_int64_t *)rom;
-	rdata = (u_int64_t *)CACHED_TO_UNCACHED(ram);
+	pdata = (uint64_t *)rom;
+	rdata = (uint64_t *)CACHED_TO_UNCACHED(ram);
 	count = CACHED_TO_PHYS(end) - CACHED_TO_PHYS(ram);
 	while(count > 0) {
 		if(*rdata++ != *pdata++) {

@@ -57,25 +57,25 @@
 #include <machine/cpu.h>
 #include <scsi/scsi_debug.h>
 
-static __inline void _lto2b(u_int32_t val, u_int8_t *bytes);
-static __inline void _lto3b(u_int32_t val, u_int8_t *bytes);
-static __inline void _lto4b(u_int32_t val, u_int8_t *bytes);
-static __inline void _lto8b(u_int64_t val, u_int8_t *bytes);
-static __inline u_int32_t _2btol(u_int8_t *bytes);
-static __inline u_int32_t _3btol(u_int8_t *bytes);
-static __inline u_int32_t _4btol(u_int8_t *bytes);
-static __inline u_int64_t _5btol(u_int8_t *bytes);
-static __inline u_int64_t _8btol(u_int8_t *bytes);
+static __inline void _lto2b(uint32_t val, uint8_t *bytes);
+static __inline void _lto3b(uint32_t val, uint8_t *bytes);
+static __inline void _lto4b(uint32_t val, uint8_t *bytes);
+static __inline void _lto8b(uint64_t val, uint8_t *bytes);
+static __inline uint32_t _2btol(uint8_t *bytes);
+static __inline uint32_t _3btol(uint8_t *bytes);
+static __inline uint32_t _4btol(uint8_t *bytes);
+static __inline uint64_t _5btol(uint8_t *bytes);
+static __inline uint64_t _8btol(uint8_t *bytes);
 
-static __inline void _lto2l(u_int32_t val, u_int8_t *bytes);
-static __inline void _lto3l(u_int32_t val, u_int8_t *bytes);
-static __inline void _lto4l(u_int32_t val, u_int8_t *bytes);
-static __inline u_int32_t _2ltol(u_int8_t *bytes);
-static __inline u_int32_t _3ltol(u_int8_t *bytes);
-static __inline u_int32_t _4ltol(u_int8_t *bytes);
+static __inline void _lto2l(uint32_t val, uint8_t *bytes);
+static __inline void _lto3l(uint32_t val, uint8_t *bytes);
+static __inline void _lto4l(uint32_t val, uint8_t *bytes);
+static __inline uint32_t _2ltol(uint8_t *bytes);
+static __inline uint32_t _3ltol(uint8_t *bytes);
+static __inline uint32_t _4ltol(uint8_t *bytes);
 
 static __inline void
-_lto2b(u_int32_t val, u_int8_t *bytes)
+_lto2b(uint32_t val, uint8_t *bytes)
 {
 
 	bytes[0] = (val >> 8) & 0xff;
@@ -83,7 +83,7 @@ _lto2b(u_int32_t val, u_int8_t *bytes)
 }
 
 static __inline void
-_lto3b(u_int32_t val, u_int8_t *bytes)
+_lto3b(uint32_t val, uint8_t *bytes)
 {
 
 	bytes[0] = (val >> 16) & 0xff;
@@ -92,7 +92,7 @@ _lto3b(u_int32_t val, u_int8_t *bytes)
 }
 
 static __inline void
-_lto4b(u_int32_t val, u_int8_t *bytes)
+_lto4b(uint32_t val, uint8_t *bytes)
 {
 
 	bytes[0] = (val >> 24) & 0xff;
@@ -102,7 +102,7 @@ _lto4b(u_int32_t val, u_int8_t *bytes)
 }
 
 static __inline void
-_lto8b(u_int64_t val, u_int8_t *bytes)
+_lto8b(uint64_t val, uint8_t *bytes)
 {
 
 	bytes[0] = (val >> 56) & 0xff;
@@ -115,65 +115,65 @@ _lto8b(u_int64_t val, u_int8_t *bytes)
 	bytes[7] = val & 0xff;
 }
 
-static __inline u_int32_t
-_2btol(u_int8_t *bytes)
+static __inline uint32_t
+_2btol(uint8_t *bytes)
 {
-	u_int32_t rv;
+	uint32_t rv;
 
 	rv = (bytes[0] << 8) | bytes[1];
 	return (rv);
 }
 
-static __inline u_int32_t
-_3btol(u_int8_t *bytes)
+static __inline uint32_t
+_3btol(uint8_t *bytes)
 {
-	u_int32_t rv;
+	uint32_t rv;
 
 	rv = (bytes[0] << 16) | (bytes[1] << 8) | bytes[2];
 	return (rv);
 }
 
-static __inline u_int32_t
-_4btol(u_int8_t *bytes)
+static __inline uint32_t
+_4btol(uint8_t *bytes)
 {
-	u_int32_t rv;
+	uint32_t rv;
 
 	rv = (bytes[0] << 24) | (bytes[1] << 16) |
 	    (bytes[2] << 8) | bytes[3];
 	return (rv);
 }
 
-static __inline u_int64_t
-_5btol(u_int8_t *bytes)
+static __inline uint64_t
+_5btol(uint8_t *bytes)
 {
-	u_int64_t rv;
+	uint64_t rv;
 
-	rv = ((u_int64_t)bytes[0] << 32) |
-	     ((u_int64_t)bytes[1] << 24) |
-	     ((u_int64_t)bytes[2] << 16) |
-	     ((u_int64_t)bytes[3] << 8) |
-	     (u_int64_t)bytes[4];
+	rv = ((uint64_t)bytes[0] << 32) |
+	     ((uint64_t)bytes[1] << 24) |
+	     ((uint64_t)bytes[2] << 16) |
+	     ((uint64_t)bytes[3] << 8) |
+	     (uint64_t)bytes[4];
 	return (rv);
 }
 
-static __inline u_int64_t
-_8btol(u_int8_t *bytes)
+static __inline uint64_t
+_8btol(uint8_t *bytes)
 {
-	u_int64_t rv;
+	uint64_t rv;
 
-	rv = (((u_int64_t)bytes[0]) << 56) |
-	    (((u_int64_t)bytes[1]) << 48) |
-	    (((u_int64_t)bytes[2]) << 40) |
-	    (((u_int64_t)bytes[3]) << 32) |
-	    (((u_int64_t)bytes[4]) << 24) |
-	    (((u_int64_t)bytes[5]) << 16) |
-	    (((u_int64_t)bytes[6]) << 8) |
-	    ((u_int64_t)bytes[7]);
+	rv = (((uint64_t)bytes[0]) << 56) |
+	    (((uint64_t)bytes[1]) << 48) |
+	    (((uint64_t)bytes[2]) << 40) |
+	    (((uint64_t)bytes[3]) << 32) |
+	    (((uint64_t)bytes[4]) << 24) |
+	    (((uint64_t)bytes[5]) << 16) |
+	    (((uint64_t)bytes[6]) << 8) |
+	    ((uint64_t)bytes[7]);
 	return (rv);
 }
 
 static __inline void
-_lto2l(u_int32_t val, u_int8_t *bytes)
+_lto2l(uint32_t val, uint8_t *bytes)
 {
 
 	bytes[0] = val & 0xff;
@@ -181,7 +181,7 @@ _lto2l(u_int32_t val, u_int8_t *bytes)
 }
 
 static __inline void
-_lto3l(u_int32_t val, u_int8_t *bytes)
+_lto3l(uint32_t val, uint8_t *bytes)
 {
 
 	bytes[0] = val & 0xff;
@@ -190,7 +190,7 @@ _lto3l(u_int32_t val, u_int8_t *bytes)
 }
 
 static __inline void
-_lto4l(u_int32_t val, u_int8_t *bytes)
+_lto4l(uint32_t val, uint8_t *bytes)
 {
 
 	bytes[0] = val & 0xff;
@@ -199,28 +199,28 @@ _lto4l(u_int32_t val, u_int8_t *bytes)
 	bytes[3] = (val >> 24) & 0xff;
 }
 
-static __inline u_int32_t
-_2ltol(u_int8_t *bytes)
+static __inline uint32_t
+_2ltol(uint8_t *bytes)
 {
-	u_int32_t rv;
+	uint32_t rv;
 
 	rv = bytes[0] | (bytes[1] << 8);
 	return (rv);
 }
 
-static __inline u_int32_t
-_3ltol(u_int8_t *bytes)
+static __inline uint32_t
+_3ltol(uint8_t *bytes)
 {
-	u_int32_t rv;
+	uint32_t rv;
 
 	rv = bytes[0] | (bytes[1] << 8) | (bytes[2] << 16);
 	return (rv);
 }
 
-static __inline u_int32_t
-_4ltol(u_int8_t *bytes)
+static __inline uint32_t
+_4ltol(uint8_t *bytes)
 {
-	u_int32_t rv;
+	uint32_t rv;
 
 	rv = bytes[0] | (bytes[1] << 8) |
 	    (bytes[2] << 16) | (bytes[3] << 24);
@@ -235,11 +235,11 @@ _4ltol(u_int8_t *bytes)
 #define DEVID_T10	3
 
 struct devid {
-	u_int8_t	d_type;
-	u_int8_t	d_flags;
+	uint8_t	d_type;
+	uint8_t	d_flags;
 #define DEVID_F_PRINT		(1<<0)
-	u_int8_t	d_refcount;
-	u_int8_t	d_len;
+	uint8_t	d_refcount;
+	uint8_t	d_len;
 
 	/*
 	 * the devid struct is basically a header, the actual id is allocated
@@ -256,7 +256,7 @@ struct devid {
 	 bcmp((_a) + 1, (_b) + 1, (_a)->d_len) == 0))		\
 )
 
-struct devid *	devid_alloc(u_int8_t, u_int8_t, u_int8_t, u_int8_t *);
+struct devid *	devid_alloc(uint8_t, uint8_t, uint8_t, uint8_t *);
 struct devid *	devid_copy(struct devid *);
 void		devid_free(struct devid *);
 
@@ -355,16 +355,16 @@ struct scsi_link {
 #define SDEV_S_WAITING		(1<<0)
 #define SDEV_S_DYING		(1<<1)
 
-	u_int8_t scsibus;		/* the Nth scsibus */
-	u_int8_t luns;
-	u_int16_t target;		/* targ of this dev */
-	u_int16_t lun;			/* lun of this dev */
-	u_int16_t openings;		/* available operations */
-	u_int64_t port_wwn;		/* world wide name of port */
-	u_int64_t node_wwn;		/* world wide name of node */
-	u_int16_t adapter_target;	/* what are we on the scsi bus */
-	u_int16_t adapter_buswidth;	/* 8 (regular) or 16 (wide). (0 becomes 8) */
-	u_int16_t flags;		/* flags that all devices have */
+	uint8_t scsibus;		/* the Nth scsibus */
+	uint8_t luns;
+	uint16_t target;		/* targ of this dev */
+	uint16_t lun;			/* lun of this dev */
+	uint16_t openings;		/* available operations */
+	uint64_t port_wwn;		/* world wide name of port */
+	uint64_t node_wwn;		/* world wide name of node */
+	uint16_t adapter_target;	/* what are we on the scsi bus */
+	uint16_t adapter_buswidth;	/* 8 (regular) or 16 (wide). (0 becomes 8) */
+	uint16_t flags;		/* flags that all devices have */
 #define	SDEV_REMOVABLE	 	0x0001	/* media is removable */
 #define	SDEV_MEDIA_LOADED 	0x0002	/* device figures are still valid */
 #define	SDEV_READONLY		0x0004	/* device is read-only */
@@ -376,7 +376,7 @@ struct scsi_link {
 #define SDEV_UMASS		0x0800	/* device is UMASS SCSI */
 #define SDEV_VIRTUAL		0x1000	/* device is virtualised on the hba */
 #define SDEV_OWN_IOPL		0x2000	/* scsibus */
-	u_int16_t quirks;		/* per-device oddities */
+	uint16_t quirks;		/* per-device oddities */
 #define	SDEV_AUTOSAVE		0x0001	/* do implicit SAVEDATAPOINTER on disconnect */
 #define	SDEV_NOSYNC		0x0002	/* does not grok SDTR */
 #define	SDEV_NOWIDE		0x0004	/* does not grok WDTR */
@@ -409,7 +409,7 @@ int	scsiprint(void *, const char *);
  * match, the higher the configuration priority.
  */
 struct scsi_inquiry_pattern {
-	u_int8_t type;
+	uint8_t type;
 	int removable;
 	char *vendor;
 	char *product;
@@ -432,7 +432,7 @@ struct scsibus_softc {
 	struct device sc_dev;
 	struct scsi_link *adapter_link;	/* prototype supplied by adapter */
 	SLIST_HEAD(, scsi_link) sc_link;
-	u_int16_t sc_buswidth;
+	uint16_t sc_buswidth;
 };
 
 /*
@@ -466,7 +466,7 @@ struct scsi_xfer {
 	int	error;			/* an error value	*/
 	struct	buf *bp;		/* If we need to associate with a buf */
 	struct	scsi_sense_data	sense;	/* 18 bytes*/
-	u_int8_t status;		/* SCSI status */
+	uint8_t status;		/* SCSI status */
 	struct	scsi_generic cmdstore;	/* stash the command in here */
 	/*
 	 * timeout structure for hba's to use for a command
@@ -535,10 +535,10 @@ const void *scsi_inqmatch(struct scsi_inquiry_data *, const void *, int,
     workq_add_task(NULL, (_fl), (_f), (_a1), (_a2))
 
 void	scsi_init(void);
-int64_t scsi_size(struct scsi_link *, int, u_int32_t *);
+int64_t scsi_size(struct scsi_link *, int, uint32_t *);
 int	scsi_test_unit_ready(struct scsi_link *, int, int);
 int	scsi_inquire(struct scsi_link *, struct scsi_inquiry_data *, int);
-int	scsi_inquire_vpd(struct scsi_link *, void *, u_int, u_int8_t, int);
+int	scsi_inquire_vpd(struct scsi_link *, void *, u_int, uint8_t, int);
 int	scsi_prevent(struct scsi_link *, int, int);
 int	scsi_start(struct scsi_link *, int, int);
 int	scsi_mode_sense(struct scsi_link *, int, int, struct scsi_mode_header *,
@@ -548,8 +548,8 @@ int	scsi_mode_sense_big(struct scsi_link *, int, int,
 void *	scsi_mode_sense_page(struct scsi_mode_header *, int);
 void *	scsi_mode_sense_big_page(struct scsi_mode_header_big *, int);
 int	scsi_do_mode_sense(struct scsi_link *, int,
-	    union scsi_mode_sense_buf *, void **, u_int32_t *, u_int64_t *,
-	    u_int32_t *, int, int, int *);
+	    union scsi_mode_sense_buf *, void **, uint32_t *, uint64_t *,
+	    uint32_t *, int, int, int *);
 int	scsi_mode_select(struct scsi_link *, int, struct scsi_mode_header *,
 	    int, int);
 int	scsi_mode_select_big(struct scsi_link *, int,
@@ -558,7 +558,7 @@ void	scsi_done(struct scsi_xfer *);
 int	scsi_do_ioctl(struct scsi_link *, u_long, caddr_t, int);
 void	sc_print_addr(struct scsi_link *);
 int	scsi_report_luns(struct scsi_link *, int,
-	    struct scsi_report_luns_data *, u_int32_t, int, int);
+	    struct scsi_report_luns_data *, uint32_t, int, int);
 void	scsi_minphys(struct buf *, struct scsi_link *);
 int	scsi_interpret_sense(struct scsi_xfer *);
 
@@ -587,7 +587,7 @@ void			scsi_add_link(struct scsibus_softc *,
 void			scsi_remove_link(struct scsibus_softc *,
 			    struct scsi_link *);
 
-extern const u_int8_t version_to_spc[];
+extern const uint8_t version_to_spc[];
 #define SCSISPC(x)	(version_to_spc[(x) & SID_ANSII])
 
 struct scsi_xfer *	scsi_xs_get(struct scsi_link *, int);
@@ -640,7 +640,7 @@ void	mpath_path_deactivate(struct scsi_link *);
 /*
  * Utility functions for SCSI HBA emulation.
  */
-void	scsi_cmd_rw_decode(struct scsi_generic *, u_int64_t *, u_int32_t *);
+void	scsi_cmd_rw_decode(struct scsi_generic *, uint64_t *, uint32_t *);
 
 #endif /* _KERNEL */
 #endif /* SCSI_SCSICONF_H */

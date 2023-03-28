@@ -338,34 +338,34 @@ dn_find(exp_dn, msg, dnptrs, lastdnptr)
  * Routines to insert/extract short/long's.
  */
 
-u_int16_t
+uint16_t
 _getshort(msgp)
 	register const u_char *msgp;
 {
-	register u_int16_t u;
+	register uint16_t u;
 
 	GETSHORT(u, msgp);
 	return (u);
 }
 
-u_int32_t
+uint32_t
 _getlong(msgp)
 	register const u_char *msgp;
 {
-	register u_int32_t u;
+	register uint32_t u;
 
 	GETLONG(u, msgp);
 	return (u);
 }
 
 void
-__putshort(u_int16_t s, u_char *msgp)
+__putshort(uint16_t s, u_char *msgp)
 {
 	PUTSHORT(s, msgp);
 }
 
 void
-__putlong(u_int32_t l, u_char *msgp)
+__putlong(uint32_t l, u_char *msgp)
 {
 	PUTLONG(l, msgp);
 }

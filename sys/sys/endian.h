@@ -54,16 +54,16 @@
 #ifdef __GNUC__
 
 #define __swap16gen(x) ({						\
-	u_int16_t __swap16gen_x = (x);					\
+	uint16_t __swap16gen_x = (x);					\
 									\
-	(u_int16_t)((__swap16gen_x & 0xff) << 8 |			\
+	(uint16_t)((__swap16gen_x & 0xff) << 8 |			\
 	    (__swap16gen_x & 0xff00) >> 8);				\
 })
 
 #define __swap32gen(x) ({						\
-	u_int32_t __swap32gen_x = (x);					\
+	uint32_t __swap32gen_x = (x);					\
 									\
-	(u_int32_t)((__swap32gen_x & 0xff) << 24 |			\
+	(uint32_t)((__swap32gen_x & 0xff) << 24 |			\
 	    (__swap32gen_x & 0xff00) << 8 |				\
 	    (__swap32gen_x & 0xff0000) >> 8 |				\
 	    (__swap32gen_x & 0xff000000) >> 24);			\
@@ -73,12 +73,12 @@
 
 /* Note that these macros evaluate their arguments several times.  */
 #define __swap16gen(x)							\
-    (u_int16_t)(((u_int16_t)(x) & 0xff) << 8 | ((u_int16_t)(x) & 0xff00) >> 8)
+    (uint16_t)(((uint16_t)(x) & 0xff) << 8 | ((uint16_t)(x) & 0xff00) >> 8)
 
 #define __swap32gen(x)							\
-    (u_int32_t)(((u_int32_t)(x) & 0xff) << 24 |				\
-    ((u_int32_t)(x) & 0xff00) << 8 | ((u_int32_t)(x) & 0xff0000) >> 8 |	\
-    ((u_int32_t)(x) & 0xff000000) >> 24)
+    (uint32_t)(((uint32_t)(x) & 0xff) << 24 |				\
+    ((uint32_t)(x) & 0xff00) << 8 | ((uint32_t)(x) & 0xff0000) >> 8 |	\
+    ((uint32_t)(x) & 0xff000000) >> 24)
 
 #endif /* __GNUC__ */
 
@@ -92,14 +92,14 @@
 #if __GNUC__
 
 #define swap16(x) ({							\
-	u_int16_t __swap16_x = (x);					\
+	uint16_t __swap16_x = (x);					\
 									\
 	__builtin_constant_p(x) ? __swap16gen(__swap16_x) :		\
 	    __swap16md(__swap16_x);					\
 })
 
 #define swap32(x) ({							\
-	u_int32_t __swap32_x = (x);					\
+	uint32_t __swap32_x = (x);					\
 									\
 	__builtin_constant_p(x) ? __swap32gen(__swap32_x) :		\
 	    __swap32md(__swap32_x);					\
@@ -114,7 +114,7 @@
 
 #define swap16_multi(v, n) do {					        \
 	size_t __swap16_multi_n = (n);					\
-	u_int16_t *__swap16_multi_v = (v);				\
+	uint16_t *__swap16_multi_v = (v);				\
 									\
 	while (__swap16_multi_n) {					\
 		*__swap16_multi_v = swap16(*__swap16_multi_v);		\
@@ -125,15 +125,15 @@
 
 #ifndef _LOCORE
 __BEGIN_DECLS
-u_int32_t	htobe32 __P((u_int32_t));
-u_int16_t	htobe16 __P((u_int16_t));
-u_int32_t	betoh32 __P((u_int32_t));
-u_int16_t	betoh16 __P((u_int16_t));
+uint32_t	htobe32 __P((uint32_t));
+uint16_t	htobe16 __P((uint16_t));
+uint32_t	betoh32 __P((uint32_t));
+uint16_t	betoh16 __P((uint16_t));
 
-u_int32_t	htole32 __P((u_int32_t));
-u_int16_t	htole16 __P((u_int16_t));
-u_int32_t	letoh32 __P((u_int32_t));
-u_int16_t	letoh16 __P((u_int16_t));
+uint32_t	htole32 __P((uint32_t));
+uint16_t	htole16 __P((uint16_t));
+uint32_t	letoh32 __P((uint32_t));
+uint16_t	letoh16 __P((uint16_t));
 __END_DECLS
 #endif
 
@@ -187,10 +187,10 @@ __END_DECLS
 #define ntohs betoh16
 #define ntohl betoh32
 
-#define	NTOHL(x) (x) = ntohl((u_int32_t)(x))
-#define	NTOHS(x) (x) = ntohs((u_int16_t)(x))
-#define	HTONL(x) (x) = htonl((u_int32_t)(x))
-#define	HTONS(x) (x) = htons((u_int16_t)(x))
+#define	NTOHL(x) (x) = ntohl((uint32_t)(x))
+#define	NTOHS(x) (x) = ntohs((uint16_t)(x))
+#define	HTONL(x) (x) = htonl((uint32_t)(x))
+#define	HTONS(x) (x) = htons((uint16_t)(x))
 
 #endif /* _POSIX_SOURCE */
 #endif /* _SYS_ENDIAN_H_ */

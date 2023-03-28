@@ -66,7 +66,7 @@ typedef	unsigned int	uint;		/* Sys V compatibility */
 typedef unsigned long	ulong;		/* Sys V compatibility */
 #endif
 
-typedef	u_int64_t	u_quad_t;	/* quads */
+typedef	uint64_t	u_quad_t;	/* quads */
 typedef	int64_t		quad_t;
 typedef	quad_t *	qaddr_t;
 
@@ -74,19 +74,19 @@ typedef	char *		caddr_t;	/* core address */
 typedef	int64_t		daddr_t;	/* disk address */
 typedef	__int64_t	daddr64_t;	/* 64-bit disk address */
 typedef	int32_t		dev_t;		/* device number */
-typedef	u_int32_t	fixpt_t;	/* fixed point number */
-typedef	u_int32_t	gid_t;		/* group id */
-typedef	u_int32_t	ino_t;		/* inode number */
+typedef	uint32_t	fixpt_t;	/* fixed point number */
+typedef	uint32_t	gid_t;		/* group id */
+typedef	uint32_t	ino_t;		/* inode number */
 typedef	long		key_t;		/* IPC key (for Sys V IPC) */
-typedef	u_int16_t	mode_t;		/* permissions */
-typedef	u_int16_t	nlink_t;	/* link count */
+typedef	uint16_t	mode_t;		/* permissions */
+typedef	uint16_t	nlink_t;	/* link count */
 typedef	quad_t		off_t;		/* file offset */
 typedef	int32_t		pid_t;		/* process id */
 typedef quad_t		rlim_t;		/* resource limit */
 typedef	int32_t		segsz_t;	/* segment size */
 typedef	int32_t		swblk_t;	/* swap offset */
-typedef	u_int32_t	uid_t;		/* user id */
-typedef	u_int32_t	useconds_t;	/* microseconds */
+typedef	uint32_t	uid_t;		/* user id */
+typedef	uint32_t	useconds_t;	/* microseconds */
 typedef	int32_t		suseconds_t;	/* microseconds (signed) */
 
 /*
@@ -96,10 +96,10 @@ typedef	int32_t		suseconds_t;	/* microseconds (signed) */
  * these types and <sys/socket.h> and <netinet/in.h> will indirectly
  * include <sys/types.h>.  Thus we are compliant without too many hoops.
  */
-typedef u_int32_t	in_addr_t;	/* base type for internet address */
-typedef u_int16_t	in_port_t;	/* IP port type */
-typedef u_int8_t	sa_family_t;	/* sockaddr address family type */
-typedef u_int32_t	socklen_t;	/* length type for network syscalls */
+typedef uint32_t	in_addr_t;	/* base type for internet address */
+typedef uint16_t	in_port_t;	/* IP port type */
+typedef uint8_t	sa_family_t;	/* sockaddr address family type */
+typedef uint32_t	socklen_t;	/* length type for network syscalls */
 
 /*
  * These belong in unistd.h, but are placed here too to ensure that
@@ -119,7 +119,7 @@ __END_DECLS
 
 #if !defined(_POSIX_SOURCE) && !defined(_XOPEN_SOURCE)
 /* Major, minor numbers, dev_t's. */
-#define	major(x)	((int32_t)(((u_int32_t)(x) >> 8) & 0xff))
+#define	major(x)	((int32_t)(((uint32_t)(x) >> 8) & 0xff))
 #define	minor(x)	((int32_t)((x) & 0xff))
 #define	makedev(x,y)	((dev_t)(((x) << 8) | (y)))
 #endif

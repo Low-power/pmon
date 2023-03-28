@@ -113,12 +113,12 @@ struct rtentry {
  * We should eventually move it to a compat file.
  */
 struct ortentry {
-	u_int32_t rt_hash;		/* to speed lookups */
+	uint32_t rt_hash;		/* to speed lookups */
 	struct sockaddr rt_dst;		/* key */
 	struct sockaddr rt_gateway;	/* value */
 	int16_t	  rt_flags;		/* up/down?, host/net */
 	int16_t	  rt_refcnt;		/* # held references */
-	u_int32_t rt_ouse;		/* raw # packets forwarded (was: rt_use) */
+	uint32_t rt_ouse;		/* raw # packets forwarded (was: rt_use) */
 	struct ifnet *rt_ifp;		/* the answer: interface to use */
 };
 
@@ -150,11 +150,11 @@ struct ortentry {
  * Routing statistics.
  */
 struct	rtstat {
-	u_int32_t rts_badredirect;	/* bogus redirect calls */
-	u_int32_t rts_dynamic;		/* routes created by redirects */
-	u_int32_t rts_newgateway;		/* routes modified by redirects */
-	u_int32_t rts_unreach;		/* lookups which failed */
-	u_int32_t rts_wildcard;		/* lookups satisfied by a wildcard */
+	uint32_t rts_badredirect;	/* bogus redirect calls */
+	uint32_t rts_dynamic;		/* routes created by redirects */
+	uint32_t rts_newgateway;		/* routes modified by redirects */
+	uint32_t rts_unreach;		/* lookups which failed */
+	uint32_t rts_wildcard;		/* lookups satisfied by a wildcard */
 };
 
 /*

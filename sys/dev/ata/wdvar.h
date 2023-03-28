@@ -36,7 +36,7 @@
 
 /* Params needed by the controller to perform an ATA bio */
 struct ata_bio {
-    volatile u_int16_t flags; /* cmd flags */
+    volatile uint16_t flags; /* cmd flags */
 #define ATA_NOSLEEP 0x0001 /* Can't sleep */   
 #define ATA_POLL    0x0002 /* poll for completion */
 #define ATA_ITSDONE 0x0004 /* the transfer is as done as it gets */
@@ -59,7 +59,7 @@ struct ata_bio {
 #define ERR_DMA 3 /* DMA error */
 #define TIMEOUT 4 /* device timed out */
 #define ERR_NODEV 5 /* device bas been detached */
-    u_int8_t r_error; /* copy of error register */
+    uint8_t r_error; /* copy of error register */
     daddr_t badsect[127];    /* 126 plus trailing -1 marker */
     struct wd_softc *wd;
 };

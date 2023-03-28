@@ -138,7 +138,7 @@ struct ifmedia_entry *ifmedia_match(struct ifmedia *, u_int, u_int);
 void   ifmedia_delete_instance(struct ifmedia *, u_int);
 
 /* Compute baudrate for a given media. */
-u_int64_t      ifmedia_baudrate(int);
+uint64_t      ifmedia_baudrate(int);
 
 #endif /*_KERNEL */
 
@@ -520,7 +520,7 @@ struct ifmedia_description {
  */
 struct ifmedia_baudrate {
        int     ifmb_word;              /* media word */
-       u_int64_t       ifmb_baudrate;          /* corresponding baudrate */
+       uint64_t       ifmb_baudrate;          /* corresponding baudrate */
 };
 
 #define        IFM_BAUDRATE_DESCRIPTIONS {                                     \

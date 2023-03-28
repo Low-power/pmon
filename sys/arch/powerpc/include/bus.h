@@ -47,17 +47,17 @@
 /*
  * Bus access types.
  */
-typedef u_int32_t bus_addr_t;
-typedef u_int32_t bus_size_t;
-typedef u_int32_t bus_space_handle_t;
+typedef uint32_t bus_addr_t;
+typedef uint32_t bus_size_t;
+typedef uint32_t bus_space_handle_t;
 typedef struct tgt_bus_space *bus_space_tag_t;
 
 /*
  *  Describe a bus with properties.
  */
 struct tgt_bus_space {
-	u_int32_t	bus_base;
-	u_int8_t	bus_reverse;	/* Reverse bytes */
+	uint32_t	bus_base;
+	uint8_t	bus_reverse;	/* Reverse bytes */
 };
 
 extern struct tgt_bus_space tgt_isa_io, tgt_isa_mem;
@@ -125,10 +125,10 @@ static __inline void
 bus_space_read_region_1(bus_space_tag_t tag,
 			bus_space_handle_t bsh,
 			bus_size_t offset,
-			u_int8_t *addr,
+			uint8_t *addr,
 			size_t count)
 {
-	volatile u_int8_t *s = __BA(tag, bsh, offset);
+	volatile uint8_t *s = __BA(tag, bsh, offset);
 
 	while (count--)
 		*addr++ = *s++;
@@ -139,10 +139,10 @@ static __inline void
 bus_space_read_region_2(bus_space_tag_t tag,
 			bus_space_handle_t bsh,
 			bus_size_t offset,
-			u_int16_t *addr,
+			uint16_t *addr,
 			size_t count)
 {
-	volatile u_int16_t *s = __BA(tag, bsh, offset);
+	volatile uint16_t *s = __BA(tag, bsh, offset);
 
 	while (count--)
 		__asm __volatile("lhbrx %0, 0, %1" :
@@ -154,10 +154,10 @@ static __inline void
 bus_space_read_region_4(bus_space_tag_t tag,
 			bus_space_handle_t bsh,
 			bus_size_t offset,
-			u_int32_t *addr,
+			uint32_t *addr,
 			size_t count)
 {
-	volatile u_int32_t *s = __BA(tag, bsh, offset);
+	volatile uint32_t *s = __BA(tag, bsh, offset);
 
 	while (count--)
 		__asm __volatile("lwbrx %0, 0, %1" :
@@ -183,10 +183,10 @@ static __inline void
 bus_space_write_region_1(bus_space_tag_t tag,
 			 bus_space_handle_t bsh,
 			 bus_size_t offset,
-			 const u_int8_t *addr,
+			 const uint8_t *addr,
 			 size_t count)
 {
-	volatile u_int8_t *d = __BA(tag, bsh, offset);
+	volatile uint8_t *d = __BA(tag, bsh, offset);
 
 	while (count--)
 		*d++ = *addr++;
@@ -197,10 +197,10 @@ static __inline void
 bus_space_write_region_2(bus_space_tag_t tag,
 			 bus_space_handle_t bsh,
 			 bus_size_t offset,
-			 const u_int16_t *addr,
+			 const uint16_t *addr,
 			 size_t count)
 {
-	volatile u_int16_t *d = __BA(tag, bsh, offset);
+	volatile uint16_t *d = __BA(tag, bsh, offset);
 
 	while (count--)
 		__asm __volatile("sthbrx %0, 0, %1" ::
@@ -212,10 +212,10 @@ static __inline void
 bus_space_write_region_4(bus_space_tag_t tag,
 			 bus_space_handle_t bsh,
 			 bus_size_t offset,
-			 const u_int32_t *addr,
+			 const uint32_t *addr,
 			 size_t count)
 {
-	volatile u_int32_t *d = __BA(tag, bsh, offset);
+	volatile uint32_t *d = __BA(tag, bsh, offset);
 
 	while (count--)
 		__asm __volatile("stwbrx %0, 0, %1" ::

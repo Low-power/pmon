@@ -113,7 +113,7 @@ extern struct sysent {		/* system call table */
 #define	SCARGL(p,k) ((p)->k.regt)
 #else
 #define	SCARG(p,k) ((sizeof(typeof((p)->k.datum)) != 4  ? (typeof((p)->k.datum))((p)->k.regt) : \
-				(typeof((p)->k.datum))((u_int32_t)((p)->k.regt))))
+				(typeof((p)->k.datum))((uint32_t)((p)->k.regt))))
 #endif
 
 #if defined(_KERNEL) && defined(SYSCALL_DEBUG)
@@ -281,7 +281,7 @@ int min __P((int, int));
 int imin __P((int, int));
 int max __P((int, int));
 int imax __P((int, int));
-extern u_int32_t arc4random __P((void));
+extern uint32_t arc4random __P((void));
 int spawn __P((char *, int (*) __P((int, char **)), int, char **));
 void init_proc __P((void));
 void exit1 __P((struct proc *, int));

@@ -77,15 +77,15 @@
 #define	DISKLABELDEV(dev) \
     (MAKEDISKDEV(major(dev), DISKUNIT(dev), RAW_PART))
 
-#define DISKMAGIC	((u_int32_t)0x82564557)	/* The disk magic number */
+#define DISKMAGIC	((uint32_t)0x82564557)	/* The disk magic number */
 
 #define MAXDISKSIZE	0x7fffffffffffLL	/* 47 bits of reach *///wan+
 
 #ifndef _LOCORE
 struct disklabel {
-	u_int32_t d_magic;		/* the magic number */
-	u_int16_t d_type;		/* drive type */
-	u_int16_t d_subtype;		/* controller/d_type specific */
+	uint32_t d_magic;		/* the magic number */
+	uint16_t d_type;		/* drive type */
+	uint16_t d_subtype;		/* controller/d_type specific */
 	char	  d_typename[16];	/* type name, e.g. "eagle" */
 
 	/*
@@ -108,12 +108,12 @@ struct disklabel {
 #define d_boot1		d_un.un_b.un_d_boot1
 
 			/* disk geometry: */
-	u_int32_t d_secsize;		/* # of bytes per sector */
-	u_int32_t d_nsectors;		/* # of data sectors per track */
-	u_int32_t d_ntracks;		/* # of tracks per cylinder */
-	u_int32_t d_ncylinders;		/* # of data cylinders per unit */
-	u_int32_t d_secpercyl;		/* # of data sectors per cylinder */
-	u_int32_t d_secperunit;		/* # of data sectors per unit */
+	uint32_t d_secsize;		/* # of bytes per sector */
+	uint32_t d_nsectors;		/* # of data sectors per track */
+	uint32_t d_ntracks;		/* # of tracks per cylinder */
+	uint32_t d_ncylinders;		/* # of data cylinders per unit */
+	uint32_t d_secpercyl;		/* # of data sectors per cylinder */
+	uint32_t d_secperunit;		/* # of data sectors per unit */
 
 	u_char	d_uid[8];		/* Unique label identifier. wan+ */
 	/*
@@ -122,13 +122,13 @@ struct disklabel {
 	 * be physical sectors which occupy space at the end of each
 	 * track and/or cylinder.
 	 */
-	u_int16_t d_sparespertrack;	/* # of spare sectors per track */
-	u_int16_t d_sparespercyl;	/* # of spare sectors per cylinder */
+	uint16_t d_sparespertrack;	/* # of spare sectors per track */
+	uint16_t d_sparespercyl;	/* # of spare sectors per cylinder */
 	/*
 	 * Alternate cylinders include maintenance, replacement, configuration
 	 * description areas, etc.
 	 */
-	u_int32_t d_acylinders;		/* # of alt. cylinders per unit */
+	uint32_t d_acylinders;		/* # of alt. cylinders per unit */
 
 			/* hardware characteristics: */
 	/*
@@ -147,44 +147,44 @@ struct disklabel {
 	 * is the offset of sector 0 on cylinder N relative to sector 0
 	 * on cylinder N-1.
 	 */
-	u_int16_t d_rpm;		/* rotational speed */
-	u_int16_t d_interleave;		/* hardware sector interleave */
-	u_int16_t d_trackskew;		/* sector 0 skew, per track */
-	u_int16_t d_cylskew;		/* sector 0 skew, per cylinder */
-	u_int32_t d_headswitch;		/* head switch time, usec */
-	u_int32_t d_trkseek;		/* track-to-track seek, usec */
+	uint16_t d_rpm;		/* rotational speed */
+	uint16_t d_interleave;		/* hardware sector interleave */
+	uint16_t d_trackskew;		/* sector 0 skew, per track */
+	uint16_t d_cylskew;		/* sector 0 skew, per cylinder */
+	uint32_t d_headswitch;		/* head switch time, usec */
+	uint32_t d_trkseek;		/* track-to-track seek, usec */
 
 			/* hardware characteristics: */
-	u_int16_t d_bstarth;		/* start of useable region (high part) */
-	u_int16_t d_bendh;		/* size of useable region (high part) */
-	u_int32_t d_bstart;		/* start of useable region */
-	u_int32_t d_bend;		/* end of useable region */
-	u_int32_t d_flags;		/* generic flags */
+	uint16_t d_bstarth;		/* start of useable region (high part) */
+	uint16_t d_bendh;		/* size of useable region (high part) */
+	uint32_t d_bstart;		/* start of useable region */
+	uint32_t d_bend;		/* end of useable region */
+	uint32_t d_flags;		/* generic flags */
 #define NDDATA 5
-	u_int32_t d_drivedata[NDDATA];	/* drive-type specific information */
-	u_int16_t d_secperunith;	/* # of data sectors (high part) *///wan+
-	u_int16_t d_version;		/* version # (1=48 bit addressing) *///wan+
+	uint32_t d_drivedata[NDDATA];	/* drive-type specific information */
+	uint16_t d_secperunith;	/* # of data sectors (high part) *///wan+
+	uint16_t d_version;		/* version # (1=48 bit addressing) *///wan+
 #define NSPARE 5
-	u_int32_t d_spare[NSPARE];	/* reserved for future use */
-	u_int32_t d_magic2;		/* the magic number (again) */
-	u_int16_t d_checksum;		/* xor of data incl. partitions */
+	uint32_t d_spare[NSPARE];	/* reserved for future use */
+	uint32_t d_magic2;		/* the magic number (again) */
+	uint16_t d_checksum;		/* xor of data incl. partitions */
 
 			/* filesystem and partition information: */
-	u_int16_t d_npartitions;	/* number of partitions in following */
-	u_int32_t d_bbsize;		/* size of boot area at sn0, bytes */
-	u_int32_t d_sbsize;		/* max size of fs superblock, bytes */
+	uint16_t d_npartitions;	/* number of partitions in following */
+	uint32_t d_bbsize;		/* size of boot area at sn0, bytes */
+	uint32_t d_sbsize;		/* max size of fs superblock, bytes */
 	struct	partition {		/* the partition table */
-		u_int32_t p_size;	/* number of sectors in partition */
-		u_int32_t p_offset;	/* starting sector */
-		u_int16_t p_offseth;	/* starting sector (high part) */
-		u_int16_t p_sizeh;	/* number of sector (high part) */
-		u_int32_t p_fsize;	/* filesystem basic fragment size */
-		u_int8_t p_fstype;	/* filesystem type, see below */
-		u_int8_t p_fragblock;	/* encoded filesystem frag/block *///wan+
-		u_int8_t p_frag;	/* filesystem fragments per block */
+		uint32_t p_size;	/* number of sectors in partition */
+		uint32_t p_offset;	/* starting sector */
+		uint16_t p_offseth;	/* starting sector (high part) */
+		uint16_t p_sizeh;	/* number of sector (high part) */
+		uint32_t p_fsize;	/* filesystem basic fragment size */
+		uint8_t p_fstype;	/* filesystem type, see below */
+		uint8_t p_fragblock;	/* encoded filesystem frag/block *///wan+
+		uint8_t p_frag;	/* filesystem fragments per block */
 		union {
-			u_int16_t cpg;	/* UFS: FS cylinders per group */
-			u_int16_t sgs;	/* LFS: FS segment shift */
+			uint16_t cpg;	/* UFS: FS cylinders per group */
+			uint16_t sgs;	/* LFS: FS segment shift */
 		} __partition_u1;
 #define	p_cpg	__partition_u1.cpg
 #define	p_sgs	__partition_u1.sgs
@@ -192,14 +192,14 @@ struct disklabel {
 };
 //wan+
 struct	__partitionv0 {	/* the partition table */
-    u_int32_t p_size;	/* number of sectors in partition */
-    u_int32_t p_offset;	/* starting sector */
-    u_int32_t p_fsize;	/* filesystem basic fragment size */
-    u_int8_t p_fstype;	/* filesystem type, see below */
-    u_int8_t p_frag;	/* filesystem fragments per block */
+    uint32_t p_size;	/* number of sectors in partition */
+    uint32_t p_offset;	/* starting sector */
+    uint32_t p_fsize;	/* filesystem basic fragment size */
+    uint8_t p_fstype;	/* filesystem type, see below */
+    uint8_t p_frag;	/* filesystem fragments per block */
     union {
-        u_int16_t cpg;	/* UFS: FS cylinders per group */
-        u_int16_t sgs;	/* LFS: FS segment shift */
+        uint16_t cpg;	/* UFS: FS cylinders per group */
+        uint16_t sgs;	/* LFS: FS segment shift */
     } __partitionv0_u1;
 };
 
@@ -226,34 +226,34 @@ struct	__partitionv0 {	/* the partition table */
 #define DISKLABELV1_FFS_FSIZE(i) (DISKLABELV1_FFS_FRAG(i) == 0 ? 0 : \
     (DISKLABELV1_FFS_BSIZE(i) / DISKLABELV1_FFS_FRAG(i)))
 
-#define DL_GETPSIZE(p)		(((u_int64_t)(p)->p_sizeh << 32) + (p)->p_size)
+#define DL_GETPSIZE(p)		(((uint64_t)(p)->p_sizeh << 32) + (p)->p_size)
 #define DL_SETPSIZE(p, n)	do { \
                     daddr64_t x = (n); \
                     (p)->p_sizeh = x >> 32; \
                     (p)->p_size = x; \
                 } while (0)
-#define DL_GETPOFFSET(p)    (((u_int64_t)(p)->p_offseth << 32) + (p)->p_offset)
+#define DL_GETPOFFSET(p)    (((uint64_t)(p)->p_offseth << 32) + (p)->p_offset)
 #define DL_SETPOFFSET(p, n) do { \
                     daddr64_t x = (n); \
                     (p)->p_offseth = x >> 32; \
                     (p)->p_offset = x; \
                 } while (0)
 
-#define DL_GETDSIZE(d)      (((u_int64_t)(d)->d_secperunith << 32) + \
+#define DL_GETDSIZE(d)      (((uint64_t)(d)->d_secperunith << 32) + \
                     (d)->d_secperunit)
 #define DL_SETDSIZE(d, n)   do { \
                     daddr64_t x = (n); \
                     (d)->d_secperunith = x >> 32; \
                     (d)->d_secperunit = x; \
                 } while (0)
-#define DL_GETBSTART(d)     (((u_int64_t)(d)->d_bstarth << 32) + \
+#define DL_GETBSTART(d)     (((uint64_t)(d)->d_bstarth << 32) + \
                     (d)->d_bstart)
 #define DL_SETBSTART(d, n)  do { \
                    daddr64_t x = (n); \
                    (d)->d_bstarth = x >> 32; \
                    (d)->d_bstart = x; \
                 } while (0)
-#define DL_GETBEND(d)		(((u_int64_t)(d)->d_bendh << 32) + \
+#define DL_GETBEND(d)		(((uint64_t)(d)->d_bendh << 32) + \
                   (d)->d_bend)
 #define DL_SETBEND(d, n)	do { \
                     daddr64_t x = (n); \

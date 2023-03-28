@@ -359,7 +359,7 @@ mii_phy_statusmsg(struct mii_softc *sc)
 {
        struct mii_data *mii = sc->mii_pdata;
        struct ifnet *ifp = mii->mii_ifp;
-       u_int64_t baudrate;
+       uint64_t baudrate;
        int link_state, announce = 0;
 
        if (mii->mii_media_status & IFM_AVALID) {

@@ -32,7 +32,7 @@ p6032_pcibios_config_access(unsigned char access_type,pcitag_t tag,
 {
 	int bus;
 	
-	u_int32_t addr, type;
+	uint32_t addr, type;
 	void *addrp;
 	int device;
 	int function;

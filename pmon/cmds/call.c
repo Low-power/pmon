@@ -81,7 +81,7 @@ cmd_call(ac, av)
 			arg[k++] = av[++i];	/* String */
 		}
 		else {
-			if (!get_rsa ((u_int32_t *)&arg[k], av[i])) {
+			if (!get_rsa ((uint32_t *)&arg[k], av[i])) {
 				return (-1);
 			}
 			k++;

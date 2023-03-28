@@ -46,20 +46,20 @@
 static int bnx_COM_b06FwReleaseMajor = 0x6;
 static int bnx_COM_b06FwReleaseMinor = 0x0;
 static int bnx_COM_b06FwReleaseFix = 0xf;
-static u_int32_t bnx_COM_b06FwStartAddr = 0x08000118;
-static u_int32_t bnx_COM_b06FwTextAddr = 0x08000000;
+static uint32_t bnx_COM_b06FwStartAddr = 0x08000118;
+static uint32_t bnx_COM_b06FwTextAddr = 0x08000000;
 static int bnx_COM_b06FwTextLen = 0x4a68;
-static u_int32_t bnx_COM_b06FwDataAddr = 0x00000000;
+static uint32_t bnx_COM_b06FwDataAddr = 0x00000000;
 static int bnx_COM_b06FwDataLen = 0x0;
-static u_int32_t bnx_COM_b06FwRodataAddr = 0x08004a68;
+static uint32_t bnx_COM_b06FwRodataAddr = 0x08004a68;
 static int bnx_COM_b06FwRodataLen = 0x14;
-static u_int32_t bnx_COM_b06FwBssAddr = 0x08004ad8;
+static uint32_t bnx_COM_b06FwBssAddr = 0x08004ad8;
 static int bnx_COM_b06FwBssLen = 0xc4;
-static u_int32_t bnx_COM_b06FwSbssAddr = 0x08004aa0;
+static uint32_t bnx_COM_b06FwSbssAddr = 0x08004aa0;
 static int bnx_COM_b06FwSbssLen = 0x38;
-static u_int32_t bnx_COM_b06FwSDataAddr = 0x00000000;
+static uint32_t bnx_COM_b06FwSDataAddr = 0x00000000;
 static int bnx_COM_b06FwSDataLen = 0x0;
-static u_int32_t bnx_COM_b06FwText[(0x4a68/4) + 1] = {
+static uint32_t bnx_COM_b06FwText[(0x4a68/4) + 1] = {
 0xa000046, 0x0, 0x0,
 0xd, 0x636f6d36, 0x2e302e31, 0x35000000,
 0x6000f02, 0x0, 0x3, 0xc8,
@@ -1251,33 +1251,33 @@ static u_int32_t bnx_COM_b06FwText[(0x4a68/4) + 1] = {
 0x440fffe, 0x24020002, 0xaf5101c0, 0xa34201c4,
 0x3c021000, 0xaf4201f8, 0x8fbf0018, 0x8fb10014,
 0x8fb00010, 0x3e00008, 0x27bd0020, 0x0 };
-static u_int32_t bnx_COM_b06FwData[(0x0/4) + 1] = { 0x0 };
-static u_int32_t bnx_COM_b06FwRodata[(0x14/4) + 1] = {
+static uint32_t bnx_COM_b06FwData[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_COM_b06FwRodata[(0x14/4) + 1] = {
 0x8000acc,
 0x8000b14, 0x8000b98, 0x8000be4, 0x8000c20,
 0x0 };
-static u_int32_t bnx_COM_b06FwBss[(0xc4/4) + 1] = { 0x0 };
-static u_int32_t bnx_COM_b06FwSbss[(0x38/4) + 1] = { 0x0 };
-static u_int32_t bnx_COM_b06FwSdata[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_COM_b06FwBss[(0xc4/4) + 1] = { 0x0 };
+static uint32_t bnx_COM_b06FwSbss[(0x38/4) + 1] = { 0x0 };
+static uint32_t bnx_COM_b06FwSdata[(0x0/4) + 1] = { 0x0 };
 
 
 static int bnx_RXP_b06FwReleaseMajor = 0x6;
 static int bnx_RXP_b06FwReleaseMinor = 0x0;
 static int bnx_RXP_b06FwReleaseFix = 0xf;
-static u_int32_t bnx_RXP_b06FwStartAddr = 0x08003210;
-static u_int32_t bnx_RXP_b06FwTextAddr = 0x08000000;
+static uint32_t bnx_RXP_b06FwStartAddr = 0x08003210;
+static uint32_t bnx_RXP_b06FwTextAddr = 0x08000000;
 static int bnx_RXP_b06FwTextLen = 0x72d0;
-static u_int32_t bnx_RXP_b06FwDataAddr = 0x00000000;
+static uint32_t bnx_RXP_b06FwDataAddr = 0x00000000;
 static int bnx_RXP_b06FwDataLen = 0x0;
-static u_int32_t bnx_RXP_b06FwRodataAddr = 0x080072d0;
+static uint32_t bnx_RXP_b06FwRodataAddr = 0x080072d0;
 static int bnx_RXP_b06FwRodataLen = 0x24;
-static u_int32_t bnx_RXP_b06FwBssAddr = 0x0800736c;
+static uint32_t bnx_RXP_b06FwBssAddr = 0x0800736c;
 static int bnx_RXP_b06FwBssLen = 0x440;
-static u_int32_t bnx_RXP_b06FwSbssAddr = 0x08007320;
+static uint32_t bnx_RXP_b06FwSbssAddr = 0x08007320;
 static int bnx_RXP_b06FwSbssLen = 0x4c;
-static u_int32_t bnx_RXP_b06FwSDataAddr = 0x00000000;
+static uint32_t bnx_RXP_b06FwSDataAddr = 0x00000000;
 static int bnx_RXP_b06FwSDataLen = 0x0;
-static u_int32_t bnx_RXP_b06FwText[(0x72d0/4) + 1] = {
+static uint32_t bnx_RXP_b06FwText[(0x72d0/4) + 1] = {
 0xa000c84, 0x0, 0x0,
 0xd, 0x72787036, 0x2e302e31, 0x35000000,
 0x6000f03, 0x0, 0x1, 0x0,
@@ -3116,34 +3116,34 @@ static u_int32_t bnx_RXP_b06FwText[(0x72d0/4) + 1] = {
 0x8fbf0020, 0x8fb3001c, 0x8fb20018, 0x8fb10014,
 0x8fb00010, 0x3c021000, 0x27bd0028, 0x3e00008,
 0xaf4201b8, 0x0 };
-static u_int32_t bnx_RXP_b06FwData[(0x0/4) + 1] = { 0x0 };
-static u_int32_t bnx_RXP_b06FwRodata[(0x24/4) + 1] = {
+static uint32_t bnx_RXP_b06FwData[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_RXP_b06FwRodata[(0x24/4) + 1] = {
 0x8003430,
 0x8003430, 0x80033a8, 0x80033e0, 0x8003414,
 0x8003438, 0x8003438, 0x8003438, 0x8003318,
 0x0 };
-static u_int32_t bnx_RXP_b06FwBss[(0x440/4) + 1] = { 0x0 };
-static u_int32_t bnx_RXP_b06FwSbss[(0x4c/4) + 1] = { 0x0 };
-static u_int32_t bnx_RXP_b06FwSdata[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_RXP_b06FwBss[(0x440/4) + 1] = { 0x0 };
+static uint32_t bnx_RXP_b06FwSbss[(0x4c/4) + 1] = { 0x0 };
+static uint32_t bnx_RXP_b06FwSdata[(0x0/4) + 1] = { 0x0 };
 
 
 static int bnx_TPAT_b06FwReleaseMajor = 0x6;
 static int bnx_TPAT_b06FwReleaseMinor = 0x0;
 static int bnx_TPAT_b06FwReleaseFix = 0xf;
-static u_int32_t bnx_TPAT_b06FwStartAddr = 0x08000490;
-static u_int32_t bnx_TPAT_b06FwTextAddr = 0x08000400;
+static uint32_t bnx_TPAT_b06FwStartAddr = 0x08000490;
+static uint32_t bnx_TPAT_b06FwTextAddr = 0x08000400;
 static int bnx_TPAT_b06FwTextLen = 0x17d4;
-static u_int32_t bnx_TPAT_b06FwDataAddr = 0x00000000;
+static uint32_t bnx_TPAT_b06FwDataAddr = 0x00000000;
 static int bnx_TPAT_b06FwDataLen = 0x0;
-static u_int32_t bnx_TPAT_b06FwRodataAddr = 0x00000000;
+static uint32_t bnx_TPAT_b06FwRodataAddr = 0x00000000;
 static int bnx_TPAT_b06FwRodataLen = 0x0;
-static u_int32_t bnx_TPAT_b06FwBssAddr = 0x08001c44;
+static uint32_t bnx_TPAT_b06FwBssAddr = 0x08001c44;
 static int bnx_TPAT_b06FwBssLen = 0x450;
-static u_int32_t bnx_TPAT_b06FwSbssAddr = 0x08001c00;
+static uint32_t bnx_TPAT_b06FwSbssAddr = 0x08001c00;
 static int bnx_TPAT_b06FwSbssLen = 0x44;
-static u_int32_t bnx_TPAT_b06FwSDataAddr = 0x00000000;
+static uint32_t bnx_TPAT_b06FwSDataAddr = 0x00000000;
 static int bnx_TPAT_b06FwSDataLen = 0x0;
-static u_int32_t bnx_TPAT_b06FwText[(0x17d4/4) + 1] = {
+static uint32_t bnx_TPAT_b06FwText[(0x17d4/4) + 1] = {
 0xa000124, 0x0, 0x0,
 0xd, 0x74706136, 0x2e302e31, 0x35000000,
 0x6000f01, 0x0, 0x0, 0x0,
@@ -3526,30 +3526,30 @@ static u_int32_t bnx_TPAT_b06FwText[(0x17d4/4) + 1] = {
 0x14a0fffb, 0x42042, 0xc35021, 0x8fbf0010,
 0xa4c02, 0x312200ff, 0x27bd0018, 0xaf8a002c,
 0x3e00008, 0xaf890030, 0x0 };
-static u_int32_t bnx_TPAT_b06FwData[(0x0/4) + 1] = { 0x0 };
-static u_int32_t bnx_TPAT_b06FwRodata[(0x0/4) + 1] = { 0x0 };
-static u_int32_t bnx_TPAT_b06FwBss[(0x450/4) + 1] = { 0x0 };
-static u_int32_t bnx_TPAT_b06FwSbss[(0x44/4) + 1] = { 0x0 };
-static u_int32_t bnx_TPAT_b06FwSdata[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_TPAT_b06FwData[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_TPAT_b06FwRodata[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_TPAT_b06FwBss[(0x450/4) + 1] = { 0x0 };
+static uint32_t bnx_TPAT_b06FwSbss[(0x44/4) + 1] = { 0x0 };
+static uint32_t bnx_TPAT_b06FwSdata[(0x0/4) + 1] = { 0x0 };
 
 
 static int bnx_TXP_b06FwReleaseMajor = 0x6;
 static int bnx_TXP_b06FwReleaseMinor = 0x0;
 static int bnx_TXP_b06FwReleaseFix = 0xf;
-static u_int32_t bnx_TXP_b06FwStartAddr = 0x080000a8;
-static u_int32_t bnx_TXP_b06FwTextAddr = 0x08000000;
+static uint32_t bnx_TXP_b06FwStartAddr = 0x080000a8;
+static uint32_t bnx_TXP_b06FwTextAddr = 0x08000000;
 static int bnx_TXP_b06FwTextLen = 0x3bfc;
-static u_int32_t bnx_TXP_b06FwDataAddr = 0x00000000;
+static uint32_t bnx_TXP_b06FwDataAddr = 0x00000000;
 static int bnx_TXP_b06FwDataLen = 0x0;
-static u_int32_t bnx_TXP_b06FwRodataAddr = 0x00000000;
+static uint32_t bnx_TXP_b06FwRodataAddr = 0x00000000;
 static int bnx_TXP_b06FwRodataLen = 0x0;
-static u_int32_t bnx_TXP_b06FwBssAddr = 0x08003c88;
+static uint32_t bnx_TXP_b06FwBssAddr = 0x08003c88;
 static int bnx_TXP_b06FwBssLen = 0x14c;
-static u_int32_t bnx_TXP_b06FwSbssAddr = 0x08003c20;
+static uint32_t bnx_TXP_b06FwSbssAddr = 0x08003c20;
 static int bnx_TXP_b06FwSbssLen = 0x68;
-static u_int32_t bnx_TXP_b06FwSDataAddr = 0x00000000;
+static uint32_t bnx_TXP_b06FwSDataAddr = 0x00000000;
 static int bnx_TXP_b06FwSDataLen = 0x0;
-static u_int32_t bnx_TXP_b06FwText[(0x3bfc/4) + 1] = {
+static uint32_t bnx_TXP_b06FwText[(0x3bfc/4) + 1] = {
 0xa00002a, 0x0, 0x0,
 0xd, 0x74787036, 0x2e302e31, 0x35000000,
 0x6000f00, 0x0, 0x136, 0xea60,
@@ -4511,30 +4511,30 @@ static u_int32_t bnx_TXP_b06FwText[(0x3bfc/4) + 1] = {
 0x3c010800, 0xac243d58, 0x3c010800, 0xac233d68,
 0x3c010800, 0xac223d60, 0x3e00008, 0x0,
 0x0 };
-static u_int32_t bnx_TXP_b06FwData[(0x0/4) + 1] = { 0x0 };
-static u_int32_t bnx_TXP_b06FwRodata[(0x0/4) + 1] = { 0x0 };
-static u_int32_t bnx_TXP_b06FwBss[(0x14c/4) + 1] = { 0x0 };
-static u_int32_t bnx_TXP_b06FwSbss[(0x68/4) + 1] = { 0x0 };
-static u_int32_t bnx_TXP_b06FwSdata[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_TXP_b06FwData[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_TXP_b06FwRodata[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_TXP_b06FwBss[(0x14c/4) + 1] = { 0x0 };
+static uint32_t bnx_TXP_b06FwSbss[(0x68/4) + 1] = { 0x0 };
+static uint32_t bnx_TXP_b06FwSdata[(0x0/4) + 1] = { 0x0 };
 
 
 static int bnx_CP_b06FwReleaseMajor = 0x6;
 static int bnx_CP_b06FwReleaseMinor = 0x0;
 static int bnx_CP_b06FwReleaseFix = 0xf;
-static u_int32_t bnx_CP_b06FwStartAddr = 0x080000a0;
-static u_int32_t bnx_CP_b06FwTextAddr = 0x08000000;
+static uint32_t bnx_CP_b06FwStartAddr = 0x080000a0;
+static uint32_t bnx_CP_b06FwTextAddr = 0x08000000;
 static int bnx_CP_b06FwTextLen = 0x5688;
-static u_int32_t bnx_CP_b06FwDataAddr = 0x08005800;
+static uint32_t bnx_CP_b06FwDataAddr = 0x08005800;
 static int bnx_CP_b06FwDataLen = 0x84;
-static u_int32_t bnx_CP_b06FwRodataAddr = 0x08005688;
+static uint32_t bnx_CP_b06FwRodataAddr = 0x08005688;
 static int bnx_CP_b06FwRodataLen = 0x158;
-static u_int32_t bnx_CP_b06FwBssAddr = 0x08005978;
+static uint32_t bnx_CP_b06FwBssAddr = 0x08005978;
 static int bnx_CP_b06FwBssLen = 0x5d8;
-static u_int32_t bnx_CP_b06FwSbssAddr = 0x08005884;
+static uint32_t bnx_CP_b06FwSbssAddr = 0x08005884;
 static int bnx_CP_b06FwSbssLen = 0xf1;
-static u_int32_t bnx_CP_b06FwSDataAddr = 0x00000000;
+static uint32_t bnx_CP_b06FwSDataAddr = 0x00000000;
 static int bnx_CP_b06FwSDataLen = 0x0;
-static u_int32_t bnx_CP_b06FwText[(0x5688/4) + 1] = {
+static uint32_t bnx_CP_b06FwText[(0x5688/4) + 1] = {
 0xa000028, 0x0, 0x0,
 0xd, 0x6370362e, 0x302e3135, 0x0,
 0x6000f04, 0x0, 0x0, 0x0,
@@ -5920,7 +5920,7 @@ static u_int32_t bnx_CP_b06FwText[(0x5688/4) + 1] = {
 0x27bd0030, 0x8f83001c, 0x8c620004, 0x10400003,
 0x0, 0x3e00008, 0x0, 0x8c640010,
 0x8c650008, 0xa001527, 0x8c66000c, 0x0 };
-static u_int32_t bnx_CP_b06FwData[(0x84/4) + 1] = {
+static uint32_t bnx_CP_b06FwData[(0x84/4) + 1] = {
 0x0, 0x1b, 0xf,
 0xa, 0x8, 0x6, 0x5,
 0x5, 0x4, 0x4, 0x3,
@@ -5930,7 +5930,7 @@ static u_int32_t bnx_CP_b06FwData[(0x84/4) + 1] = {
 0x2, 0x2, 0x2, 0x2,
 0x2, 0x2, 0x2, 0x1,
 0x1, 0x1, 0x0 };
-static u_int32_t bnx_CP_b06FwRodata[(0x158/4) + 1] = {
+static uint32_t bnx_CP_b06FwRodata[(0x158/4) + 1] = {
 0x8000f24, 0x8000d6c, 0x8000fb8,
 0x8001060, 0x8000f4c, 0x8000f8c, 0x8001194,
 0x8000d88, 0x80011b8, 0x8000dd8, 0x8001554,
@@ -5953,12 +5953,12 @@ static u_int32_t bnx_CP_b06FwRodata[(0x158/4) + 1] = {
 0x8002e1c, 0x8002de4, 0x8002df0, 0x8002dfc,
 0x8002e08, 0x80052e8, 0x80052a8, 0x8005274,
 0x8005248, 0x8005224, 0x80051e0, 0x0 };
-static u_int32_t bnx_CP_b06FwBss[(0x5d8/4) + 1] = { 0x0 };
-static u_int32_t bnx_CP_b06FwSbss[(0xf1/4) + 1] = { 0x0 };
-static u_int32_t bnx_CP_b06FwSdata[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_CP_b06FwBss[(0x5d8/4) + 1] = { 0x0 };
+static uint32_t bnx_CP_b06FwSbss[(0xf1/4) + 1] = { 0x0 };
+static uint32_t bnx_CP_b06FwSdata[(0x0/4) + 1] = { 0x0 };
 
 
-static u_int32_t bnx_rv2p_proc1[] = {
+static uint32_t bnx_rv2p_proc1[] = {
     0x00000010, 0xb1800006,
     0x0000001f, 0x0106000f,
     0x00000008, 0x0500ffff,
@@ -6249,7 +6249,7 @@ static u_int32_t bnx_rv2p_proc1[] = {
 };
 
 
-static u_int32_t bnx_rv2p_proc2[] = {
+static uint32_t bnx_rv2p_proc2[] = {
     0x00000010, 0xb1800004,
     0x0000001f, 0x0106000f,
     0x00000008, 0x050000ff,
@@ -6670,20 +6670,20 @@ static u_int32_t bnx_rv2p_proc2[] = {
 static int bnx_TXP_b09FwReleaseMajor = 0x6;
 static int bnx_TXP_b09FwReleaseMinor = 0x0;
 static int bnx_TXP_b09FwReleaseFix = 0x11;
-static u_int32_t bnx_TXP_b09FwStartAddr = 0x080000a8;
-static u_int32_t bnx_TXP_b09FwTextAddr = 0x08000000;
+static uint32_t bnx_TXP_b09FwStartAddr = 0x080000a8;
+static uint32_t bnx_TXP_b09FwTextAddr = 0x08000000;
 static int bnx_TXP_b09FwTextLen = 0x3d28;
-static u_int32_t bnx_TXP_b09FwDataAddr = 0x00000000;
+static uint32_t bnx_TXP_b09FwDataAddr = 0x00000000;
 static int bnx_TXP_b09FwDataLen = 0x0;
-static u_int32_t bnx_TXP_b09FwRodataAddr = 0x08003d28;
+static uint32_t bnx_TXP_b09FwRodataAddr = 0x08003d28;
 static int bnx_TXP_b09FwRodataLen = 0x30;
-static u_int32_t bnx_TXP_b09FwBssAddr = 0x08003df0;
+static uint32_t bnx_TXP_b09FwBssAddr = 0x08003df0;
 static int bnx_TXP_b09FwBssLen = 0x24c;
-static u_int32_t bnx_TXP_b09FwSbssAddr = 0x08003d88;
+static uint32_t bnx_TXP_b09FwSbssAddr = 0x08003d88;
 static int bnx_TXP_b09FwSbssLen = 0x64;
-static u_int32_t bnx_TXP_b09FwSDataAddr = 0x00000000;
+static uint32_t bnx_TXP_b09FwSDataAddr = 0x00000000;
 static int bnx_TXP_b09FwSDataLen = 0x0;
-static u_int32_t bnx_TXP_b09FwText[(0x3d28/4) + 1] = {
+static uint32_t bnx_TXP_b09FwText[(0x3d28/4) + 1] = {
 0xa00002a, 0x0, 0x0,
 0xd, 0x74787036, 0x2e302e31, 0x37000000,
 0x6001100, 0x0, 0x136, 0xea60,
@@ -7663,34 +7663,34 @@ static u_int32_t bnx_TXP_b09FwText[(0x3d28/4) + 1] = {
 0xac263fcc, 0x3c010800, 0xac253fc4, 0x3c010800,
 0xac243fc0, 0x3c010800, 0xac233fd0, 0x3c010800,
 0xac223fc8, 0x3e00008, 0x0, 0x0 };
-static u_int32_t bnx_TXP_b09FwData[(0x0/4) + 1] = { 0x0 };
-static u_int32_t bnx_TXP_b09FwRodata[(0x30/4) + 1] = {
+static uint32_t bnx_TXP_b09FwData[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_TXP_b09FwRodata[(0x30/4) + 1] = {
 0x80000940, 0x80000900, 0x80080100,
 0x80080080, 0x80080000, 0x800e0000, 0x80080080,
 0x80080000, 0x80000a80, 0x80000a00, 0x80000980,
 0x80000900, 0x0 };
-static u_int32_t bnx_TXP_b09FwBss[(0x24c/4) + 1] = { 0x0 };
-static u_int32_t bnx_TXP_b09FwSbss[(0x64/4) + 1] = { 0x0 };
-static u_int32_t bnx_TXP_b09FwSdata[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_TXP_b09FwBss[(0x24c/4) + 1] = { 0x0 };
+static uint32_t bnx_TXP_b09FwSbss[(0x64/4) + 1] = { 0x0 };
+static uint32_t bnx_TXP_b09FwSdata[(0x0/4) + 1] = { 0x0 };
 
 
 static int bnx_TPAT_b09FwReleaseMajor = 0x6;
 static int bnx_TPAT_b09FwReleaseMinor = 0x0;
 static int bnx_TPAT_b09FwReleaseFix = 0x11;
-static u_int32_t bnx_TPAT_b09FwStartAddr = 0x08000490;
-static u_int32_t bnx_TPAT_b09FwTextAddr = 0x08000400;
+static uint32_t bnx_TPAT_b09FwStartAddr = 0x08000490;
+static uint32_t bnx_TPAT_b09FwTextAddr = 0x08000400;
 static int bnx_TPAT_b09FwTextLen = 0x12fc;
-static u_int32_t bnx_TPAT_b09FwDataAddr = 0x00000000;
+static uint32_t bnx_TPAT_b09FwDataAddr = 0x00000000;
 static int bnx_TPAT_b09FwDataLen = 0x0;
-static u_int32_t bnx_TPAT_b09FwRodataAddr = 0x080016fc;
+static uint32_t bnx_TPAT_b09FwRodataAddr = 0x080016fc;
 static int bnx_TPAT_b09FwRodataLen = 0x4;
-static u_int32_t bnx_TPAT_b09FwBssAddr = 0x0800175c;
+static uint32_t bnx_TPAT_b09FwBssAddr = 0x0800175c;
 static int bnx_TPAT_b09FwBssLen = 0x12b4;
-static u_int32_t bnx_TPAT_b09FwSbssAddr = 0x08001720;
+static uint32_t bnx_TPAT_b09FwSbssAddr = 0x08001720;
 static int bnx_TPAT_b09FwSbssLen = 0x3c;
-static u_int32_t bnx_TPAT_b09FwSDataAddr = 0x00000000;
+static uint32_t bnx_TPAT_b09FwSDataAddr = 0x00000000;
 static int bnx_TPAT_b09FwSDataLen = 0x0;
-static u_int32_t bnx_TPAT_b09FwText[(0x12fc/4) + 1] = {
+static uint32_t bnx_TPAT_b09FwText[(0x12fc/4) + 1] = {
 0xa000124, 0x0, 0x0,
 0xd, 0x74706136, 0x2e302e31, 0x37000000,
 0x6001101, 0x0, 0x0, 0x0,
@@ -7996,31 +7996,31 @@ static u_int32_t bnx_TPAT_b09FwText[(0x12fc/4) + 1] = {
 0x0, 0x0, 0x2402ffff, 0x2463ffff,
 0x1462fffa, 0x24840004, 0x3e00008, 0x0,
 0x0 };
-static u_int32_t bnx_TPAT_b09FwData[(0x0/4) + 1] = { 0x0 };
-static u_int32_t bnx_TPAT_b09FwRodata[(0x4/4) + 1] = {
+static uint32_t bnx_TPAT_b09FwData[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_TPAT_b09FwRodata[(0x4/4) + 1] = {
 0x1, 0x0 };
-static u_int32_t bnx_TPAT_b09FwBss[(0x12b4/4) + 1] = { 0x0 };
-static u_int32_t bnx_TPAT_b09FwSbss[(0x3c/4) + 1] = { 0x0 };
-static u_int32_t bnx_TPAT_b09FwSdata[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_TPAT_b09FwBss[(0x12b4/4) + 1] = { 0x0 };
+static uint32_t bnx_TPAT_b09FwSbss[(0x3c/4) + 1] = { 0x0 };
+static uint32_t bnx_TPAT_b09FwSdata[(0x0/4) + 1] = { 0x0 };
 
 
 static int bnx_COM_b09FwReleaseMajor = 0x6;
 static int bnx_COM_b09FwReleaseMinor = 0x0;
 static int bnx_COM_b09FwReleaseFix = 0x11;
-static u_int32_t bnx_COM_b09FwStartAddr = 0x08000118;
-static u_int32_t bnx_COM_b09FwTextAddr = 0x08000000;
+static uint32_t bnx_COM_b09FwStartAddr = 0x08000118;
+static uint32_t bnx_COM_b09FwTextAddr = 0x08000000;
 static int bnx_COM_b09FwTextLen = 0x5594;
-static u_int32_t bnx_COM_b09FwDataAddr = 0x00000000;
+static uint32_t bnx_COM_b09FwDataAddr = 0x00000000;
 static int bnx_COM_b09FwDataLen = 0x0;
-static u_int32_t bnx_COM_b09FwRodataAddr = 0x08005594;
+static uint32_t bnx_COM_b09FwRodataAddr = 0x08005594;
 static int bnx_COM_b09FwRodataLen = 0x38;
-static u_int32_t bnx_COM_b09FwBssAddr = 0x08005638;
+static uint32_t bnx_COM_b09FwBssAddr = 0x08005638;
 static int bnx_COM_b09FwBssLen = 0x11c;
-static u_int32_t bnx_COM_b09FwSbssAddr = 0x08005608;
+static uint32_t bnx_COM_b09FwSbssAddr = 0x08005608;
 static int bnx_COM_b09FwSbssLen = 0x30;
-static u_int32_t bnx_COM_b09FwSDataAddr = 0x00000000;
+static uint32_t bnx_COM_b09FwSDataAddr = 0x00000000;
 static int bnx_COM_b09FwSDataLen = 0x0;
-static u_int32_t bnx_COM_b09FwText[(0x5594/4) + 1] = {
+static uint32_t bnx_COM_b09FwText[(0x5594/4) + 1] = {
 0xa000046, 0x0, 0x0,
 0xd, 0x636f6d36, 0x2e302e31, 0x37000000,
 0x6001102, 0x0, 0x3, 0xc8,
@@ -9391,34 +9391,34 @@ static u_int32_t bnx_COM_b09FwText[(0x5594/4) + 1] = {
 0x40f809, 0x0, 0xa001560, 0x0,
 0xd, 0x3c1c0800, 0x279c5608, 0x8fbf0010,
 0x3e00008, 0x27bd0018, 0x0 };
-static u_int32_t bnx_COM_b09FwData[(0x0/4) + 1] = { 0x0 };
-static u_int32_t bnx_COM_b09FwRodata[(0x38/4) + 1] = {
+static uint32_t bnx_COM_b09FwData[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_COM_b09FwRodata[(0x38/4) + 1] = {
 0x80080240, 0x80080100, 0x80080080,
 0x80080000, 0xc80, 0x3200, 0x8000e98,
 0x8000ef4, 0x8000f88, 0x8001028, 0x8001074,
 0x80080100, 0x80080080, 0x80080000, 0x0 };
-static u_int32_t bnx_COM_b09FwBss[(0x11c/4) + 1] = { 0x0 };
-static u_int32_t bnx_COM_b09FwSbss[(0x30/4) + 1] = { 0x0 };
-static u_int32_t bnx_COM_b09FwSdata[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_COM_b09FwBss[(0x11c/4) + 1] = { 0x0 };
+static uint32_t bnx_COM_b09FwSbss[(0x30/4) + 1] = { 0x0 };
+static uint32_t bnx_COM_b09FwSdata[(0x0/4) + 1] = { 0x0 };
 
 
 static int bnx_RXP_b09FwReleaseMajor = 0x6;
 static int bnx_RXP_b09FwReleaseMinor = 0x0;
 static int bnx_RXP_b09FwReleaseFix = 0x11;
-static u_int32_t bnx_RXP_b09FwStartAddr = 0x08003210;
-static u_int32_t bnx_RXP_b09FwTextAddr = 0x08000000;
+static uint32_t bnx_RXP_b09FwStartAddr = 0x08003210;
+static uint32_t bnx_RXP_b09FwTextAddr = 0x08000000;
 static int bnx_RXP_b09FwTextLen = 0x9090;
-static u_int32_t bnx_RXP_b09FwDataAddr = 0x00000000;
+static uint32_t bnx_RXP_b09FwDataAddr = 0x00000000;
 static int bnx_RXP_b09FwDataLen = 0x0;
-static u_int32_t bnx_RXP_b09FwRodataAddr = 0x08009090;
+static uint32_t bnx_RXP_b09FwRodataAddr = 0x08009090;
 static int bnx_RXP_b09FwRodataLen = 0x33c;
-static u_int32_t bnx_RXP_b09FwBssAddr = 0x08009478;
+static uint32_t bnx_RXP_b09FwBssAddr = 0x08009478;
 static int bnx_RXP_b09FwBssLen = 0x1bc;
-static u_int32_t bnx_RXP_b09FwSbssAddr = 0x08009400;
+static uint32_t bnx_RXP_b09FwSbssAddr = 0x08009400;
 static int bnx_RXP_b09FwSbssLen = 0x78;
-static u_int32_t bnx_RXP_b09FwSDataAddr = 0x00000000;
+static uint32_t bnx_RXP_b09FwSDataAddr = 0x00000000;
 static int bnx_RXP_b09FwSDataLen = 0x0;
-static u_int32_t bnx_RXP_b09FwText[(0x9090/4) + 1] = {
+static uint32_t bnx_RXP_b09FwText[(0x9090/4) + 1] = {
 0xa000c84, 0x0, 0x0,
 0xd, 0x72787036, 0x2e302e31, 0x37000000,
 0x6001103, 0x0, 0x1, 0x0,
@@ -11733,8 +11733,8 @@ static u_int32_t bnx_RXP_b09FwText[(0x9090/4) + 1] = {
 0x90cf0009, 0x240d0004, 0x31ee00ff, 0x11cdfd85,
 0x24020001, 0x3c010801, 0xa022950d, 0xa002154,
 0x0, 0x0 };
-static u_int32_t bnx_RXP_b09FwData[(0x0/4) + 1] = { 0x0 };
-static u_int32_t bnx_RXP_b09FwRodata[(0x33c/4) + 1] = {
+static uint32_t bnx_RXP_b09FwData[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_RXP_b09FwRodata[(0x33c/4) + 1] = {
 0x8003344,
 0x8003344, 0x8003420, 0x80033f4, 0x80033d8,
 0x8003328, 0x8003328, 0x8003328, 0x800334c,
@@ -11788,28 +11788,28 @@ static u_int32_t bnx_RXP_b09FwRodata[(0x33c/4) + 1] = {
 0x8007fc0, 0x8007fc0, 0x8007fc0, 0x8007fc0,
 0x8007fe8, 0x8008b6c, 0x8008cc8, 0x8008ca8,
 0x8008710, 0x8008b84, 0x0 };
-static u_int32_t bnx_RXP_b09FwBss[(0x1bc/4) + 1] = { 0x0 };
-static u_int32_t bnx_RXP_b09FwSbss[(0x78/4) + 1] = { 0x0 };
-static u_int32_t bnx_RXP_b09FwSdata[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_RXP_b09FwBss[(0x1bc/4) + 1] = { 0x0 };
+static uint32_t bnx_RXP_b09FwSbss[(0x78/4) + 1] = { 0x0 };
+static uint32_t bnx_RXP_b09FwSdata[(0x0/4) + 1] = { 0x0 };
 
 
 static int bnx_CP_b09FwReleaseMajor = 0x6;
 static int bnx_CP_b09FwReleaseMinor = 0x0;
 static int bnx_CP_b09FwReleaseFix = 0x11;
-static u_int32_t bnx_CP_b09FwStartAddr = 0x080000a0;
-static u_int32_t bnx_CP_b09FwTextAddr = 0x08000000;
+static uint32_t bnx_CP_b09FwStartAddr = 0x080000a0;
+static uint32_t bnx_CP_b09FwTextAddr = 0x08000000;
 static int bnx_CP_b09FwTextLen = 0x5744;
-static u_int32_t bnx_CP_b09FwDataAddr = 0x08005920;
+static uint32_t bnx_CP_b09FwDataAddr = 0x08005920;
 static int bnx_CP_b09FwDataLen = 0x84;
-static u_int32_t bnx_CP_b09FwRodataAddr = 0x08005744;
+static uint32_t bnx_CP_b09FwRodataAddr = 0x08005744;
 static int bnx_CP_b09FwRodataLen = 0x1c0;
-static u_int32_t bnx_CP_b09FwBssAddr = 0x08005a58;
+static uint32_t bnx_CP_b09FwBssAddr = 0x08005a58;
 static int bnx_CP_b09FwBssLen = 0x19c;
-static u_int32_t bnx_CP_b09FwSbssAddr = 0x080059b0;
+static uint32_t bnx_CP_b09FwSbssAddr = 0x080059b0;
 static int bnx_CP_b09FwSbssLen = 0xa8;
-static u_int32_t bnx_CP_b09FwSDataAddr = 0x00000000;
+static uint32_t bnx_CP_b09FwSDataAddr = 0x00000000;
 static int bnx_CP_b09FwSDataLen = 0x0;
-static u_int32_t bnx_CP_b09FwText[(0x5744/4) + 1] = {
+static uint32_t bnx_CP_b09FwText[(0x5744/4) + 1] = {
 0xa000028, 0x0, 0x0,
 0xd, 0x6370362e, 0x302e3137, 0x0,
 0x6001104, 0x0, 0x0, 0x0,
@@ -13207,7 +13207,7 @@ static u_int32_t bnx_CP_b09FwText[(0x5744/4) + 1] = {
 0xa00156a, 0x8fbf001c, 0xe0010d1, 0x0,
 0x5040ff9e, 0x8fbf001c, 0x9259007d, 0x3330003f,
 0xa0015c6, 0x36020040, 0x0 };
-static u_int32_t bnx_CP_b09FwData[(0x84/4) + 1] = {
+static uint32_t bnx_CP_b09FwData[(0x84/4) + 1] = {
 0x0, 0x1b, 0xf,
 0xa, 0x8, 0x6, 0x5,
 0x5, 0x4, 0x4, 0x3,
@@ -13217,7 +13217,7 @@ static u_int32_t bnx_CP_b09FwData[(0x84/4) + 1] = {
 0x2, 0x2, 0x2, 0x2,
 0x2, 0x2, 0x2, 0x1,
 0x1, 0x1, 0x0 };
-static u_int32_t bnx_CP_b09FwRodata[(0x1c0/4) + 1] = {
+static uint32_t bnx_CP_b09FwRodata[(0x1c0/4) + 1] = {
 0x80080100,
 0x80080080, 0x80080000, 0xc00, 0x3080,
 0x80011d0, 0x800127c, 0x8001294, 0x80012a8,
@@ -13247,12 +13247,12 @@ static u_int32_t bnx_CP_b09FwRodata[(0x1c0/4) + 1] = {
 0x80080080, 0x80080000, 0x80080080, 0x8004c64,
 0x8004c9c, 0x8004be4, 0x8004c64, 0x8004c64,
 0x80049b8, 0x8004c64, 0x8005050, 0x0 };
-static u_int32_t bnx_CP_b09FwBss[(0x19c/4) + 1] = { 0x0 };
-static u_int32_t bnx_CP_b09FwSbss[(0xa8/4) + 1] = { 0x0 };
-static u_int32_t bnx_CP_b09FwSdata[(0x0/4) + 1] = { 0x0 };
+static uint32_t bnx_CP_b09FwBss[(0x19c/4) + 1] = { 0x0 };
+static uint32_t bnx_CP_b09FwSbss[(0xa8/4) + 1] = { 0x0 };
+static uint32_t bnx_CP_b09FwSdata[(0x0/4) + 1] = { 0x0 };
 
 
-static u_int32_t bnx_xi_rv2p_proc1[] = {
+static uint32_t bnx_xi_rv2p_proc1[] = {
     0x00000010, 0xb1800006,
     0x0000001f, 0x05060011,
     0x00000008, 0x0500ffff,
@@ -13543,7 +13543,7 @@ static u_int32_t bnx_xi_rv2p_proc1[] = {
 };
 
 
-static u_int32_t bnx_xi_rv2p_proc2[] = {
+static uint32_t bnx_xi_rv2p_proc2[] = {
     0x00000010, 0xb1800004,
     0x0000001f, 0x05060011,
     0x00000008, 0x050000ff,
@@ -14012,7 +14012,7 @@ static u_int32_t bnx_xi_rv2p_proc2[] = {
 };
 
 
-static u_int32_t bnx_xi90_rv2p_proc1[] = {
+static uint32_t bnx_xi90_rv2p_proc1[] = {
 	 0x00000010, 0xb1800006,
 	 0x0000001f, 0x03060011,
 	 0x00000008, 0x0500ffff,
@@ -14318,7 +14318,7 @@ static u_int32_t bnx_xi90_rv2p_proc1[] = {
 };
 
 
-static u_int32_t bnx_xi90_rv2p_proc2[] = {
+static uint32_t bnx_xi90_rv2p_proc2[] = {
     0x00000010, 0xb1800004,
     0x0000001f, 0x03060011,
     0x00000008, 0x050000ff,

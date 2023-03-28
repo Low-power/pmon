@@ -106,7 +106,7 @@ cmd_trace (ac, av)
 {
 	int multi, i, j, n;
 	register_t *reg;
-	u_int32_t adr, val;
+	uint32_t adr, val;
 	trace_over = 0;
 	if (!strcmp(av[0], "to")) {
 		trace_over = 1;
@@ -188,7 +188,7 @@ cmd_trace (ac, av)
 		}
 		else {
 			if (n == 0) {
-				if (!get_rsa ((u_int32_t *)&trace_count, av[i])) {
+				if (!get_rsa ((uint32_t *)&trace_count, av[i])) {
 					return (-1);
 				}
 				multi = 1;

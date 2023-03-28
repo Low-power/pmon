@@ -288,7 +288,7 @@ search (ac, av)
      int             ac;
      char           *av[];
 {
-    u_int32_t	from, to, adr, i, a;
+    uint32_t	from, to, adr, i, a;
     char	*s, *d, c;
     char	pat[PATSZ];
     int		siz, ln;
@@ -396,7 +396,7 @@ call (ac, av)
 		j++;
 	    }
 	} else {
-	    if (!get_rsa ((u_int32_t *)&arg[k], av[i]))
+	    if (!get_rsa ((uint32_t *)&arg[k], av[i]))
 		return (-1);
 	    k++;
 	}
@@ -561,7 +561,7 @@ sdump (ac, av)
      int             ac;
      char           *av[];
 {
-    u_int32_t       adr, siz, len, i, a;
+    uint32_t       adr, siz, len, i, a;
     char            *tmp;
     char           *uleof, *ulcr, *hostport = 0, *eol;
     int             fd, cs, v, binary = 0;
@@ -660,7 +660,7 @@ copy (ac, av)
      int             ac;
      char           *av[];
 {
-    u_int32_t	from, to, n;
+    uint32_t	from, to, n;
 
     if (!get_rsa (&from, av[1]) || !get_rsa (&to, av[2]) || !get_rsa (&n, av[3]))
 	return (-1);
@@ -735,7 +735,7 @@ dump (ac, av)
     }
 
     /* get <addr> */
-    if (optind >= ac || !get_rsa ((u_int32_t *)&adr, av[optind++]))
+    if (optind >= ac || !get_rsa ((uint32_t *)&adr, av[optind++]))
       return (-1);
 
     if( repeating_cmd )
@@ -851,12 +851,12 @@ fill (ac, av)
      int             ac;
      char           *av[];
 {
-    u_int32_t           from, to, i, a, w;
-    u_int8_t	    *p, *d;
+    uint32_t           from, to, i, a, w;
+    uint8_t	    *p, *d;
     union {
-	u_int32_t	w;
-	u_int16_t	h;
-	u_int8_t	b[PATSZ];
+	uint32_t	w;
+	uint16_t	h;
+	uint8_t	b[PATSZ];
     } pat;
     int             len;
 
@@ -910,12 +910,12 @@ fill (ac, av)
 	    w = pat.w;
 	    break;
 	}
-	for (; from <= to; from += sizeof (u_int32_t))
-	    *(u_int32_t *)from = w;
+	for (; from <= to; from += sizeof (uint32_t))
+	    *(uint32_t *)from = w;
     } else {
 	/* all other cases: byte by byte */
-	for (; from <= to; from += sizeof (u_int8_t)) {
-	    *(u_int8_t *)from = *p;
+	for (; from <= to; from += sizeof (uint8_t)) {
+	    *(uint8_t *)from = *p;
 	    if (++p >= d)
 	      p = pat.b;
 	}

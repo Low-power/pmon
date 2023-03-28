@@ -1167,7 +1167,7 @@ sd_interpret_sense(struct scsi_xfer *xs)
 	struct scsi_sense_data *sense = &xs->sense;
 	struct scsi_link *sc_link = xs->sc_link;
 	struct sd_softc *sc = sc_link->device_softc;
-	u_int8_t serr = sense->error_code & SSD_ERRCODE;
+	uint8_t serr = sense->error_code & SSD_ERRCODE;
 	int retval;
 
 	/*
@@ -1378,7 +1378,7 @@ sd_get_parms(struct sd_softc *sc, struct disk_parms *dp, int flags)
 	struct page_flex_geometry *flex = NULL;
 	struct page_reduced_geometry *reduced = NULL;
 	u_char *page0 = NULL;
-	u_int32_t heads = 0, sectors = 0, cyls = 0, secsize = 0, sssecsize;
+	uint32_t heads = 0, sectors = 0, cyls = 0, secsize = 0, sssecsize;
 	int err = 0, big;
 
 	dp->disksize = scsi_size(sc->sc_link, flags, &sssecsize);

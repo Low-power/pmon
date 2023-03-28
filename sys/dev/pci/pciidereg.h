@@ -102,8 +102,8 @@
 
 /* bus master table descriptor */
 struct idedma_table {
-	u_int32_t base_addr; /* physical base addr of memory region */
-	u_int32_t byte_count; /* memory region length */
+	uint32_t base_addr; /* physical base addr of memory region */
+	uint32_t byte_count; /* memory region length */
 #define IDEDMA_BYTE_COUNT_MASK 0x0000FFFF
 #define IDEDMA_BYTE_COUNT_EOT  0x80000000
 };

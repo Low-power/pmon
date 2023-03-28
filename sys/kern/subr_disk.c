@@ -202,11 +202,11 @@ insert:	bp->b_actf = bq->b_actf;
 u_int
 dkcksum(struct disklabel *lp)
 {
-	u_int16_t *start, *end;
-	u_int16_t sum = 0;
+	uint16_t *start, *end;
+	uint16_t sum = 0;
 
-	start = (u_int16_t *)lp;
-	end = (u_int16_t *)&lp->d_partitions[lp->d_npartitions];
+	start = (uint16_t *)lp;
+	end = (uint16_t *)&lp->d_partitions[lp->d_npartitions];
 	while (start < end)
 		sum ^= *start++;
 	return (sum);
@@ -246,7 +246,7 @@ initdisklabel(struct disklabel *lp)
  */
 int
 checkdisklabel(void *rlp, struct disklabel *lp,
-	u_int64_t boundstart, u_int64_t boundend)
+	uint64_t boundstart, uint64_t boundend)
 {
 	struct disklabel *dlp = rlp;
 	struct __partitionv0 *v0pp;
@@ -267,7 +267,7 @@ checkdisklabel(void *rlp, struct disklabel *lp,
 		error = EINVAL;	/* incorrect checksum */
 
 	if (error) {
-		u_int16_t *start, *end, sum = 0;
+		uint16_t *start, *end, sum = 0;
 
 		/* If it is byte-swapped, attempt to convert it */
 		if (swap32(dlp->d_magic) != DISKMAGIC ||
@@ -279,8 +279,8 @@ checkdisklabel(void *rlp, struct disklabel *lp,
 		 * Need a byte-swap aware dkcksum variant
 		 * inlined, because dkcksum uses a sub-field
 		 */
-		start = (u_int16_t *)dlp;
-		end = (u_int16_t *)&dlp->d_partitions[
+		start = (uint16_t *)dlp;
+		end = (uint16_t *)&dlp->d_partitions[
 		    swap16(dlp->d_npartitions)];
 		while (start < end)
 			sum ^= *start++;
@@ -429,11 +429,11 @@ int
 readdoslabel(struct buf *bp, void (*strat)(struct buf *),
     struct disklabel *lp, int *partoffp, int spoofonly)
 {
-	u_int64_t dospartoff = 0, dospartend = DL_GETBEND(lp);
+	uint64_t dospartoff = 0, dospartend = DL_GETBEND(lp);
 	int i, ourpart = -1, wander = 1, n = 0, loop = 0, offset;
 	struct dos_partition dp[NDOSPART], *dp2;
 	daddr64_t part_blkno = DOSBBSECTOR;
-	u_int32_t extoff = 0;
+	uint32_t extoff = 0;
 	int error;
 
 	if (lp->d_secpercyl == 0)
@@ -469,7 +469,7 @@ readdoslabel(struct buf *bp, void (*strat)(struct buf *),
 		bcopy(bp->b_data + offset, dp, sizeof(dp));
 
 		if (n == 0 && part_blkno == DOSBBSECTOR) {
-			u_int16_t fattest;
+			uint16_t fattest;
 
 			/* Check the end of sector marker. */
 			fattest = ((bp->b_data[510] << 8) & 0xff00) |
@@ -515,7 +515,7 @@ donot:
 		 */
 		for (dp2=dp, i=0; i < NDOSPART && n < 8; i++, dp2++) {
 			struct partition *pp = &lp->d_partitions[8+n];
-			u_int8_t fstype;
+			uint8_t fstype;
 
 			if (dp2->dp_typ == DOSPTYP_OPENBSD)
 				continue;
@@ -589,16 +589,16 @@ donot:
 	lp->d_npartitions = MAXPARTITIONS;
 
 	if (n == 0 && part_blkno == DOSBBSECTOR) {
-		u_int16_t fattest;
+		uint16_t fattest;
 
 		/* Check for a valid initial jmp instruction. */
-		switch ((u_int8_t)bp->b_data[0]) {
+		switch ((uint8_t)bp->b_data[0]) {
 		case 0xeb:
 			/*
 			 * Two-byte jmp instruction. The 2nd byte is the number
 			 * of bytes to jmp and the 3rd byte must be a NOP.
 			 */
-			if ((u_int8_t)bp->b_data[2] != 0x90)
+			if ((uint8_t)bp->b_data[2] != 0x90)
 				goto notfat;
 			break;
 		case 0xe9:
@@ -659,7 +659,7 @@ setdisklabel(struct disklabel *olp, struct disklabel *nlp, u_int openmask)
 {
 	struct partition *opp, *npp;
 	struct disk *dk;
-	u_int64_t uid;
+	uint64_t uid;
 	int i;
 
 	/* sanity clause */

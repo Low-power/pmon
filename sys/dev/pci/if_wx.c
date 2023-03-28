@@ -83,20 +83,20 @@ static int wx_ifmedia_upd(struct ifnet *);
 static void wx_ifmedia_sts(struct ifnet *, struct ifmediareq *);
 static int wx_init(void *);
 static void wx_hw_stop(wx_softc_t *);
-static void wx_set_addr(wx_softc_t *, int, u_int8_t *);
+static void wx_set_addr(wx_softc_t *, int, uint8_t *);
 static int wx_hw_initialize(wx_softc_t *);
 static void wx_stop(wx_softc_t *);
 static void wx_txwatchdog(struct ifnet *);
 static int wx_get_rbuf(wx_softc_t *, rxpkt_t *);
 static void wx_rxdma_map(wx_softc_t *, rxpkt_t *, struct mbuf *);
 
-static INLINE void wx_eeprom_raise_clk(wx_softc_t *, u_int32_t);
-static INLINE void wx_eeprom_lower_clk(wx_softc_t *, u_int32_t);
-static INLINE void wx_eeprom_sobits(wx_softc_t *, u_int16_t, u_int16_t);
-static INLINE u_int16_t wx_eeprom_sibits(wx_softc_t *);
+static INLINE void wx_eeprom_raise_clk(wx_softc_t *, uint32_t);
+static INLINE void wx_eeprom_lower_clk(wx_softc_t *, uint32_t);
+static INLINE void wx_eeprom_sobits(wx_softc_t *, uint16_t, uint16_t);
+static INLINE uint16_t wx_eeprom_sibits(wx_softc_t *);
 static INLINE void wx_eeprom_cleanup(wx_softc_t *);
-static INLINE u_int16_t wx_read_eeprom_word(wx_softc_t *, int);
-static void wx_read_eeprom(wx_softc_t *, u_int16_t *, int, int);
+static INLINE uint16_t wx_read_eeprom_word(wx_softc_t *, int);
+static void wx_read_eeprom(wx_softc_t *, uint16_t *, int, int);
 
 static int wx_attach_common(wx_softc_t *);
 static void wx_watchdog(void *);
@@ -111,8 +111,8 @@ static int wx_miibus_readreg(void *, int, int);
 static int wx_miibus_writereg(void *, int, int, int);
 static void wx_miibus_statchg(void *);
 
-static u_int32_t wx_mii_shift_in(wx_softc_t *);
-static void wx_mii_shift_out(wx_softc_t *, u_int32_t, u_int32_t);
+static uint32_t wx_mii_shift_in(wx_softc_t *);
+static void wx_mii_shift_out(wx_softc_t *, uint32_t, uint32_t);
 
 #define	WX_DISABLE_INT(sc)	WRITE_CSR(sc, WXREG_IMCLR, WXDISABLE)
 #define	WX_ENABLE_INT(sc)	WRITE_CSR(sc, WXREG_IMASK, sc->wx_ienable)
@@ -151,17 +151,17 @@ static int	wx_mc_setup(wx_softc_t *);
  * such that they cannot be used as part of a for loop, for example.
  */
 
-static INLINE u_int32_t _read_csr (wx_softc_t *, u_int32_t);
-static INLINE void _write_csr(wx_softc_t *, u_int32_t, u_int32_t);
+static INLINE uint32_t _read_csr (wx_softc_t *, uint32_t);
+static INLINE void _write_csr(wx_softc_t *, uint32_t, uint32_t);
 
-static INLINE u_int32_t
-_read_csr(wx_softc_t *sc, u_int32_t reg)
+static INLINE uint32_t
+_read_csr(wx_softc_t *sc, uint32_t reg)
 {
 	return bus_space_read_4(sc->w.st, sc->w.sh, reg);
 }
 
 static INLINE void
-_write_csr(wx_softc_t *sc, u_int32_t reg, u_int32_t val)
+_write_csr(wx_softc_t *sc, uint32_t reg, uint32_t val)
 {
 	bus_space_write_4(sc->w.st, sc->w.sh, reg, val);
 }
@@ -206,7 +206,7 @@ wx_attach(struct device *parent, struct device *self, void *aux)
 #endif
 	pci_intr_handle_t ih;
 	const char *intrstr = NULL;
-	u_int32_t data;
+	uint32_t data;
 	struct ifnet *ifp;
 
 	sc->w.pci_pc = pa->pa_pc;
@@ -499,7 +499,7 @@ static int
 wx_attach_common(wx_softc_t *sc)
 {
 	size_t len;
-	u_int32_t tmp;
+	uint32_t tmp;
 	int ll = 0;
 
 	/*
@@ -525,7 +525,7 @@ wx_attach_common(wx_softc_t *sc)
 	/*
 	 * Fourth, read eeprom for our MAC address and other things.
 	 */
-	wx_read_eeprom(sc, (u_int16_t *)sc->wx_enaddr, WX_EEPROM_MAC_OFF, 3);
+	wx_read_eeprom(sc, (uint16_t *)sc->wx_enaddr, WX_EEPROM_MAC_OFF, 3);
 
 	/*
 	 * Fifth, establish some adapter parameters.
@@ -639,23 +639,23 @@ fail:
  */
 
 static INLINE void
-wx_eeprom_raise_clk(wx_softc_t *sc, u_int32_t regval)
+wx_eeprom_raise_clk(wx_softc_t *sc, uint32_t regval)
 {
 	WRITE_CSR(sc, WXREG_EECDR, regval | WXEECD_SK);
 	DELAY(50);
 }
 
 static INLINE void
-wx_eeprom_lower_clk(wx_softc_t *sc, u_int32_t regval)
+wx_eeprom_lower_clk(wx_softc_t *sc, uint32_t regval)
 {
 	WRITE_CSR(sc, WXREG_EECDR, regval & ~WXEECD_SK);
 	DELAY(50);
 }
 
 static INLINE void
-wx_eeprom_sobits(wx_softc_t *sc, u_int16_t data, u_int16_t count)
+wx_eeprom_sobits(wx_softc_t *sc, uint16_t data, uint16_t count)
 {
-	u_int32_t regval, mask;
+	uint32_t regval, mask;
 
 	mask = 1 << (count - 1);
 	regval = READ_CSR(sc, WXREG_EECDR) & ~(WXEECD_DI|WXEECD_DO);
@@ -673,11 +673,11 @@ wx_eeprom_sobits(wx_softc_t *sc, u_int16_t data, u_int16_t count)
 	WRITE_CSR(sc, WXREG_EECDR, regval & ~WXEECD_DI);
 }
 
-static INLINE u_int16_t
+static INLINE uint16_t
 wx_eeprom_sibits(wx_softc_t *sc)
 {
 	unsigned int regval, i;
-	u_int16_t data;
+	uint16_t data;
 
 	data = 0;
 	regval = READ_CSR(sc, WXREG_EECDR) & ~(WXEECD_DI|WXEECD_DO);
@@ -696,17 +696,17 @@ wx_eeprom_sibits(wx_softc_t *sc)
 static INLINE void
 wx_eeprom_cleanup(wx_softc_t *sc)
 {
-	u_int32_t regval;
+	uint32_t regval;
 	regval = READ_CSR(sc, WXREG_EECDR) & ~(WXEECD_DI|WXEECD_CS);
 	WRITE_CSR(sc, WXREG_EECDR, regval); DELAY(50);
 	wx_eeprom_raise_clk(sc, regval);
 	wx_eeprom_lower_clk(sc, regval);
 }
 
-static u_int16_t INLINE 
+static uint16_t INLINE 
 wx_read_eeprom_word(wx_softc_t *sc, int offset)
 {
-	u_int16_t       data;
+	uint16_t       data;
 	WRITE_CSR(sc, WXREG_EECDR, WXEECD_CS);
 	wx_eeprom_sobits(sc, EEPROM_READ_OPCODE, 3);
 	wx_eeprom_sobits(sc, offset, 6);
@@ -716,7 +716,7 @@ wx_read_eeprom_word(wx_softc_t *sc, int offset)
 }
 
 static void
-wx_read_eeprom(wx_softc_t *sc, u_int16_t *data, int offset, int words)
+wx_read_eeprom(wx_softc_t *sc, uint16_t *data, int offset, int words)
 {
 	int i;
 	for (i = 0; i < words; i++) {
@@ -733,7 +733,7 @@ static void
 wx_start(struct ifnet *ifp)
 {
 	wx_softc_t *sc = SOFTC_IFP(ifp);
-	u_int16_t widx = WX_MAX_TDESC, cidx, nactv;
+	uint16_t widx = WX_MAX_TDESC, cidx, nactv;
 
 	WX_LOCK(sc);
 	DPRINTF(sc, ("%s: wx_start\n", sc->wx_name));
@@ -1043,7 +1043,7 @@ wx_intr(void *arg)
 static void
 wx_handle_link_intr(wx_softc_t *sc)
 {
-	u_int32_t txcw, rxcw, dcr, dsr;
+	uint32_t txcw, rxcw, dcr, dsr;
 
 	sc->wx_linkintr++;
 
@@ -1105,7 +1105,7 @@ wx_handle_link_intr(wx_softc_t *sc)
 static void
 wx_check_link(wx_softc_t *sc)
 {
-	u_int32_t rxcw, dcr, dsr;
+	uint32_t rxcw, dcr, dsr;
 
 	if (sc->wx_mii) {
 		mii_pollstat(WX_MII_FROM_SOFTC(sc));
@@ -1332,7 +1332,7 @@ wx_gc(wx_softc_t *sc)
 {
 	struct ifnet *ifp = &sc->wx_if;
 	txpkt_t *txpkt;
-	u_int32_t tdh;
+	uint32_t tdh;
 
 	WX_LOCK(sc);
 	txpkt = sc->tbsyf;
@@ -1342,7 +1342,7 @@ wx_gc(wx_softc_t *sc)
 		tdh = READ_CSR(sc, WXREG_TDH_LIVENGOOD);
 	}
 	while (txpkt != NULL) {
-		u_int32_t end = txpkt->eidx, cidx = tdh;
+		uint32_t end = txpkt->eidx, cidx = tdh;
 
 		/*
 		 * Normalize start..end indices to 2 *
@@ -1464,7 +1464,7 @@ wx_watchdog(void *arg)
 static void
 wx_hw_stop(wx_softc_t *sc)
 {
-	u_int32_t icr;
+	uint32_t icr;
 	DPRINTF(sc, ("%s: wx_hw_stop\n", sc->wx_name));
 	WX_DISABLE_INT(sc);
 	if (sc->wx_idnrev < WX_WISEMAN_2_1) {
@@ -1479,9 +1479,9 @@ wx_hw_stop(wx_softc_t *sc)
 }
 
 static void
-wx_set_addr(wx_softc_t *sc, int idx, u_int8_t *mac)
+wx_set_addr(wx_softc_t *sc, int idx, uint8_t *mac)
 {
-	u_int32_t t0, t1;
+	uint32_t t0, t1;
 	DPRINTF(sc, ("%s: wx_set_addr\n", sc->wx_name));
 	t0 = (mac[0]) | (mac[1] << 8) | (mac[2] << 16) | (mac[3] << 24);
 	t1 = (mac[4] << 0) | (mac[5] << 8);
@@ -1536,14 +1536,14 @@ wx_hw_initialize(wx_softc_t *sc)
 	 * Clear out the hashed multicast table array.
 	 */
 	for (i = 0; i < WX_MC_TAB_SIZE; i++) {
-		WRITE_CSR(sc, WXREG_MTA + (sizeof (u_int32_t) * 4), 0);
+		WRITE_CSR(sc, WXREG_MTA + (sizeof (uint32_t) * 4), 0);
 	}
 
 	if (IS_LIVENGOOD_CU(sc)) {
 		/*
 		 * has a PHY - raise its reset line to make it operational
 		 */
-		u_int32_t tmp = READ_CSR(sc, WXREG_EXCT);
+		uint32_t tmp = READ_CSR(sc, WXREG_EXCT);
 		tmp |= WXPHY_RESET_DIR4;
 		WRITE_CSR(sc, WXREG_EXCT, tmp);
 		DELAY(20*1000);
@@ -1558,7 +1558,7 @@ wx_hw_initialize(wx_softc_t *sc)
 		WRITE_CSR(sc, WXREG_EXCT, tmp);
 		DELAY(20*1000);
 	} else if (IS_LIVENGOOD(sc)) {
-		u_int16_t tew;
+		uint16_t tew;
 
 		/*
 		 * Handle link control
@@ -1568,7 +1568,7 @@ wx_hw_initialize(wx_softc_t *sc)
 
 		wx_read_eeprom(sc, &tew, WX_EEPROM_CTLR2_OFF, 1);
 		tew = (tew & WX_EEPROM_CTLR2_SWDPIO) << WX_EEPROM_EXT_SHIFT;
-		WRITE_CSR(sc, WXREG_EXCT, (u_int32_t)tew);
+		WRITE_CSR(sc, WXREG_EXCT, (uint32_t)tew);
 	}
 
 	if (sc->wx_dcr & (WXDCR_RFCE|WXDCR_TFCE)) {
@@ -2003,7 +2003,7 @@ wx_ifmedia_upd(struct ifnet *ifp)
 static void
 wx_ifmedia_sts(struct ifnet *ifp, struct ifmediareq *ifmr)
 {
-	u_int32_t dsr;
+	uint32_t dsr;
 	struct wx_softc *sc = SOFTC_IFP(ifp);
 
 	DPRINTF(sc, ("%s: ifmedia_sts: ", sc->wx_name));
@@ -2055,11 +2055,11 @@ wx_ifmedia_sts(struct ifnet *ifp, struct ifmediareq *ifmr)
 #define LOWER_CLOCK(sc, dcr)	\
 		WRITE_CSR(sc, WXREG_DCR, (dcr) & ~WXPHY_MDC), DELAY(2)
 
-static u_int32_t
+static uint32_t
 wx_mii_shift_in(wx_softc_t *sc)
 {
-	u_int32_t dcr, i;
-	u_int32_t data = 0;
+	uint32_t dcr, i;
+	uint32_t data = 0;
 
 	dcr = READ_CSR(sc, WXREG_DCR);
 	dcr &= ~(WXPHY_MDIO_DIR | WXPHY_MDIO);
@@ -2084,9 +2084,9 @@ wx_mii_shift_in(wx_softc_t *sc)
 }
 
 static void
-wx_mii_shift_out(wx_softc_t *sc, u_int32_t data, u_int32_t count)
+wx_mii_shift_out(wx_softc_t *sc, uint32_t data, uint32_t count)
 {
-	u_int32_t dcr, mask;
+	uint32_t dcr, mask;
 
 	dcr = READ_CSR(sc, WXREG_DCR);
 	dcr |= WXPHY_MDIO_DIR | WXPHY_MDC_DIR;
@@ -2128,7 +2128,7 @@ wx_miibus_writereg(void *arg, int phy, int reg, int data)
 		return 0;
 	}
 	wx_mii_shift_out(sc, WXPHYC_PREAMBLE, WXPHYC_PREAMBLE_LEN);
-	wx_mii_shift_out(sc, (u_int32_t)data | (WXPHYC_TURNAROUND << 16) |
+	wx_mii_shift_out(sc, (uint32_t)data | (WXPHYC_TURNAROUND << 16) |
 	    (reg << 18) | (phy << 23) | (WXPHYC_WRITE << 28) |
 	    (WXPHYC_SOF << 30), 32);
 	return (0);
@@ -2139,7 +2139,7 @@ wx_miibus_statchg(void *arg)
 {
 	wx_softc_t *sc = WX_SOFTC_FROM_MII_ARG(arg);
 	mii_data_t *mii = WX_MII_FROM_SOFTC(sc);
-	u_int32_t dcr, tctl;
+	uint32_t dcr, tctl;
 
 	if (mii == NULL)
 		return;

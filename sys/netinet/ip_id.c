@@ -71,24 +71,24 @@
 #define RU_M	31104           /* RU_M = 2^7*3^5 - don't change */
 
 #define PFAC_N 3
-const static u_int16_t pfacts[PFAC_N] = {
+const static uint16_t pfacts[PFAC_N] = {
 	2, 
 	3,
 	2729
 };
 
-static u_int16_t ru_x;
-static u_int16_t ru_seed, ru_seed2;
-static u_int16_t ru_a, ru_b;
-static u_int16_t ru_g;
-static u_int16_t ru_counter = 0;
-static u_int16_t ru_msb = 0;
+static uint16_t ru_x;
+static uint16_t ru_seed, ru_seed2;
+static uint16_t ru_a, ru_b;
+static uint16_t ru_g;
+static uint16_t ru_counter = 0;
+static uint16_t ru_msb = 0;
 static long ru_reseed;
-static u_int32_t tmp;                /* Storage for unused random */
+static uint32_t tmp;                /* Storage for unused random */
 
-static u_int16_t pmod __P((u_int16_t, u_int16_t, u_int16_t));
+static uint16_t pmod __P((uint16_t, uint16_t, uint16_t));
 static void ip_initid __P((void));
-u_int16_t ip_randomid __P((void));
+uint16_t ip_randomid __P((void));
 
 #ifdef PMON
 #define get_random_bytes(p, siz)		/* do nothing */
@@ -100,15 +100,15 @@ u_int16_t ip_randomid __P((void));
  */
 
 #ifdef __STDC__
-static u_int16_t
-pmod(u_int16_t gen, u_int16_t exp, u_int16_t mod)
+static uint16_t
+pmod(uint16_t gen, uint16_t exp, uint16_t mod)
 #else
-static u_int16_t
+static uint16_t
 pmod(gen, exp, mod)
-	u_int16_t gen, exp, mod;
+	uint16_t gen, exp, mod;
 #endif
 {
-	u_int16_t s, t, u;
+	uint16_t s, t, u;
 
 	s = 1;
 	t = gen;
@@ -134,7 +134,7 @@ pmod(gen, exp, mod)
 static void 
 ip_initid(void)
 {
-	u_int16_t j, i;
+	uint16_t j, i;
 	int noprime = 1;
 
 	get_random_bytes((void *) &tmp, sizeof(tmp));
@@ -181,7 +181,7 @@ ip_initid(void)
 	ru_msb = ru_msb == 0x8000 ? 0 : 0x8000; 
 }
 
-u_int16_t
+uint16_t
 ip_randomid(void)
 {
         int i, n;

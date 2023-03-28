@@ -51,7 +51,7 @@
 /*
  * Structures and definitions needed by the machine-dependent header.
  */
-typedef u_int32_t pcireg_t;		/* configuration space register XXX */
+typedef uint32_t pcireg_t;		/* configuration space register XXX */
 struct pcibus_attach_args;
 
 #include <pci/pci_machdep.h>
@@ -182,17 +182,17 @@ struct pci_memwin;
  */
 struct pci_bus {
 	struct pci_bus *next;		/* next bus pointer */
-	u_int8_t	min_gnt;        /* largest min grant */
-	u_int8_t	max_lat;        /* smallest max latency */
-	u_int8_t	devsel;         /* slowest devsel */
-	u_int8_t	fast_b2b;       /* support fast b2b */
-	u_int8_t	prefetch;       /* support prefetch */
-	u_int8_t	freq66;         /* support 66MHz */
-	u_int8_t	width64;        /* 64 bit bus */
-	u_int8_t	bus;
-	u_int8_t	ndev;           /* # devices on bus */
-	u_int8_t	def_ltim;       /* default ltim counter */
-	u_int8_t	max_ltim;       /* maximum ltim counter */
+	uint8_t	min_gnt;        /* largest min grant */
+	uint8_t	max_lat;        /* smallest max latency */
+	uint8_t	devsel;         /* slowest devsel */
+	uint8_t	fast_b2b;       /* support fast b2b */
+	uint8_t	prefetch;       /* support prefetch */
+	uint8_t	freq66;         /* support 66MHz */
+	uint8_t	width64;        /* 64 bit bus */
+	uint8_t	bus;
+	uint8_t	ndev;           /* # devices on bus */
+	uint8_t	def_ltim;       /* default ltim counter */
+	uint8_t	max_ltim;       /* maximum ltim counter */
 	int32_t		bandwidth;      /* # of .25us ticks/sec @ 33MHz */
 	paddr_t		minpcimemaddr;	/* PCI allocation min mem for bus */
 	paddr_t		nextpcimemaddr;	/* PCI allocation max mem for bus */
@@ -211,10 +211,10 @@ struct pci_intline_routing;
 #define PCI_INTLINE_D	3
 
 struct pci_intline_routing {
-    u_int8_t	bus;
-    u_int8_t	device;
-    u_int8_t	function;
-    u_int8_t	intline[32][4];	/* interrupt line mapping */
+    uint8_t	bus;
+    uint8_t	device;
+    uint8_t	function;
+    uint8_t	intline[32][4];	/* interrupt line mapping */
     struct pci_intline_routing *next;
 };
 
@@ -235,15 +235,15 @@ struct pci_win {
  * PCI Bridge parameters
  */
 struct pci_bridge {
-	u_int8_t		pribus_num;	/* Primary Bus number */
-	u_int8_t		secbus_num;	/* Secondary Bus number */
-	u_int8_t		subbus_num;	/* Sub. Bus number */
+	uint8_t		pribus_num;	/* Primary Bus number */
+	uint8_t		secbus_num;	/* Secondary Bus number */
+	uint8_t		subbus_num;	/* Sub. Bus number */
 	struct pci_bus		*secbus;	/* Secondary PCI bus pointer */
 	struct pci_device	*child;
 	struct pci_win		*memspace;
 	struct pci_win		*iospace;
-        u_int32_t               mem_mask;//yang23 2013-11-26 
-        u_int32_t               io_mask;//yang23 2013-11-26 
+        uint32_t               mem_mask;//yang23 2013-11-26 
+        uint32_t               io_mask;//yang23 2013-11-26 
 };
 
 /*
@@ -256,7 +256,7 @@ struct pci_device {
 	unsigned char		int_line;
 	unsigned char		disable;
 	pcireg_t		stat;
-	u_int8_t		intr_routing[4];
+	uint8_t		intr_routing[4];
 	struct pci_bridge  	bridge;
 	struct pci_bus		*pcibus;
 	struct pci_device	*next;

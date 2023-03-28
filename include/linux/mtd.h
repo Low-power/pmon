@@ -59,8 +59,8 @@
 
 //struct mtd_erase_region_info {
 //	uint64_t offset;			/* At which this region starts, from the beginning of the MTD */
-//	u_int32_t erasesize;		/* For this region */
-//	u_int32_t numblocks;		/* Number of blocks of erasesize in this region */
+//	uint32_t erasesize;		/* For this region */
+//	uint32_t numblocks;		/* Number of blocks of erasesize in this region */
 //	unsigned long *lockmap;		/* If keeping bitmap of locks */
 //};
 
@@ -112,14 +112,14 @@
 
 /*struct mtd_info {
 	u_char type;
-*///	u_int32_t flags;
+*///	uint32_t flags;
 //	uint64_t size;	 /* Total size of the MTD */
 
 	/* "Major" erase size for the device. Naïve users may take this
 	 * to be the only erase size available, or may use the more detailed
 	 * information below if they desire
 	 */
-//	u_int32_t erasesize;
+//	uint32_t erasesize;
 	/* Minimal writable flash unit size. In case of NOR flash it is 1 (even
 	 * though individual bits can be cleared), in case of NAND flash it is
 	 * one NAND page (or half, or one-fourths of it), in case of ECC-ed NOR
@@ -127,10 +127,10 @@
 	 * Any driver registering a struct mtd_info must ensure a writesize of
 	 * 1 or larger.
 	 */
-//	u_int32_t writesize;
+//	uint32_t writesize;
 
-///	u_int32_t oobsize;   /* Amount of OOB data per block (e.g. 16) */
-//	u_int32_t oobavail;  /* Available OOB bytes per block */
+///	uint32_t oobsize;   /* Amount of OOB data per block (e.g. 16) */
+//	uint32_t oobavail;  /* Available OOB bytes per block */
 
 	/* Kernel-only stuff starts here. */
 //	const char *name;

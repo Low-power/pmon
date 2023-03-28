@@ -107,13 +107,13 @@
 
 
 struct dhcp_packet {
-	u_int8_t  				op;		/* 0: Message opcode/type */
-	u_int8_t  				htype;	/* 1: Hardware addr type (net/if_types.h) */
-	u_int8_t  				hlen;		/* 2: Hardware addr length */
-	u_int8_t  				hops;		/* 3: Number of relay agent hops from client */
-	u_int32_t 				xid;		/* 4: Transaction ID */
-	u_int16_t 				secs;		/* 8: Seconds since client started looking */
-	u_int16_t 				flags;	/* 10: Flag bits */
+	uint8_t  				op;		/* 0: Message opcode/type */
+	uint8_t  				htype;	/* 1: Hardware addr type (net/if_types.h) */
+	uint8_t  				hlen;		/* 2: Hardware addr length */
+	uint8_t  				hops;		/* 3: Number of relay agent hops from client */
+	uint32_t 				xid;		/* 4: Transaction ID */
+	uint16_t 				secs;		/* 8: Seconds since client started looking */
+	uint16_t 				flags;	/* 10: Flag bits */
 	struct in_addr 			ciaddr;	/* 12: Client IP address (if already in use) */
 	struct in_addr 			yiaddr;	/* 16: Client IP address */
 	struct in_addr 			siaddr;	/* 18: IP address of next server to talk to */
@@ -121,7 +121,7 @@ struct dhcp_packet {
 	unsigned char 			chaddr [16];	/* 24: Client hardware address */
 	char 					sname [DHCP_SNAME_LEN];	/* 40: Server name */
 	char 					file [DHCP_FILE_LEN];	/* 104: Boot filename */
-	u_int32_t				cookie;
+	uint32_t				cookie;
 	unsigned char options [DHCP_OPTION_LEN - 4];
 	/* 212: Optional parameters
 	   (actual length dependent on MTU). */
@@ -140,15 +140,15 @@ struct iphdr
 #else
 # error "Please fix <bits/endian.h>"
 #endif
-	u_int8_t tos;
-	u_int16_t tot_len;
-	u_int16_t id;
-	u_int16_t frag_off;
-	u_int8_t ttl;
-	u_int8_t protocol;
-	u_int16_t check;
-	u_int32_t saddr;
-	u_int32_t daddr;
+	uint8_t tos;
+	uint16_t tot_len;
+	uint16_t id;
+	uint16_t frag_off;
+	uint8_t ttl;
+	uint8_t protocol;
+	uint16_t check;
+	uint32_t saddr;
+	uint32_t daddr;
 	/*The options start here. */
 };
 
@@ -158,20 +158,20 @@ struct iphdr
 
 struct udphdr
 {
-	u_int16_t uh_sport;       /* source port */
-	u_int16_t uh_dport;       /* destination port */
-	u_int16_t uh_ulen;        /* udp length */
-	u_int16_t uh_sum;     /* udp checksum */
+	uint16_t uh_sport;       /* source port */
+	uint16_t uh_dport;       /* destination port */
+	uint16_t uh_ulen;        /* udp length */
+	uint16_t uh_sum;     /* udp checksum */
 };
 
 #else
 
 struct udphdr
 {
-	u_int16_t source;
-	u_int16_t dest;
-	u_int16_t len;
-	u_int16_t check;
+	uint16_t source;
+	uint16_t dest;
+	uint16_t len;
+	uint16_t check;
 };
 #endif
 

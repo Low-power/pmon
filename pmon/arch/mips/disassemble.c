@@ -100,7 +100,7 @@ typedef struct {
 #define cc1()		strcat(dest,regs_hw[(int)RD_(inst)])
 #define cc2()		strcat(dest,regs_hw[(int)RD_(inst)])
 
-const DISTBL *get_distbl __P((u_int32_t));
+const DISTBL *get_distbl __P((uint32_t));
 void simm __P((char *));
 void imm __P((char *));
 void mkcomment __P((char *, char *, long));
@@ -473,7 +473,7 @@ md_is_branch(adr)
      void *adr;
 {
     const DISTBL   *pt;
-    u_int32_t inst;
+    uint32_t inst;
 
     inst = load_word (adr);
     pt = get_distbl (inst);
@@ -496,7 +496,7 @@ md_is_cond_branch(adr)
      void *adr;
 {
     const DISTBL *pt;
-    u_int32_t inst;
+    uint32_t inst;
 
     inst = load_word (adr);
     pt = get_distbl (inst);
@@ -515,7 +515,7 @@ md_is_jr (adr)
      void *adr;
 {
     const DISTBL   *pt;
-    u_int32_t inst;
+    uint32_t inst;
 
     inst = load_word (adr);
     pt = get_distbl (inst);
@@ -528,7 +528,7 @@ md_branch_target(adr)
 {
     const DISTBL *pt;
     int32_t val;
-    u_int32_t inst;
+    uint32_t inst;
 
     inst = load_word (adr);
     pt = get_distbl (inst);
@@ -557,7 +557,7 @@ int
 md_is_call (adr)
      void *adr;
 {
-    u_int32_t inst;
+    uint32_t inst;
 
     inst = load_word(adr);
     switch (getfield(inst, 6, 26)) {
@@ -576,11 +576,11 @@ md_is_call (adr)
 
 const DISTBL *
 get_distbl (bits)
-     u_int32_t bits;
+     uint32_t bits;
 {
     const DISTBL *pt = distbl;
     static const DISTBL *lastpt = 0;
-    static u_int32_t lastbits;
+    static uint32_t lastbits;
 
     /* simple cache for repeated lookups */
     if (lastpt && bits == lastbits)
@@ -597,7 +597,7 @@ int
 md_is_writeable (adr)
      void *adr;
 {
-	u_int32_t x;
+	uint32_t x;
 
 	x = load_word (adr);
 	store_word (adr, ~x);
@@ -668,7 +668,7 @@ static void *last_adr;	/* For repeat of l command */
 	} else {
 	    switch (n) {
 	    case 0:
-		if (!get_rsa ((u_int32_t *)&adr, av[i]))
+		if (!get_rsa ((uint32_t *)&adr, av[i]))
 		    return (-1);
 		break;
 	    case 1:
@@ -1287,7 +1287,7 @@ md_disasm (dest, addr)
 	strcat (dest, "      # ");
 	w = (long)addr;
 	for (i = 0; i < 4; i++) {
-	    v = load_byte ((u_int8_t *)w);
+	    v = load_byte ((uint8_t *)w);
 	    w++;
 	    if (isprint (v))
 		strccat (dest, v);
@@ -1425,7 +1425,7 @@ extern int optind;
 			framesize = 0;
 		}
 
-		if(!adr2symoff (p, (u_int32_t)pc, 24)) {
+		if(!adr2symoff (p, (uint32_t)pc, 24)) {
 			sprintf(p, "              0x%08x", pc);
 		}
 		p += strlen(p);

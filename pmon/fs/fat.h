@@ -48,47 +48,47 @@
 #define TYPE_FAT32 3
 
 struct ext_fat16 {
-	u_int8_t	bsDrvNum;	/* */
-	u_int8_t	bsReserved1;	/* */
-	u_int8_t	bsBootSig;	/* */
-	u_int8_t	bsVolLab[11];	/* Volume label */
-	u_int8_t	bsFilSysType[8]; /* */
+	uint8_t	bsDrvNum;	/* */
+	uint8_t	bsReserved1;	/* */
+	uint8_t	bsBootSig;	/* */
+	uint8_t	bsVolLab[11];	/* Volume label */
+	uint8_t	bsFilSysType[8]; /* */
 } __attribute__((__packed__));
 
 #define BPB_SIG_VALUE1	0x28
 #define BPB_SIG_VALUE2	0x29
 
 struct ext_fat32 {
-	u_int32_t	bpbFATSz32;	/* like bpbFATsecs for FAT32 */
-	u_int16_t	bpbExtFlags;	/* extended flags: */
-	u_int16_t	bpbFSVer;	/* */
-	u_int32_t	bpbRootClus;	/* */
-	u_int16_t	bpbFSInfo;	/* */
-	u_int16_t	bpbBkBootSec;	/* */
-	u_int8_t	bpbReserved;
-	u_int8_t	bpbDrvNum;
-	u_int8_t	bpbReserved1;
-	u_int8_t	bsBootSig;
-	u_int32_t	bsVolID;
-	u_int8_t	bsVolLab[11];
-	u_int8_t	bsFilSysType[8];
+	uint32_t	bpbFATSz32;	/* like bpbFATsecs for FAT32 */
+	uint16_t	bpbExtFlags;	/* extended flags: */
+	uint16_t	bpbFSVer;	/* */
+	uint32_t	bpbRootClus;	/* */
+	uint16_t	bpbFSInfo;	/* */
+	uint16_t	bpbBkBootSec;	/* */
+	uint8_t	bpbReserved;
+	uint8_t	bpbDrvNum;
+	uint8_t	bpbReserved1;
+	uint8_t	bsBootSig;
+	uint32_t	bsVolID;
+	uint8_t	bsVolLab[11];
+	uint8_t	bsFilSysType[8];
 } __attribute__((__packed__));
 
 struct bpb_t {
-	u_int8_t	bsJump[3];		/* jump inst E9xxxx or EBxx90 */
+	uint8_t	bsJump[3];		/* jump inst E9xxxx or EBxx90 */
 	int8_t		bsOemName[8];		/* OEM name and version */
-	u_int16_t	bpbBytesPerSec;	/* bytes per sector */
-	u_int8_t	bpbSecPerClust;	/* sectors per cluster */
-	u_int16_t	bpbResSectors;	/* number of reserved sectors */
-	u_int8_t	bpbFATs;	/* number of FATs */
-	u_int16_t	bpbRootDirEnts;	/* number of root directory entries */
-	u_int16_t	bpbSectors;	/* total number of sectors */
-	u_int8_t	bpbMedia;	/* media descriptor */
-	u_int16_t	bpbFATsecs;	/* number of sectors per FAT */
-	u_int16_t	bpbSecPerTrack;	/* sectors per track */
-	u_int16_t	bpbHeads;	/* number of heads */
-	u_int32_t	bpbHiddenSecs;	/* # of hidden sectors */
-	u_int32_t	bpbHugeSectors;	/* # of sectors if bpbSectors == 0 */
+	uint16_t	bpbBytesPerSec;	/* bytes per sector */
+	uint8_t	bpbSecPerClust;	/* sectors per cluster */
+	uint16_t	bpbResSectors;	/* number of reserved sectors */
+	uint8_t	bpbFATs;	/* number of FATs */
+	uint16_t	bpbRootDirEnts;	/* number of root directory entries */
+	uint16_t	bpbSectors;	/* total number of sectors */
+	uint8_t	bpbMedia;	/* media descriptor */
+	uint16_t	bpbFATsecs;	/* number of sectors per FAT */
+	uint16_t	bpbSecPerTrack;	/* sectors per track */
+	uint16_t	bpbHeads;	/* number of heads */
+	uint32_t	bpbHiddenSecs;	/* # of hidden sectors */
+	uint32_t	bpbHugeSectors;	/* # of sectors if bpbSectors == 0 */
 #if 0
 	union {
 		struct ext_fat16 efat16;
@@ -100,16 +100,16 @@ struct bpb_t {
 } __attribute__((__packed__));
 
 struct partition_t {
-	u_int8_t bootid;   /* bootable?  0=no, 128=yes  */
-	u_int8_t beghead;  /* beginning head number */
-	u_int8_t begsect;  /* beginning sector number */
-	u_int8_t begcyl;   /* 10 bit nmbr, with high 2 bits put in begsect */	
-	u_int8_t systid;   /* Operating System type indicator code */
-	u_int8_t endhead;  /* ending head number */
-	u_int8_t endsect;  /* ending sector number */
-	u_int8_t endcyl;   /* also a 10 bit nmbr, with same high 2 bit trick */
-	u_int32_t relsect;            /* first sector relative to start of disk */
-	u_int32_t numsect;            /* number of sectors in partition */
+	uint8_t bootid;   /* bootable?  0=no, 128=yes  */
+	uint8_t beghead;  /* beginning head number */
+	uint8_t begsect;  /* beginning sector number */
+	uint8_t begcyl;   /* 10 bit nmbr, with high 2 bits put in begsect */	
+	uint8_t systid;   /* Operating System type indicator code */
+	uint8_t endhead;  /* ending head number */
+	uint8_t endsect;  /* ending sector number */
+	uint8_t endcyl;   /* also a 10 bit nmbr, with same high 2 bit trick */
+	uint32_t relsect;            /* first sector relative to start of disk */
+	uint32_t numsect;            /* number of sectors in partition */
 } __attribute__((__packed__));
 
 #define PART_SIZE 4
@@ -121,23 +121,23 @@ struct partition_t {
 
 
 struct mbr_t {
-	u_int8_t	bootinst[446];
+	uint8_t	bootinst[446];
 	struct partition_t partition[4];
-	u_int16_t signature;
+	uint16_t signature;
 } __attribute__((__packed__));
 
 struct fatchain {
 	int start;
-	u_int32_t *entries;
+	uint32_t *entries;
 	int count;
 };
 
 struct fat_fileentry {
 	int8_t		longName[256];
 	int8_t		shortName[14];
-	u_int16_t	HighClust;	/* high byte of cluster number */
-	u_int16_t	StartCluster; /* starting cluster of file */
-	u_int32_t	FileSize;	/* size of file in bytes */
+	uint16_t	HighClust;	/* high byte of cluster number */
+	uint16_t	StartCluster; /* starting cluster of file */
+	uint32_t	FileSize;	/* size of file in bytes */
 	struct fatchain Chain;
 };
 
@@ -146,30 +146,30 @@ struct fat_fileentry {
  */
 struct fat_sc {
 	int fd;
-	u_int8_t	FatType;	/* FAT type (12, 16, 32) */
-	u_int16_t	BytesPerSec;	/* bytes per sector */
-	u_int8_t	SecPerClust;	/* sectors per cluster */
-	u_int16_t	ResSectors;	/* number of reserved sectors */
-	u_int8_t	NumFATs;	/* number of FATs */
-	u_int16_t	RootDirEnts;	/* number of root directory entries */
-	u_int32_t	TotalSectors;	/* total number of sectors */
-	u_int32_t	FATsecs;	/* number of sectors per FAT */
-	u_int16_t	SecPerTrack;	/* sectors per track */
-	u_int32_t	HiddenSecs;	/* # of hidden sectors */
-	u_int32_t	RootDirSectors;
-	u_int32_t	CountOfClusters;
-	u_int32_t	ClusterSize;
-	u_int32_t	FirstRootDirSecNum;
-	u_int32_t	DataSectors;
-	u_int32_t	DataSectorBase;
-	u_int32_t	PartitionStart;
-	u_int8_t	FatBuffer[SECTORSIZE];
+	uint8_t	FatType;	/* FAT type (12, 16, 32) */
+	uint16_t	BytesPerSec;	/* bytes per sector */
+	uint8_t	SecPerClust;	/* sectors per cluster */
+	uint16_t	ResSectors;	/* number of reserved sectors */
+	uint8_t	NumFATs;	/* number of FATs */
+	uint16_t	RootDirEnts;	/* number of root directory entries */
+	uint32_t	TotalSectors;	/* total number of sectors */
+	uint32_t	FATsecs;	/* number of sectors per FAT */
+	uint16_t	SecPerTrack;	/* sectors per track */
+	uint32_t	HiddenSecs;	/* # of hidden sectors */
+	uint32_t	RootDirSectors;
+	uint32_t	CountOfClusters;
+	uint32_t	ClusterSize;
+	uint32_t	FirstRootDirSecNum;
+	uint32_t	DataSectors;
+	uint32_t	DataSectorBase;
+	uint32_t	PartitionStart;
+	uint8_t	FatBuffer[SECTORSIZE];
 	int		FatCacheNum;
-	u_int8_t	DirBuffer[SECTORSIZE];
+	uint8_t	DirBuffer[SECTORSIZE];
 	int		DirCacheNum;
 	struct fat_fileentry file;
 	int		LastSector;	/* Sector in last sector buffer */
-	u_int8_t	LastSectorBuffer[SECTORSIZE];
+	uint8_t	LastSectorBuffer[SECTORSIZE];
 };
 
 /*
@@ -192,12 +192,12 @@ struct fat_sc {
  * Structure of a dos directory entry.
  */
 struct direntry {
-	u_int8_t	dirName[8];	/* filename, blank filled */
+	uint8_t	dirName[8];	/* filename, blank filled */
 #define	SLOT_EMPTY	0x00		/* slot has never been used */
 #define	SLOT_E5		0x05		/* the real value is 0xe5 */
 #define	SLOT_DELETED	0xe5		/* file in this slot deleted */
-	u_int8_t	dirExtension[3];	/* extension, blank filled */
-	u_int8_t	dirAttributes;	/* file attributes */
+	uint8_t	dirExtension[3];	/* extension, blank filled */
+	uint8_t	dirAttributes;	/* file attributes */
 #define	ATTR_NORMAL	0x00		/* normal file */
 #define	ATTR_READONLY	0x01		/* file is readonly */
 #define	ATTR_HIDDEN	0x02		/* file is hidden */
@@ -205,35 +205,35 @@ struct direntry {
 #define	ATTR_VOLUME	0x08		/* entry is a volume label */
 #define	ATTR_DIRECTORY	0x10		/* entry is a directory name */
 #define	ATTR_ARCHIVE	0x20		/* file is new or modified */
-	u_int8_t	dirLowerCase;	/* case for base and extension */
+	uint8_t	dirLowerCase;	/* case for base and extension */
 #define	CASE_LOWER_BASE	0x08		/* base is lower case */
 #define	CASE_LOWER_EXT	0x10		/* extension is lower case */
-	u_int8_t	dirCTimeHundredth; /* create time, 1/100th of a sec */
-	u_int16_t	dirCTime;	/* create time */
-	u_int16_t	dirCDate;	/* create date */
-	u_int16_t	dirADate;	/* access date */
-	u_int16_t	dirHighClust;	/* high byte of cluster number */
-	u_int16_t	dirMTime;	/* last update time */
-	u_int16_t	dirMDate;	/* last update date */
-	u_int16_t	dirStartCluster; /* starting cluster of file */
-	u_int32_t	dirFileSize;	/* size of file in bytes */
+	uint8_t	dirCTimeHundredth; /* create time, 1/100th of a sec */
+	uint16_t	dirCTime;	/* create time */
+	uint16_t	dirCDate;	/* create date */
+	uint16_t	dirADate;	/* access date */
+	uint16_t	dirHighClust;	/* high byte of cluster number */
+	uint16_t	dirMTime;	/* last update time */
+	uint16_t	dirMDate;	/* last update date */
+	uint16_t	dirStartCluster; /* starting cluster of file */
+	uint32_t	dirFileSize;	/* size of file in bytes */
 }  __attribute__((__packed__));
 
 /*
  * Structure of a Win95 long name directory entry
  */
 struct winentry {
-	u_int8_t	weCnt;
+	uint8_t	weCnt;
 #define	WIN_LAST	0x40
 #define	WIN_CNT		0x3f
-	u_int8_t	wePart1[10];
-	u_int8_t	weAttributes;
+	uint8_t	wePart1[10];
+	uint8_t	weAttributes;
 #define	ATTR_WIN95	0x0f
-	u_int8_t	weReserved1;
-	u_int8_t	weChksum;
-	u_int8_t	wePart2[12];
-	u_int16_t	weReserved2;
-	u_int8_t	wePart3[4];
+	uint8_t	weReserved1;
+	uint8_t	weChksum;
+	uint8_t	wePart2[12];
+	uint16_t	weReserved2;
+	uint8_t	wePart3[4];
 } __attribute__((__packed__));
 #define	WIN_CHARS	13	/* Number of chars per winentry */
 

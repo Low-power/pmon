@@ -67,7 +67,7 @@ static void compute_validpc __P((void));
 void stop __P((char *));
 void rm_bpts __P((void));
 void dspbpts __P((void));
-int addstop __P((u_int32_t, u_int32_t, char *, char));
+int addstop __P((uint32_t, uint32_t, char *, char));
 void initstack __P((int, char **, int));
 
 /*
@@ -354,7 +354,7 @@ trace (ac, av)
 		}
 		else {
 			if (n == 0) {
-				if (!get_rsa ((u_int32_t *)&trace_count, av[i])) {
+				if (!get_rsa ((uint32_t *)&trace_count, av[i])) {
 					return (-1);
 				}
 				multi = 1;
@@ -385,7 +385,7 @@ trace (ac, av)
  */
 int
 addstop (adr, val, name, sense)
-	u_int32_t adr, val;
+	uint32_t adr, val;
 	char *name, sense;
 {
 	int i;
@@ -1091,9 +1091,9 @@ compute_validpc ()
     nvalidpc = 0;
     
     for (i = 0; i < ac; i += 2) {
-	if (!get_rsa ((u_int32_t *)&validpc[nvalidpc], av[i]))
+	if (!get_rsa ((uint32_t *)&validpc[nvalidpc], av[i]))
 	  continue;
-	if (!get_rsa ((u_int32_t *)&validpc[nvalidpc+1], av[i+1]))
+	if (!get_rsa ((uint32_t *)&validpc[nvalidpc+1], av[i+1]))
 	  continue;
 	nvalidpc += 2;
     }
@@ -1113,7 +1113,7 @@ is_validpc (adr)
       compute_validpc ();
 
     for (i = 0; i < nvalidpc; i += 2)
-      if ((u_int32_t)adr >= validpc[i] && (u_int32_t)adr < validpc[i+1])
+      if ((uint32_t)adr >= validpc[i] && (uint32_t)adr < validpc[i+1])
 	return (1);
 
     return (0);
@@ -1145,7 +1145,7 @@ clrpchist ()
 /*************************************************************
  *  unsigned long getpchist(n)
  */
-u_int32_t 
+uint32_t 
 getpchist (n)
      int             n;
 {

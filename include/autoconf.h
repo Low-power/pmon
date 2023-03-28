@@ -99,9 +99,9 @@ struct confargs {
 	bushook_t *ca_bus;		/* bus device resides on. */
 	bus_space_tag_t ca_iot;
 	bus_space_tag_t ca_memt; /* XXX */
-	u_int32_t ca_node;
+	uint32_t ca_node;
 	int ca_nreg;
-	u_int32_t *ca_reg;
+	uint32_t *ca_reg;
 	int ca_nintr;
 	int32_t *ca_intr;
 	u_int ca_baseaddr;

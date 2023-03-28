@@ -141,7 +141,7 @@ dl_initialise (unsigned long offset, int flags)
 void
 dl_setloadsyms (void)
 {
-    defsyms (dl_minaddr, dl_maxaddr, (u_int32_t)md_getpc(NULL));
+    defsyms (dl_minaddr, dl_maxaddr, (uint32_t)md_getpc(NULL));
 }
 #endif
 

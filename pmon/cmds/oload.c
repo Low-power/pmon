@@ -172,7 +172,7 @@ cmd_load (ac, av)
       case 'v':
 	  flags |= VFLAG; break;
       case 'o':
-	  if (!get_rsa ((u_int32_t *)&dl_offset, optarg))
+	  if (!get_rsa ((uint32_t *)&dl_offset, optarg))
 	    return (-1);
 	  break;
 

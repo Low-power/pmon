@@ -63,8 +63,8 @@
  */
 
 typedef struct {
-	u_int32_t	lowpart;
-	u_int32_t	highpart;
+	uint32_t	lowpart;
+	uint32_t	highpart;
 } wxpa_t, wxrp_t;
 
 /*
@@ -74,11 +74,11 @@ typedef struct {
  */
 typedef struct {
 	wxpa_t		address;	/* physical address of buffer */
-	u_int16_t	length;
-	u_int16_t	csum;
-	u_int8_t	status;
-	u_int8_t	errors;
-	u_int16_t	special;
+	uint16_t	length;
+	uint16_t	csum;
+	uint8_t	status;
+	uint8_t	errors;
+	uint16_t	special;
 } wxrd_t;
 
 #define	RDSTAT_DD	0x1		/* descriptor done */
@@ -96,12 +96,12 @@ typedef struct {
  */
 typedef struct {
 	wxpa_t		address;
-	u_int16_t	length;
-	u_int8_t	cso;		/* checksum offset */
-	u_int8_t	cmd;		/* cmd */
-	u_int8_t	status;		/* status */
-	u_int8_t	css;		/* checksum start */
-	u_int16_t	special;
+	uint16_t	length;
+	uint8_t	cso;		/* checksum offset */
+	uint8_t	cmd;		/* cmd */
+	uint8_t	status;		/* status */
+	uint8_t	css;		/* checksum start */
+	uint16_t	special;
 } wxtd_t;
 
 #define	TXCMD_EOP	0x1		/* last packet */

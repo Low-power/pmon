@@ -52,7 +52,7 @@
 #include "mod_debugger.h"
 
 extern int memorysize;
-extern u_int8_t end[];
+extern uint8_t end[];
 
 
 /*
@@ -479,7 +479,7 @@ static void
 dsp_fregs(void)
 {
 	int regno;
-	u_int32_t *p;
+	uint32_t *p;
 
 	for(regno = 0; regno < 32; regno++) {
 		if((regno % 4) == 0) {

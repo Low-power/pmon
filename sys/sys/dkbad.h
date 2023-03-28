@@ -62,11 +62,11 @@
 
 struct dkbad {
 	int32_t   bt_csn;		/* cartridge serial number */
-	u_int16_t bt_mbz;		/* unused; should be 0 */
-	u_int16_t bt_flag;		/* -1 => alignment cartridge */
+	uint16_t bt_mbz;		/* unused; should be 0 */
+	uint16_t bt_flag;		/* -1 => alignment cartridge */
 	struct bt_bad {
-		u_int16_t bt_cyl;	/* cylinder number of bad sector */
-		u_int16_t bt_trksec;	/* track and sector number */
+		uint16_t bt_cyl;	/* cylinder number of bad sector */
+		uint16_t bt_trksec;	/* track and sector number */
 	} bt_bad[NBT_BAD];
 };
 

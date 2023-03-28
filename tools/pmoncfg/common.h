@@ -2,7 +2,7 @@
 #define __COMMON_H__
 
 #ifndef major
-#define major(x)        ((int32_t)(((u_int32_t)(x) >> 8) & 0xff))
+#define major(x)        ((int32_t)(((uint32_t)(x) >> 8) & 0xff))
 #endif
 #ifndef minor
 #define minor(x)        ((int32_t)((x) & 0xff))

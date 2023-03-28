@@ -56,8 +56,8 @@ static __inline void tlbflush(void);
 static __inline void disable_intr(void);
 static __inline void enable_intr(void);
 static __inline void wbinvd(void);
-static __inline void wrmsr(u_int, u_int64_t);
-static __inline u_int64_t rdmsr(u_int);
+static __inline void wrmsr(u_int, uint64_t);
+static __inline uint64_t rdmsr(u_int);
 static __inline void breakpoint(void);
 
 static __inline void 
@@ -169,15 +169,15 @@ wbinvd(void)
 
 
 static __inline void
-wrmsr(u_int msr, u_int64_t newval)
+wrmsr(u_int msr, uint64_t newval)
 {
         __asm __volatile(".byte 0x0f, 0x30" : : "A" (newval), "c" (msr));
 }
 
-static __inline u_int64_t
+static __inline uint64_t
 rdmsr(u_int msr)
 {
-        u_int64_t rv;
+        uint64_t rv;
 
         __asm __volatile(".byte 0x0f, 0x32" : "=A" (rv) : "c" (msr));
         return (rv);

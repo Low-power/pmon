@@ -42,9 +42,9 @@
  * Overlay for ip header used by other protocols (tcp, udp).
  */
 struct ipovly {
-	u_int8_t  ih_x1[9];		/* (unused) */
-	u_int8_t  ih_pr;		/* protocol */
-	u_int16_t ih_len;		/* protocol length */
+	uint8_t  ih_x1[9];		/* (unused) */
+	uint8_t  ih_pr;		/* protocol */
+	uint16_t ih_len;		/* protocol length */
 	struct	  in_addr ih_src;	/* source internet address */
 	struct	  in_addr ih_dst;	/* destination internet address */
 };
@@ -68,7 +68,7 @@ struct ipqent {
 		struct tcphdr	*_tcp;
 	} _ipqe_u1;
 	union {
-		u_int8_t	_mff;	/* for IP fragmentation */
+		uint8_t	_mff;	/* for IP fragmentation */
 		struct mbuf	*_m;	/* XXX for TCP; see above */
 	} _ipqe_u2;
 };
@@ -85,9 +85,9 @@ struct ipqent {
  */
 struct ipq {
 	LIST_ENTRY(ipq) ipq_q;		/* to other reass headers */
-	u_int8_t  ipq_ttl;		/* time for reass q to live */
-	u_int8_t  ipq_p;		/* protocol of this fragment */
-	u_int16_t ipq_id;		/* sequence id for reassembly */
+	uint8_t  ipq_ttl;		/* time for reass q to live */
+	uint8_t  ipq_p;		/* protocol of this fragment */
+	uint16_t ipq_id;		/* sequence id for reassembly */
 	struct	  ipqehead ipq_fragq;	/* to ip fragment queue */
 	struct	  in_addr ipq_src, ipq_dst;
 };
@@ -111,9 +111,9 @@ struct ipoption {
  */
 struct ip_moptions {
 	struct	  ifnet *imo_multicast_ifp; /* ifp for outgoing multicasts */
-	u_int8_t  imo_multicast_ttl;	/* TTL for outgoing multicasts */
-	u_int8_t  imo_multicast_loop;	/* 1 => hear sends if a member */
-	u_int16_t imo_num_memberships;	/* no. memberships this socket */
+	uint8_t  imo_multicast_ttl;	/* TTL for outgoing multicasts */
+	uint8_t  imo_multicast_loop;	/* 1 => hear sends if a member */
+	uint16_t imo_num_memberships;	/* no. memberships this socket */
 	struct	  in_multi *imo_membership[IP_MAX_MEMBERSHIPS];
 };
 
@@ -181,7 +181,7 @@ struct in_ifaddr *
 	 in_iawithaddr __P((struct in_addr, struct mbuf *));
 struct in_ifaddr *
 	 ip_rtaddr __P((struct in_addr));
-u_int16_t	
+uint16_t	
 	 ip_randomid __P((void));
 int	 ip_setmoptions __P((int, struct ip_moptions **, struct mbuf *));
 void	 ip_slowtimo __P((void));

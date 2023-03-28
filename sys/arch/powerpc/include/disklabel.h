@@ -90,9 +90,9 @@ struct cpu_disklabel {
 #define	DPSECT(s)	((s) & 0x3f)
 #define	DPCYL(c, s)	((c) + (((s) & 0xc0) << 2))
 
-static __inline u_int32_t get_le __P((void *p));
+static __inline uint32_t get_le __P((void *p));
 
-static __inline u_int32_t
+static __inline uint32_t
 #ifdef __cplusplus
 get_le(void *p)
 #else
@@ -100,7 +100,7 @@ get_le(p)
 	void *p;
 #endif
 {
-	u_int8_t *_p = (u_int8_t *)p;
+	uint8_t *_p = (uint8_t *)p;
 	int x;
 	x = _p[0];
 	x |= _p[1] << 8;

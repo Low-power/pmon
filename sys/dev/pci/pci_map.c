@@ -118,7 +118,7 @@ nbsd_pci_mem_find(pc, tag, reg, type, basep, sizep, flagsp)
 	int *flagsp;
 {
 	pcireg_t address, mask, address1 = 0, mask1 = 0xffffffff;
-	u_int64_t waddress, wmask;
+	uint64_t waddress, wmask;
 	int s, is64bit;
 
 	is64bit = (PCI_MAPREG_MEM_TYPE(type) == PCI_MAPREG_MEM_TYPE_64BIT);
@@ -164,8 +164,8 @@ nbsd_pci_mem_find(pc, tag, reg, type, basep, sizep, flagsp)
 		return (1);
 	}
 
-	waddress = (u_int64_t)address1 << 32UL | address;
-	wmask = (u_int64_t)mask1 << 32UL | mask;
+	waddress = (uint64_t)address1 << 32UL | address;
+	wmask = (uint64_t)mask1 << 32UL | mask;
 
 	if (PCI_MAPREG_MEM64_SIZE(wmask) == 0) {
 		printf("pci_mem_find: void region\n");
@@ -184,7 +184,7 @@ nbsd_pci_mem_find(pc, tag, reg, type, basep, sizep, flagsp)
 		 * fit in 32 bits.  We implicitly assume that if
 		 * bus_addr_t is 64-bit, then so is bus_size_t.
 		 */
-		if (sizeof(u_int64_t) > sizeof(bus_addr_t) &&
+		if (sizeof(uint64_t) > sizeof(bus_addr_t) &&
 		    (address1 != 0 || mask1 != 0xffffffff)) {
 			printf("pci_mem_find: 64-bit memory map which is "
 			    "inaccessible on a 32-bit platform\n");
@@ -196,7 +196,7 @@ nbsd_pci_mem_find(pc, tag, reg, type, basep, sizep, flagsp)
 		return (1);
 	}
 
-	if (sizeof(u_int64_t) > sizeof(bus_addr_t)) {
+	if (sizeof(uint64_t) > sizeof(bus_addr_t)) {
 		if (basep != 0)
 			*basep = PCI_MAPREG_MEM_ADDR(address);
 		if (sizep != 0)

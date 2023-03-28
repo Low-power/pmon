@@ -208,18 +208,18 @@ cmd_modify (ac, av)
 		for (;;) {
 			switch (datasz) {
 			case 1:
-				v = *(u_int8_t *)adr;
+				v = *(uint8_t *)adr;
 				break;
 
 			case 2:
-				v = *(u_int16_t *)adr;
+				v = *(uint16_t *)adr;
 				if(reverse) {
 					v = swap16(v);
 				}
 				break;
 
 			case 4:
-				v = *(u_int32_t *)adr;
+				v = *(uint32_t *)adr;
 				if(reverse) {
 					v = swap32(v);
 				}
@@ -227,7 +227,7 @@ cmd_modify (ac, av)
 #ifdef HAVE_QUAD
 			case 8:
 				/* XXX FIXME SWAP */
-				v = *(u_int64_t *)adr;
+				v = *(uint64_t *)adr;
 				break;
 #endif
 			}
@@ -301,9 +301,9 @@ cmd_search (ac, av)
 	int ac;
 	char *av[];
 {
-	u_int32_t from, to, adr, i, a;
-	u_int8_t *s, *d, c;
-	u_int8_t pat[PATSZ];
+	uint32_t from, to, adr, i, a;
+	uint8_t *s, *d, c;
+	uint8_t pat[PATSZ];
 	int	siz, ln;
 
 	ln = siz = moresz;
@@ -414,7 +414,7 @@ cmd_compare(ac, av)
 	int ac;
 	char *av[];
 {
-	u_int32_t from, to, with;
+	uint32_t from, to, with;
 
 	if (!get_rsa (&from, av[1]) ||
 	    !get_rsa (&to, av[2]) ||
@@ -440,7 +440,7 @@ cmd_copy(ac, av)
 	int ac;
 	char *av[];
 {
-	u_int32_t from, to, n;
+	uint32_t from, to, n;
 
 	if (!get_rsa (&from, av[1]) ||
 	    !get_rsa (&to, av[2]) ||
@@ -526,7 +526,7 @@ extern char *optarg;
 	}
 
 	/* get <addr> */
-	if (optind >= ac || !get_rsa ((u_int32_t *)&adr, av[optind++])) {
+	if (optind >= ac || !get_rsa ((uint32_t *)&adr, av[optind++])) {
 		return (-1);
 	}
 
@@ -624,14 +624,14 @@ dispmem(char *p, void *adr, int siz, int reverse)
 			sprintf (tmp, "%02x ", *(unsigned char *)&buf.b[i]);
 			break;
 		case 2:
-			val = *(u_int16_t *)&buf.b[i];
+			val = *(uint16_t *)&buf.b[i];
 			if(reverse) {
 				val = swap16(val);
 			}
 			sprintf (tmp, "%04x ", val);
 			break;
 		case 4:
-			val = *(u_int32_t *)&buf.b[i];
+			val = *(uint32_t *)&buf.b[i];
 			if(reverse) {
 				val = swap32(val);
 			}
@@ -668,12 +668,12 @@ cmd_fill (ac, av)
 	int ac;
 	char *av[];
 {
-	u_int32_t from, to, i, a, w;
-	u_int8_t *p, *d;
+	uint32_t from, to, i, a, w;
+	uint8_t *p, *d;
 	union {
-		u_int32_t	w;
-		u_int16_t	h;
-		u_int8_t	b[PATSZ];
+		uint32_t	w;
+		uint16_t	h;
+		uint8_t	b[PATSZ];
 	} pat;
 	int len;
 
@@ -731,13 +731,13 @@ cmd_fill (ac, av)
 			break;
 		}
 
-		for (; from < to; from += sizeof (u_int32_t)) {
-			*(u_int32_t *)from = w;
+		for (; from < to; from += sizeof (uint32_t)) {
+			*(uint32_t *)from = w;
 		}
 	} else {
 		/* all other cases: byte by byte */
-		for (; from < to; from += sizeof (u_int8_t)) {
-			*(u_int8_t *)from = *p;
+		for (; from < to; from += sizeof (uint8_t)) {
+			*(uint8_t *)from = *p;
 			if (++p >= d) {
 				p = pat.b;
 			}

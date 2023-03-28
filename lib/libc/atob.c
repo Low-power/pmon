@@ -132,7 +132,7 @@ _atob (unsigned long *vp, char *p, int base)
  *      converts p to binary result in vp, rtn 1 on success
  */
 int
-atob(u_int32_t *vp, char *p, int base)
+atob(uint32_t *vp, char *p, int base)
 {
 #ifdef HAVE_QUAD
 	u_quad_t v;

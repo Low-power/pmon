@@ -406,11 +406,11 @@ pci_query_dev(tag)
 
 extern struct tgt_bus_space bus_iot;
 
-static void read_eeprom __P((int, u_int16_t *, int, int));
-static void write_eeprom __P((int, u_int16_t *, int, int));
+static void read_eeprom __P((int, uint16_t *, int, int));
+static void write_eeprom __P((int, uint16_t *, int, int));
 static int probe_dev __P((int, int));
 
-static u_int16_t ee_init_proto[] = {
+static uint16_t ee_init_proto[] = {
 0x0000, 0x0000, 0x0000, 0x0203, 0x0000, 0x0201, 0x4d01,
 0x0000, 0x7213, 0x8306, 0x48a2, 0x000c, 0x8086, 0x0000
 };
@@ -425,11 +425,11 @@ int fxp_eth __P((int, char *[]));
 int
 fxp_eth (int ac, char *av[])
 {
-	u_int32_t busno = 0;
-	u_int32_t devno = 256;	/* 256 means not specified */
-	u_int32_t rv;
+	uint32_t busno = 0;
+	uint32_t devno = 256;	/* 256 means not specified */
+	uint32_t rv;
 	int i, csrbase;
-	u_int8_t ee_init_data[32];
+	uint8_t ee_init_data[32];
 	char *tp, *p;
 	int c;
 extern int optind;
@@ -471,7 +471,7 @@ extern char *optarg;
 					}
 					printf("device %2d ", devno & 255);
 				}
-				read_eeprom(csrbase, (u_int16_t *)&ee_init_data, 0, 14);
+				read_eeprom(csrbase, (uint16_t *)&ee_init_data, 0, 14);
 				printf("ethernet address = %02x", ee_init_data[0]);
 				for(i = 1; i < 6; i++) {
 					printf(":%02x", ee_init_data[i]);
@@ -524,7 +524,7 @@ extern char *optarg;
 		printf("badly formed ethernet address!\n");
 		return(0);
 	}
-	write_eeprom(csrbase, (u_int16_t *)&ee_init_data, 0, 14);
+	write_eeprom(csrbase, (uint16_t *)&ee_init_data, 0, 14);
 	return(0);
 }
 
@@ -571,11 +571,11 @@ probe_dev(busno, devno)
 static void
 read_eeprom(csrbase, data, offset, words)
 	int csrbase;
-	u_int16_t *data;
+	uint16_t *data;
 	int offset;
 	int words;
 {
-	u_int16_t reg;
+	uint16_t reg;
 	int i, x;
 
 	for (i = 0; i < words; i++) {
@@ -639,11 +639,11 @@ read_eeprom(csrbase, data, offset, words)
 void
 write_eeprom(csrbase, data, offset, words)
 	int csrbase;
-	u_int16_t *data;
+	uint16_t *data;
 	int offset;
 	int words;
 {
-	u_int16_t reg;
+	uint16_t reg;
 	int i, x;
 	int d;
 

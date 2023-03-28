@@ -65,8 +65,8 @@ struct fl_device {
  *  Structure describing targets FLASH memory map.
  */
 struct fl_map {
-	u_int32_t fl_map_base;	/* Start of flash area in physical map */
-	u_int32_t fl_map_size;	/* Size of flash area in physical map */
+	uint32_t fl_map_base;	/* Start of flash area in physical map */
+	uint32_t fl_map_size;	/* Size of flash area in physical map */
 	int	fl_map_width;	/* Number of bytes to program in one cycle */
 	int	fl_map_chips;	/* Number of chips to operate in one cycle */
 	int	fl_map_bus;	/* Bus width type, se below */

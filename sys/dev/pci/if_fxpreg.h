@@ -51,7 +51,7 @@
 /*
  * FOR REFERENCE ONLY, the old definition of FXP_CSR_SCB_RUSCUS:
  *
- *	volatile u_int8_t	:2,
+ *	volatile uint8_t	:2,
  *				scb_rus:4,
  *				scb_cus:2;
  */
@@ -101,30 +101,30 @@
  */
 struct fxp_cb_nop {
 	void *fill[2];
-	volatile u_int16_t cb_status;
-	volatile u_int16_t cb_command;
-	volatile u_int32_t link_addr;
+	volatile uint16_t cb_status;
+	volatile uint16_t cb_command;
+	volatile uint32_t link_addr;
 };
 struct fxp_cb_ias {
 	void *fill[2];
-	volatile u_int16_t cb_status;
-	volatile u_int16_t cb_command;
-	volatile u_int32_t link_addr;
-	volatile u_int8_t macaddr[6];
+	volatile uint16_t cb_status;
+	volatile uint16_t cb_command;
+	volatile uint32_t link_addr;
+	volatile uint8_t macaddr[6];
 };
 /* I hate bit-fields :-( */
 struct fxp_cb_config {
 	void *fill[2];
-	volatile u_int16_t	cb_status;
-	volatile u_int16_t	cb_command;
-	volatile u_int32_t	link_addr;
+	volatile uint16_t	cb_status;
+	volatile uint16_t	cb_command;
+	volatile uint32_t	link_addr;
 #if 0
 	volatile u_int		byte_count:6,
 				:2;
 	volatile u_int		rx_fifo_limit:4,
 				tx_fifo_limit:3,
 				:1;
-	volatile u_int8_t	adaptive_ifs;
+	volatile uint8_t	adaptive_ifs;
 	volatile u_int		:8;
 	volatile u_int		rx_dma_bytecount:7,
 				:1;
@@ -179,11 +179,11 @@ struct fxp_cb_config {
 struct fxp_cb_mcs {
 	struct fxp_cb_tx *next;
 	struct mbuf *mb_head;
-	volatile u_int16_t cb_status;
-	volatile u_int16_t cb_command;
-	volatile u_int32_t link_addr;
-	volatile u_int16_t mc_cnt;
-	volatile u_int8_t mc_addr[MAXMCADDR][6];
+	volatile uint16_t cb_status;
+	volatile uint16_t cb_command;
+	volatile uint32_t link_addr;
+	volatile uint16_t mc_cnt;
+	volatile uint8_t mc_addr[MAXMCADDR][6];
 };
 
 /*
@@ -200,19 +200,19 @@ struct fxp_cb_mcs {
 #endif
 
 struct fxp_tbd {
-	volatile u_int32_t tb_addr;
-	volatile u_int32_t tb_size;
+	volatile uint32_t tb_addr;
+	volatile uint32_t tb_size;
 };
 struct fxp_cb_tx {
 	struct fxp_cb_tx *next;
 	struct mbuf *mb_head;
-	volatile u_int16_t cb_status;
-	volatile u_int16_t cb_command;
-	volatile u_int32_t link_addr;
-	volatile u_int32_t tbd_array_addr;
-	volatile u_int16_t byte_count;
-	volatile u_int8_t tx_threshold;
-	volatile u_int8_t tbd_number;
+	volatile uint16_t cb_status;
+	volatile uint16_t cb_command;
+	volatile uint32_t link_addr;
+	volatile uint32_t tbd_array_addr;
+	volatile uint16_t byte_count;
+	volatile uint8_t tx_threshold;
+	volatile uint8_t tbd_number;
 	/*
 	 * The following isn't actually part of the TxCB.
 	 */
@@ -246,12 +246,12 @@ struct fxp_cb_tx {
  */
 
 struct fxp_rfa {
-	volatile u_int16_t rfa_status;
-	volatile u_int16_t rfa_control;
-	volatile u_int32_t link_addr;
-	volatile u_int32_t rbd_addr;
-	volatile u_int16_t actual_size;
-	volatile u_int16_t size;
+	volatile uint16_t rfa_status;
+	volatile uint16_t rfa_control;
+	volatile uint32_t link_addr;
+	volatile uint32_t rbd_addr;
+	volatile uint16_t actual_size;
+	volatile uint16_t size;
 };
 #define FXP_RFA_STATUS_RCOL	0x0001	/* receive collision */
 #define FXP_RFA_STATUS_IAMATCH	0x0002	/* 0 = matches station address */
@@ -273,23 +273,23 @@ struct fxp_rfa {
  * Statistics dump area definitions
  */
 struct fxp_stats {
-	volatile u_int32_t tx_good;
-	volatile u_int32_t tx_maxcols;
-	volatile u_int32_t tx_latecols;
-	volatile u_int32_t tx_underruns;
-	volatile u_int32_t tx_lostcrs;
-	volatile u_int32_t tx_deffered;
-	volatile u_int32_t tx_single_collisions;
-	volatile u_int32_t tx_multiple_collisions;
-	volatile u_int32_t tx_total_collisions;
-	volatile u_int32_t rx_good;
-	volatile u_int32_t rx_crc_errors;
-	volatile u_int32_t rx_alignment_errors;
-	volatile u_int32_t rx_rnr_errors;
-	volatile u_int32_t rx_overrun_errors;
-	volatile u_int32_t rx_cdt_errors;
-	volatile u_int32_t rx_shortframes;
-	volatile u_int32_t completion_status;
+	volatile uint32_t tx_good;
+	volatile uint32_t tx_maxcols;
+	volatile uint32_t tx_latecols;
+	volatile uint32_t tx_underruns;
+	volatile uint32_t tx_lostcrs;
+	volatile uint32_t tx_deffered;
+	volatile uint32_t tx_single_collisions;
+	volatile uint32_t tx_multiple_collisions;
+	volatile uint32_t tx_total_collisions;
+	volatile uint32_t rx_good;
+	volatile uint32_t rx_crc_errors;
+	volatile uint32_t rx_alignment_errors;
+	volatile uint32_t rx_rnr_errors;
+	volatile uint32_t rx_overrun_errors;
+	volatile uint32_t rx_cdt_errors;
+	volatile uint32_t rx_shortframes;
+	volatile uint32_t completion_status;
 };
 #define FXP_STATS_DUMP_COMPLETE	0xa005
 #define FXP_STATS_DR_COMPLETE	0xa007

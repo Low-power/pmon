@@ -205,7 +205,7 @@ ether_output(ifp, m0, dst, rt0)
 	struct sockaddr *dst;
 	struct rtentry *rt0;
 {
-	u_int16_t etype;
+	uint16_t etype;
 	int s, error = 0;
  	u_char edst[6];
 	register struct mbuf *m = m0;
@@ -507,7 +507,7 @@ ether_input(ifp, eh, m)
 	struct mbuf *m;
 {
 	register struct ifqueue *inq;
-	u_int16_t etype;
+	uint16_t etype;
 	int s, llcfound = 0;
 	register struct llc *l;
 	struct arpcom *ac = (struct arpcom *)ifp;

@@ -78,9 +78,9 @@ struct fxp_softc {
 #if BYTE_ORDER == BIG_ENDIAN
 #define	DESC_BO(x)	swap32(x)
 #define SWAP_IT(x) {				\
-		u_int32_t *__swp;		\
+		uint32_t *__swp;		\
 		int	__size, __t;		\
-		__swp = (u_int32_t *)(x);	\
+		__swp = (uint32_t *)(x);	\
 		__size = sizeof(*(x));		\
 		while(__size > 0) {		\
 			__size -= 4;		\
@@ -114,17 +114,17 @@ struct fxp_softc {
 	bus_space_write_4((sc)->sc_st, (sc)->sc_sh, (reg), (val))
 #else
 #define	CSR_READ_1(sc, reg)						\
-	(*((u_int8_t *)((sc)->csr + (reg))))
+	(*((uint8_t *)((sc)->csr + (reg))))
 #define	CSR_READ_2(sc, reg)						\
-	(*((u_int16_t *)((sc)->csr + (reg))))
+	(*((uint16_t *)((sc)->csr + (reg))))
 #define	CSR_READ_4(sc, reg)						\
-	(*((u_int32_t *)((sc)->csr + (reg))))
+	(*((uint32_t *)((sc)->csr + (reg))))
 #define	CSR_WRITE_1(sc, reg, val)					\
-	(*((u_int8_t *)((sc)->csr + (reg)))) = (val)
+	(*((uint8_t *)((sc)->csr + (reg)))) = (val)
 #define	CSR_WRITE_2(sc, reg, val)					\
-	(*((u_int16_t *)((sc)->csr + (reg)))) = (val)
+	(*((uint16_t *)((sc)->csr + (reg)))) = (val)
 #define	CSR_WRITE_4(sc, reg, val)					\
-	(*((u_int32_t *)((sc)->csr + (reg)))) = (val)
+	(*((uint32_t *)((sc)->csr + (reg)))) = (val)
 #endif /* __NetBSD__ || __OpenBSD__ */
 
 /* Deal with slight differences in software interfaces. */

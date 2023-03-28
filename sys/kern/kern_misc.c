@@ -203,7 +203,7 @@ imax (a, b)
 	return a > b ? a : b;
 }
 
-u_int32_t
+uint32_t
 arc4random()
 {
 	return(0);
@@ -322,7 +322,7 @@ extern unsigned long long memorysize;
 		}
 		memorysize = (memorysize - VM_KMEM_SIZE) & ~PGOFSET;
 #ifdef __mips__
-		if ((u_int32_t)&kmem < (u_int32_t)UNCACHED_MEMORY_ADDR) {
+		if ((uint32_t)&kmem < (uint32_t)UNCACHED_MEMORY_ADDR) {
 			/* if linked for data in kseg0, keep kmem there too */
 			kmem = (u_char *) PHYS_TO_CACHED (memorysize);
 		}

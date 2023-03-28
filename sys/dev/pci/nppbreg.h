@@ -90,117 +90,117 @@
 
 /* CSR Address Map */
 struct dec21554csr {
-    u_int32_t down_addr;	/* 00 Downstream Configuration Address */
-    u_int32_t down_data;	/* 04 Downstream Configuration Data */
-    u_int32_t up_addr;		/* 08 Upstream Configuration Address */
-    u_int32_t up_data;		/* 0c Upstream Configuration Data */
-    u_int32_t cnfg_own;		/* 10 Configuration Control/Own Bits */
-    u_int32_t down_io_addr;	/* 14 Downstream I/O Address */
-    u_int32_t down_io_data;	/* 18 Downstream I/O Data */
-    u_int32_t up_io_addr;	/* 1c Downstream I/O Address */
-    u_int32_t up_io_data;	/* 20 Downstream I/O Data */
-    u_int32_t io_own;		/* 24 I/O Control/Status/Own Bits */
-    u_int32_t tbl_offset;	/* 28 Lookup Table Offset */
-    u_int32_t tbl_data;		/* 2c Lookup Table Data */
-    u_int32_t i2o_ops;		/* 30 I2O Outbound Post_List Status */
-    u_int32_t i2o_opim;		/* 34 I2O Outbound Post_List Interrupt Mask */
-    u_int32_t i2o_ips;		/* 38 I2O Inbound Post_List Status */
-    u_int32_t i2o_ipim;		/* 3c I2O Inbound Post_List Interrupt Mask */
-    u_int32_t i2o_iq;		/* 40 I2O Inbound Queue */
-    u_int32_t i2o_oq;		/* 44 I2O Outbound Queue */
-    u_int32_t i2o_ifhp;		/* 48 I2O Inbound Free_List Head Pointer */
-    u_int32_t i2o_iphp;		/* 4c I2O Inbound Post_List Head Pointer */
-    u_int32_t i2o_oftp;		/* 50 I2O Outbound Free_List Tail Pointer */
-    u_int32_t i2o_ophp;		/* 54 I2O Outbound Post_List Head Pointer */
-    u_int32_t i2o_ipc;		/* 58 I2O Inbound Post_List Counter */
-    u_int32_t i2o_ifc;		/* 5c I2O Inbound Free_List Counter */
-    u_int32_t i2o_opc;		/* 60 I2O Outbound Post_List Counter */
-    u_int32_t i2o_ofc;		/* 64 I2O Outbound Free_List Counter */
-    u_int32_t down_mem0_base;	/* 68 Downstream Memory 0 Translated Base */
-    u_int32_t down_mem1_base;	/* 6c Downstream IO/Memory 1 Translated Base */
-    u_int32_t down_mem2_base;	/* 70 Downstream Memory 2 Translated Base */
-    u_int32_t down_mem3_base;	/* 74 Downstream Memory 3 Translated Base */
-    u_int32_t up_mem0_base;	/* 78 Upstream IO/Memory 0 Translated Base */
-    u_int32_t up_mem1_base;	/* 7c Upstream Memory 1 Translated Base */
-    u_int32_t chip_status;	/* 80 Chip Status CSR */
-    u_int32_t chip_irq_msk;	/* 84 Chip Clear/Set IRQ Mask */
-    u_int32_t up_pb_irq0;	/* 88 Upstream Page Boundary IRQ 0 */
-    u_int32_t up_pb_irq1;	/* 8c Upstream Page Boundary IRQ 1 */
-    u_int32_t up_pb_mask0;	/* 90 Upstream Page Boundary IRQ Mask 0 */
-    u_int32_t up_pb_mask1;	/* 94 Upstream Page Boundary IRQ Mask 1 */
-    u_int32_t clear_irq;	/* 98 Primary/Secondary Clear IRQ */
-    u_int32_t set_irq;		/* 9c Primary/Secondary Set IRQ */
-    u_int32_t clear_mask;	/* a0 Primary/Secondary Clear IRQ mask */
-    u_int32_t set_mask;		/* a4 Primary/Secondary Set IRQ mask */
-    u_int32_t scratchpad0;	/* a8 Scratchpad 0 */
-    u_int32_t scratchpad1;	/* ac Scratchpad 1 */
-    u_int32_t scratchpad2;	/* b0 Scratchpad 2 */
-    u_int32_t scratchpad3;	/* b4 Scratchpad 3 */
-    u_int32_t scratchpad4;	/* b8 Scratchpad 4 */
-    u_int32_t scratchpad5;	/* bc Scratchpad 5 */
-    u_int32_t scratchpad6;	/* c0 Scratchpad 6 */
-    u_int32_t scratchpad7;	/* c4 Scratchpad 7 */
-    u_int32_t rom_setup;	/* c8 ROM Setup */
-    u_int32_t rom_address;	/* cc ROM Address */
-    u_int32_t reserved1;	/* d0 Reserved */
-    u_int32_t up_tbl[64];	/* d4 Upstream Memory 2 Lookup Table */
-    u_int32_t reserved2;	/* d8 Reserved */
+    uint32_t down_addr;	/* 00 Downstream Configuration Address */
+    uint32_t down_data;	/* 04 Downstream Configuration Data */
+    uint32_t up_addr;		/* 08 Upstream Configuration Address */
+    uint32_t up_data;		/* 0c Upstream Configuration Data */
+    uint32_t cnfg_own;		/* 10 Configuration Control/Own Bits */
+    uint32_t down_io_addr;	/* 14 Downstream I/O Address */
+    uint32_t down_io_data;	/* 18 Downstream I/O Data */
+    uint32_t up_io_addr;	/* 1c Downstream I/O Address */
+    uint32_t up_io_data;	/* 20 Downstream I/O Data */
+    uint32_t io_own;		/* 24 I/O Control/Status/Own Bits */
+    uint32_t tbl_offset;	/* 28 Lookup Table Offset */
+    uint32_t tbl_data;		/* 2c Lookup Table Data */
+    uint32_t i2o_ops;		/* 30 I2O Outbound Post_List Status */
+    uint32_t i2o_opim;		/* 34 I2O Outbound Post_List Interrupt Mask */
+    uint32_t i2o_ips;		/* 38 I2O Inbound Post_List Status */
+    uint32_t i2o_ipim;		/* 3c I2O Inbound Post_List Interrupt Mask */
+    uint32_t i2o_iq;		/* 40 I2O Inbound Queue */
+    uint32_t i2o_oq;		/* 44 I2O Outbound Queue */
+    uint32_t i2o_ifhp;		/* 48 I2O Inbound Free_List Head Pointer */
+    uint32_t i2o_iphp;		/* 4c I2O Inbound Post_List Head Pointer */
+    uint32_t i2o_oftp;		/* 50 I2O Outbound Free_List Tail Pointer */
+    uint32_t i2o_ophp;		/* 54 I2O Outbound Post_List Head Pointer */
+    uint32_t i2o_ipc;		/* 58 I2O Inbound Post_List Counter */
+    uint32_t i2o_ifc;		/* 5c I2O Inbound Free_List Counter */
+    uint32_t i2o_opc;		/* 60 I2O Outbound Post_List Counter */
+    uint32_t i2o_ofc;		/* 64 I2O Outbound Free_List Counter */
+    uint32_t down_mem0_base;	/* 68 Downstream Memory 0 Translated Base */
+    uint32_t down_mem1_base;	/* 6c Downstream IO/Memory 1 Translated Base */
+    uint32_t down_mem2_base;	/* 70 Downstream Memory 2 Translated Base */
+    uint32_t down_mem3_base;	/* 74 Downstream Memory 3 Translated Base */
+    uint32_t up_mem0_base;	/* 78 Upstream IO/Memory 0 Translated Base */
+    uint32_t up_mem1_base;	/* 7c Upstream Memory 1 Translated Base */
+    uint32_t chip_status;	/* 80 Chip Status CSR */
+    uint32_t chip_irq_msk;	/* 84 Chip Clear/Set IRQ Mask */
+    uint32_t up_pb_irq0;	/* 88 Upstream Page Boundary IRQ 0 */
+    uint32_t up_pb_irq1;	/* 8c Upstream Page Boundary IRQ 1 */
+    uint32_t up_pb_mask0;	/* 90 Upstream Page Boundary IRQ Mask 0 */
+    uint32_t up_pb_mask1;	/* 94 Upstream Page Boundary IRQ Mask 1 */
+    uint32_t clear_irq;	/* 98 Primary/Secondary Clear IRQ */
+    uint32_t set_irq;		/* 9c Primary/Secondary Set IRQ */
+    uint32_t clear_mask;	/* a0 Primary/Secondary Clear IRQ mask */
+    uint32_t set_mask;		/* a4 Primary/Secondary Set IRQ mask */
+    uint32_t scratchpad0;	/* a8 Scratchpad 0 */
+    uint32_t scratchpad1;	/* ac Scratchpad 1 */
+    uint32_t scratchpad2;	/* b0 Scratchpad 2 */
+    uint32_t scratchpad3;	/* b4 Scratchpad 3 */
+    uint32_t scratchpad4;	/* b8 Scratchpad 4 */
+    uint32_t scratchpad5;	/* bc Scratchpad 5 */
+    uint32_t scratchpad6;	/* c0 Scratchpad 6 */
+    uint32_t scratchpad7;	/* c4 Scratchpad 7 */
+    uint32_t rom_setup;	/* c8 ROM Setup */
+    uint32_t rom_address;	/* cc ROM Address */
+    uint32_t reserved1;	/* d0 Reserved */
+    uint32_t up_tbl[64];	/* d4 Upstream Memory 2 Lookup Table */
+    uint32_t reserved2;	/* d8 Reserved */
 };
 
 /* Interface Configuration Space Address Map */
 struct dec21554ic {
-	u_int32_t devVenID;	/* Device/Vendor ID */
-	u_int32_t command;	/* Command/Status */
-	u_int32_t revision;	/* Revision/Primary Class Code */
-	u_int32_t bist;		/* BiST/CLS/MLT/Headr Type */
-	u_int32_t mem_csr;	/* Primary/Secondary CSR Memory BAR */
-	u_int32_t io_csr;	/* Primary/Secondary CSR I/O BAR */
-	u_int32_t down_mem1_bar;/* Downstream/Upstream I/O or Memory 1/0 BAR */
+	uint32_t devVenID;	/* Device/Vendor ID */
+	uint32_t command;	/* Command/Status */
+	uint32_t revision;	/* Revision/Primary Class Code */
+	uint32_t bist;		/* BiST/CLS/MLT/Headr Type */
+	uint32_t mem_csr;	/* Primary/Secondary CSR Memory BAR */
+	uint32_t io_csr;	/* Primary/Secondary CSR I/O BAR */
+	uint32_t down_mem1_bar;/* Downstream/Upstream I/O or Memory 1/0 BAR */
 #define up_mem0_bar down_mem1_bar
-	u_int32_t down_mem2_bar;/* Downstream Mem 2/Upstream Mem 1 BAR */
+	uint32_t down_mem2_bar;/* Downstream Mem 2/Upstream Mem 1 BAR */
 #define up_mem1_bar down_mem2_bar
-	u_int32_t down_mem3_bar;/* Downstream Mem 3/Upstream Mem 2 BAR */
+	uint32_t down_mem3_bar;/* Downstream Mem 3/Upstream Mem 2 BAR */
 #define up_mem2_bar down_mem3_bar
-	u_int32_t down_mem3_ubar;/* Downstream Mem 3 BAR upper 32 bits */
-	u_int32_t reserved1;	/* Reserved */
-	u_int32_t subsystemID;	/* Subsystem/Subsystem Vendor ID */
-	u_int32_t rom_exp;	/* ROM expansion Base Address */
-	u_int32_t capabilities;	/* Capabilities Pointer */
-	u_int32_t reserved2;	/* Reserved */
-	u_int32_t int_gnt;	/* Interrupt/Grant Control */
+	uint32_t down_mem3_ubar;/* Downstream Mem 3 BAR upper 32 bits */
+	uint32_t reserved1;	/* Reserved */
+	uint32_t subsystemID;	/* Subsystem/Subsystem Vendor ID */
+	uint32_t rom_exp;	/* ROM expansion Base Address */
+	uint32_t capabilities;	/* Capabilities Pointer */
+	uint32_t reserved2;	/* Reserved */
+	uint32_t int_gnt;	/* Interrupt/Grant Control */
 };
 
 /* Device-Specific Configuration Address Map */
 struct dec21554ds {
-    u_int32_t down_addr;	/* 80 Downstream Configuration Address */
-    u_int32_t down_data;	/* 84 Downstream Configuration Data */
-    u_int32_t up_addr;		/* 88 Upstream Configuration Address */
-    u_int32_t up_data;		/* 8c Upstream Configuration Data */
-    u_int32_t cnfg_own;		/* 90 Configuration Control/Own Bits */
-    u_int32_t down_mem0_tran;	/* 94 Downstream Memory 0 Translated Base */
-    u_int32_t down_mem1_tran;	/* 98 Downstream IO/Memory 1 Translated Base */
-    u_int32_t down_mem2_tran;	/* 9c Downstream Memory 2 Translated Base */
-    u_int32_t down_mem3_tran;	/* a0 Downstream Memory 3 Translated Base */
-    u_int32_t up_mem0_tran;	/* a4 Upstream IO/Memory 0 Translated Base */
-    u_int32_t up_mem1_tran;	/* a8 Upstream Memory 1 Translated Base */
-    u_int32_t down_mem0_setup;	/* ac Downstream Memory 0 Setup */
-    u_int32_t down_mem1_setup;	/* b0 Downstream IO/Memory 1 Setup */
-    u_int32_t down_mem2_setup;	/* b4 Downstream Memory 2 Setup */
-    u_int32_t down_mem3_setup;	/* b8 Downstream Memory 3 Setup */
-    u_int32_t down_upper32;	/* bc Downstream Upper 32 Bits Setup */
-    u_int32_t pri_exp_rom;	/* c0 Primary Expansion ROM Setup */
-    u_int32_t up_mem0_setup;	/* c4 Upstream IO/Memory 0 Setup */
-    u_int32_t up_mem1_setup;	/* c8 Upstream Memory 1 Setup */
-    u_int32_t chip_control;	/* cc Chip Control */
-    u_int32_t chip_status;	/* d0 Chip Status/Arbiter Control */
-    u_int32_t serr_disables;	/* d4 Primary/Secondary SERR# Disables */
-    u_int32_t reset_control;	/* d8 Reset Control */
-    u_int32_t power_cap;	/* dc Power Management Capabilities */
-    u_int32_t power_csr;	/* e0 Power Management CSR */
-    u_int32_t vpd_addr;		/* e4 VPD Address */
-    u_int32_t vpd_data;		/* e8 VPD Data */
-    u_int32_t hot_swap;		/* ec Hot Swap Control */
-    u_int32_t reserved;		/* f0 Reserved */
+    uint32_t down_addr;	/* 80 Downstream Configuration Address */
+    uint32_t down_data;	/* 84 Downstream Configuration Data */
+    uint32_t up_addr;		/* 88 Upstream Configuration Address */
+    uint32_t up_data;		/* 8c Upstream Configuration Data */
+    uint32_t cnfg_own;		/* 90 Configuration Control/Own Bits */
+    uint32_t down_mem0_tran;	/* 94 Downstream Memory 0 Translated Base */
+    uint32_t down_mem1_tran;	/* 98 Downstream IO/Memory 1 Translated Base */
+    uint32_t down_mem2_tran;	/* 9c Downstream Memory 2 Translated Base */
+    uint32_t down_mem3_tran;	/* a0 Downstream Memory 3 Translated Base */
+    uint32_t up_mem0_tran;	/* a4 Upstream IO/Memory 0 Translated Base */
+    uint32_t up_mem1_tran;	/* a8 Upstream Memory 1 Translated Base */
+    uint32_t down_mem0_setup;	/* ac Downstream Memory 0 Setup */
+    uint32_t down_mem1_setup;	/* b0 Downstream IO/Memory 1 Setup */
+    uint32_t down_mem2_setup;	/* b4 Downstream Memory 2 Setup */
+    uint32_t down_mem3_setup;	/* b8 Downstream Memory 3 Setup */
+    uint32_t down_upper32;	/* bc Downstream Upper 32 Bits Setup */
+    uint32_t pri_exp_rom;	/* c0 Primary Expansion ROM Setup */
+    uint32_t up_mem0_setup;	/* c4 Upstream IO/Memory 0 Setup */
+    uint32_t up_mem1_setup;	/* c8 Upstream Memory 1 Setup */
+    uint32_t chip_control;	/* cc Chip Control */
+    uint32_t chip_status;	/* d0 Chip Status/Arbiter Control */
+    uint32_t serr_disables;	/* d4 Primary/Secondary SERR# Disables */
+    uint32_t reset_control;	/* d8 Reset Control */
+    uint32_t power_cap;	/* dc Power Management Capabilities */
+    uint32_t power_csr;	/* e0 Power Management CSR */
+    uint32_t vpd_addr;		/* e4 VPD Address */
+    uint32_t vpd_data;		/* e8 VPD Data */
+    uint32_t hot_swap;		/* ec Hot Swap Control */
+    uint32_t reserved;		/* f0 Reserved */
 };
 
 struct nppb_cfg {
@@ -209,8 +209,8 @@ struct nppb_cfg {
 	volatile struct dec21554ds ds;
 };
 
-#define cfgoffs(x) (u_int32_t)(&((struct nppb_cfg *)0)->x)
-#define csroffs(x) (u_int32_t)(&((struct dec21554csr *)0)->x)
+#define cfgoffs(x) (uint32_t)(&((struct nppb_cfg *)0)->x)
+#define csroffs(x) (uint32_t)(&((struct dec21554csr *)0)->x)
 
 
 __BEGIN_DECLS

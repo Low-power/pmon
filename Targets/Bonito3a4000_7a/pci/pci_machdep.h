@@ -87,7 +87,7 @@ int	 _pci_canscan __P((pcitag_t tag));
 #define	pci_attach_hook(parent, self, pba)
 #define	pci_bus_maxdevs(c, b)		32
 
-int  pci_ether_hw_addr __P((void *sc, u_int8_t *, u_int8_t, u_int8_t));
+int  pci_ether_hw_addr __P((void *sc, uint8_t *, uint8_t, uint8_t));
 void pci_sync_cache __P((void *, vm_offset_t, size_t, int));
 
 #define CACHESYNC(a, l, h) pci_sync_cache((void *)NULL, (vm_offset_t)a, l ,h)

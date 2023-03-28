@@ -275,7 +275,7 @@ tulip_media_set(
 	}
 	TULIP_CSR_WRITE(sc, csr_gp, TULIP_GP_PINSET|sc->tulip_gpinit);
 	DELAY(10);
-	TULIP_CSR_WRITE(sc, csr_gp, (u_int8_t) mi->mi_gpdata);
+	TULIP_CSR_WRITE(sc, csr_gp, (uint8_t) mi->mi_gpdata);
     } else if (mi->mi_type == TULIP_MEDIAINFO_SYM) {
 	/*
 	 * If the cmdmode bits don't match the currently operating mode,
@@ -292,7 +292,7 @@ tulip_media_set(
 	       && sc->tulip_probe_state != TULIP_PROBE_INACTIVE) {
 	int idx;
 	if (sc->tulip_features & TULIP_HAVE_SIAGP) {
-	    const u_int8_t *dp;
+	    const uint8_t *dp;
 	    dp = &sc->tulip_rombuf[mi->mi_reset_offset];
 	    for (idx = 0; idx < mi->mi_reset_length; idx++, dp += 2) {
 		DELAY(10);
@@ -318,7 +318,7 @@ tulip_media_set(
 	if (sc->tulip_flags & TULIP_TRYNWAY) {
 	    tulip_mii_autonegotiate(sc, sc->tulip_phyaddr);
 	} else if ((sc->tulip_flags & TULIP_DIDNWAY) == 0) {
-	    u_int32_t data = tulip_mii_readreg(sc, sc->tulip_phyaddr, PHYREG_CONTROL);
+	    uint32_t data = tulip_mii_readreg(sc, sc->tulip_phyaddr, PHYREG_CONTROL);
 	    data &= ~(PHYCTL_SELECT_100MB|PHYCTL_FULL_DUPLEX|PHYCTL_AUTONEG_ENABLE);
 	    data &= ~(PHYCTL_POWERDOWN|PHYCTL_ISOLATE);
 	    sc->tulip_flags &= ~TULIP_DIDNWAY;
@@ -492,7 +492,7 @@ tulip_media_link_monitor(
 
     sc->tulip_flags &= ~TULIP_RXACT;
     if (mi->mi_type == TULIP_MEDIAINFO_MII) {
-	u_int32_t status;
+	uint32_t status;
 	/*
 	 * Read the PHY status register.
 	 */
@@ -503,7 +503,7 @@ tulip_media_link_monitor(
 	     * remote systems abilities have changed.  If so, upgrade or
 	     * downgrade as appropriate.
 	     */
-	    u_int32_t abilities = tulip_mii_readreg(sc, sc->tulip_phyaddr, PHYREG_AUTONEG_ABILITIES);
+	    uint32_t abilities = tulip_mii_readreg(sc, sc->tulip_phyaddr, PHYREG_AUTONEG_ABILITIES);
 	    abilities = (abilities << 6) & status;
 	    if (abilities != sc->tulip_abilities) {
 #if defined(TULIP_DEBUG)
@@ -1021,7 +1021,7 @@ tulip_21041_media_poll(
     tulip_softc_t * const sc,
     const tulip_mediapoll_event_t event)
 {
-    u_int32_t sia_status;
+    uint32_t sia_status;
 
 #if defined(TULIP_DEBUG)
     sc->tulip_dbg.dbg_events[event]++;
@@ -1246,8 +1246,8 @@ tulip_mii_phy_readspecific(
     tulip_softc_t * const sc)
 {
     const tulip_phy_attr_t *attr;
-    u_int16_t data;
-    u_int32_t id;
+    uint16_t data;
+    uint32_t id;
     unsigned idx = 0;
     static const tulip_media_t table[] = {
 	TULIP_MEDIA_UNKNOWN,
@@ -1366,8 +1366,8 @@ tulip_mii_autonegotiate(
 	    /* FALL THROUGH */
 	}
         case TULIP_PROBE_PHYRESET: {
-	    u_int32_t status;
-	    u_int32_t data = tulip_mii_readreg(sc, phyaddr, PHYREG_CONTROL);
+	    uint32_t status;
+	    uint32_t data = tulip_mii_readreg(sc, phyaddr, PHYREG_CONTROL);
 	    if (data & PHYCTL_RESET) {
 		if (sc->tulip_probe_timeout > 0) {
 		    tulip_timeout(sc);
@@ -1412,8 +1412,8 @@ tulip_mii_autonegotiate(
 	    /* FALL THROUGH */
 	}
         case TULIP_PROBE_PHYAUTONEG: {
-	    u_int32_t status = tulip_mii_readreg(sc, phyaddr, PHYREG_STATUS);
-	    u_int32_t data;
+	    uint32_t status = tulip_mii_readreg(sc, phyaddr, PHYREG_STATUS);
+	    uint32_t data;
 	    if ((status & PHYSTS_AUTONEG_DONE) == 0) {
 		if (sc->tulip_probe_timeout > 0) {
 		    tulip_timeout(sc);
@@ -1676,7 +1676,7 @@ tulip_21140_smc9332_media_probe(
     TULIP_CSR_WRITE(sc, csr_gp, TULIP_GP_SMC_9332_INIT);
     DELAY(200000);
     for (idx = 1000; idx > 0; idx--) {
-	u_int32_t csr = TULIP_CSR_READ(sc, csr_gp);
+	uint32_t csr = TULIP_CSR_READ(sc, csr_gp);
 	if ((csr & (TULIP_GP_SMC_9332_OK10|TULIP_GP_SMC_9332_OK100)) == (TULIP_GP_SMC_9332_OK10|TULIP_GP_SMC_9332_OK100)) {
 	    if (++cnt > 100)
 		break;
@@ -1717,7 +1717,7 @@ tulip_21140_cogent_em100_media_probe(
     tulip_softc_t * const sc)
 {
     tulip_media_info_t *mip = sc->tulip_mediainfo;
-    u_int32_t cmdmode = TULIP_CSR_READ(sc, csr_command);
+    uint32_t cmdmode = TULIP_CSR_READ(sc, csr_command);
 
     sc->tulip_gpinit = TULIP_GP_EM100_PINS;
     sc->tulip_gpdata = TULIP_GP_EM100_INIT;
@@ -2028,7 +2028,7 @@ static void
 tulip_identify_smc_nic(
     tulip_softc_t * const sc)
 {
-    u_int32_t id1, id2, ei;
+    uint32_t id1, id2, ei;
     int auibnc = 0, utp = 0;
     char *cp;
 
@@ -2095,7 +2095,7 @@ tulip_identify_cogent_nic(
 	 * Magic number (0x24001109U) is the SubVendor (0x2400) and
 	 * SubDevId (0x1109) for the ANA6944TX (EM440TX).
 	 */
-	if (*(u_int32_t *) sc->tulip_rombuf == 0x24001109U
+	if (*(uint32_t *) sc->tulip_rombuf == 0x24001109U
 		&& (sc->tulip_features & TULIP_HAVE_BASEROM)) {
 	    /*
 	     * Cogent (Adaptec) is still mapping all INTs to INTA of
@@ -2205,8 +2205,8 @@ tulip_srom_decode(
     const tulip_srom_adapter_info_t *saip = (tulip_srom_adapter_info_t *) (shp + 1);
     tulip_srom_media_t srom_media;
     tulip_media_info_t *mi = sc->tulip_mediainfo;
-    const u_int8_t *dp;
-    u_int32_t leaf_offset, blocks, data;
+    const uint8_t *dp;
+    uint32_t leaf_offset, blocks, data;
 
     for (idx1 = 0; idx1 < shp->sh_adapter_count; idx1++, saip++) {
 	if (shp->sh_adapter_count == 1)
@@ -2309,7 +2309,7 @@ tulip_srom_decode(
 	    sc->tulip_gpinit = *dp++;
 	blocks = *dp++;
 	for (idx2 = 0; idx2 < blocks; idx2++) {
-	    const u_int8_t *ep;
+	    const uint8_t *ep;
 	    if ((*dp & 0x80) == 0) {
 		length = 4;
 		type = 0;
@@ -2458,7 +2458,7 @@ tulip_srom_decode(
 		}
 		case 3: {	/* 2114[23] MII PHY block */
 		    const unsigned phyno = *dp++;
-		    const u_int8_t *dp0;
+		    const uint8_t *dp0;
 		    mi->mi_type = TULIP_MEDIAINFO_MII;
 		    mi->mi_gpr_length = *dp++;
 		    mi->mi_gpr_offset = dp - sc->tulip_rombuf;
@@ -2581,7 +2581,7 @@ tulip_read_macaddr(
     tulip_softc_t * const sc)
 {
     unsigned cksum, rom_cksum, idx;
-    u_int32_t csr;
+    uint32_t csr;
     unsigned char tmpbuf[8];
     static const u_char testpat[] = { 0xFF, 0, 0x55, 0xAA, 0xFF, 0, 0x55, 0xAA };
 
@@ -2752,17 +2752,17 @@ tulip_read_macaddr(
 
     bcopy(sc->tulip_rombuf, sc->tulip_enaddr, 6);
 
-    cksum = *(u_int16_t *) &sc->tulip_enaddr[0];
+    cksum = *(uint16_t *) &sc->tulip_enaddr[0];
     cksum *= 2;
     if (cksum > 65535) cksum -= 65535;
-    cksum += *(u_int16_t *) &sc->tulip_enaddr[2];
+    cksum += *(uint16_t *) &sc->tulip_enaddr[2];
     if (cksum > 65535) cksum -= 65535;
     cksum *= 2;
     if (cksum > 65535) cksum -= 65535;
-    cksum += *(u_int16_t *) &sc->tulip_enaddr[4];
+    cksum += *(uint16_t *) &sc->tulip_enaddr[4];
     if (cksum >= 65535) cksum -= 65535;
 
-    rom_cksum = *(u_int16_t *) &sc->tulip_rombuf[6];
+    rom_cksum = *(uint16_t *) &sc->tulip_rombuf[6];
 	
     if (cksum != rom_cksum)
 	return -1;
@@ -2876,7 +2876,7 @@ tulip_addr_filter(
 #endif
     sc->tulip_if.if_start = tulip_ifstart;	/* so the setup packet gets queued */
     if (sc->tulip_multicnt > 14) {
-	u_int32_t *sp = sc->tulip_setupdata;
+	uint32_t *sp = sc->tulip_setupdata;
 	unsigned hash;
 	/*
 	 * Some early passes of the 21140 have broken implementations of
@@ -2918,14 +2918,14 @@ tulip_addr_filter(
 		hash = tulip_mchash(sc->tulip_enaddr);
 		sp[hash >> 4] |= FILT_BO(1 << (hash & 0xF));
 	    } else {
-		sp[39] = FILT_BO(((u_int16_t *) sc->tulip_enaddr)[0]); 
-		sp[40] = FILT_BO(((u_int16_t *) sc->tulip_enaddr)[1]); 
-		sp[41] = FILT_BO(((u_int16_t *) sc->tulip_enaddr)[2]);
+		sp[39] = FILT_BO(((uint16_t *) sc->tulip_enaddr)[0]); 
+		sp[40] = FILT_BO(((uint16_t *) sc->tulip_enaddr)[1]); 
+		sp[41] = FILT_BO(((uint16_t *) sc->tulip_enaddr)[2]);
 	    }
 	}
     }
     if ((sc->tulip_flags & (TULIP_WANTHASHPERFECT|TULIP_WANTHASHONLY)) == 0) {
-	u_int32_t *sp = sc->tulip_setupdata;
+	uint32_t *sp = sc->tulip_setupdata;
 	int idx = 0;
 	if ((sc->tulip_flags & TULIP_ALLMULTI) == 0) {
 	    /*
@@ -2934,9 +2934,9 @@ tulip_addr_filter(
 	    ETHER_FIRST_MULTI(step, TULIP_ETHERCOM(sc), enm);
 	    for (; enm != NULL; idx++) {
 		if (bcmp(enm->enm_addrlo, enm->enm_addrhi, 6) == 0) {
-		    *sp++ = FILT_BO(((u_int16_t *) enm->enm_addrlo)[0]); 
-		    *sp++ = FILT_BO(((u_int16_t *) enm->enm_addrlo)[1]); 
-		    *sp++ = FILT_BO(((u_int16_t *) enm->enm_addrlo)[2]);
+		    *sp++ = FILT_BO(((uint16_t *) enm->enm_addrlo)[0]); 
+		    *sp++ = FILT_BO(((uint16_t *) enm->enm_addrlo)[1]); 
+		    *sp++ = FILT_BO(((uint16_t *) enm->enm_addrlo)[2]);
 		} else {
 		    sc->tulip_flags |= TULIP_ALLMULTI;
 		    break;
@@ -2955,9 +2955,9 @@ tulip_addr_filter(
 	 * Pad the rest with our hardware address
 	 */
 	for (; idx < 16; idx++) {
-	    *sp++ = FILT_BO(((u_int16_t *) sc->tulip_enaddr)[0]); 
-	    *sp++ = FILT_BO(((u_int16_t *) sc->tulip_enaddr)[1]); 
-	    *sp++ = FILT_BO(((u_int16_t *) sc->tulip_enaddr)[2]);
+	    *sp++ = FILT_BO(((uint16_t *) sc->tulip_enaddr)[0]); 
+	    *sp++ = FILT_BO(((uint16_t *) sc->tulip_enaddr)[1]); 
+	    *sp++ = FILT_BO(((uint16_t *) sc->tulip_enaddr)[2]);
 	}
     }
 #if defined(IFF_ALLMULTI)
@@ -2972,7 +2972,7 @@ tulip_reset(
 {
     tulip_ringinfo_t *ri;
     tulip_desc_t *di;
-    u_int32_t inreset = (sc->tulip_flags & TULIP_INRESET);
+    uint32_t inreset = (sc->tulip_flags & TULIP_INRESET);
 
 #if defined(TULIP_DEBUG)
     printf ("de0: resetting...\n");
@@ -3397,7 +3397,7 @@ tulip_tx_intr(
     int descs = 0;
 
     while (ri->ri_free < ri->ri_max) {
-	u_int32_t d_flag;
+	uint32_t d_flag;
 	if (DESC_BO(((volatile tulip_desc_t *) ri->ri_nextin)->d_status) & TULIP_DSTS_OWNER)
 	    break;
 
@@ -3428,7 +3428,7 @@ tulip_tx_intr(
 		    TULIP_CSR_WRITE(sc, csr_command, sc->tulip_cmdmode);
 		}
 	    } else {
-		const u_int32_t d_status = DESC_BO(ri->ri_nextin->d_status);
+		const uint32_t d_status = DESC_BO(ri->ri_nextin->d_status);
 		IF_DEQUEUE(&sc->tulip_txq, m);
 		if (m != NULL) {
 #if NBPFILTER > 0
@@ -3474,7 +3474,7 @@ tulip_tx_intr(
 			if (d_status & TULIP_DSTS_TxBABBLE)
 			    sc->tulip_dot3stats.dot3StatsInternalTransmitBabbles++;
 		    } else {
-			u_int32_t collisions = 
+			uint32_t collisions = 
 			    (d_status & TULIP_DSTS_TxCOLLMASK)
 				>> TULIP_DSTS_V_TxCOLLCNT;
 			sc->tulip_if.if_collisions += collisions;
@@ -3520,11 +3520,11 @@ tulip_tx_intr(
 static void
 tulip_print_abnormal_interrupt(
     tulip_softc_t * const sc,
-    u_int32_t csr)
+    uint32_t csr)
 {
     const char * const *msgp = tulip_status_bits;
     const char *sep;
-    u_int32_t mask;
+    uint32_t mask;
     const char thrsh[] = "72|128\0\0\0" "96|256\0\0\0" "128|512\0\0" "160|1024\0";
 
     csr &= (1 << (sizeof(tulip_status_bits)/sizeof(tulip_status_bits[0]))) - 1;
@@ -3553,7 +3553,7 @@ tulip_intr_handler(
     int *progress_p)
 {
     TULIP_PERFSTART(intr)
-    u_int32_t csr;
+    uint32_t csr;
 
     while ((csr = TULIP_CSR_READ(sc, csr_status)) & sc->tulip_intrmask) {
 	*progress_p = 1;
@@ -3585,7 +3585,7 @@ tulip_intr_handler(
 	    tulip_media_print(sc);
 	}
 	if (csr & (TULIP_STS_RXINTR|TULIP_STS_RXNOBUF)) {
-	    u_int32_t misses = TULIP_CSR_READ(sc, csr_missed_frames);
+	    uint32_t misses = TULIP_CSR_READ(sc, csr_missed_frames);
 	    if (csr & TULIP_STS_RXNOBUF) {
 		sc->tulip_dot3stats.dot3StatsMissedFrames += misses & 0xFFFF;
 	    }
@@ -3615,7 +3615,7 @@ tulip_intr_handler(
 	    }
 	}
 	if (csr & TULIP_STS_ABNRMLINTR) {
-	    u_int32_t tmp = csr & sc->tulip_intrmask
+	    uint32_t tmp = csr & sc->tulip_intrmask
 		& ~(TULIP_STS_NORMALINTR|TULIP_STS_ABNRMLINTR);
 	    if (csr & TULIP_STS_TXUNDERFLOW) {
 #if defined(TULIP_DEBUG)
@@ -3750,7 +3750,7 @@ tulip_txput(
     tulip_ringinfo_t * const ri = &sc->tulip_txinfo;
     tulip_desc_t *eop, *nextout;
     int segcnt, free;
-    u_int32_t d_status;
+    uint32_t d_status;
     struct mbuf *m0;
 
 #if defined(TULIP_DEBUG)
@@ -4015,7 +4015,7 @@ tulip_txput_setup(
 #endif
     nextout = ri->ri_nextout;
     {
-	u_int32_t d_flag;
+	uint32_t d_flag;
 	tulip_desc_bitfield_t u;
 
 	u.f = DESC_BO(nextout->u.f); /* copy the bitfields */
@@ -4286,7 +4286,7 @@ tulip_ifwatchdog(
     tulip_softc_t * const sc = TULIP_IFP_TO_SOFTC(ifp);
 
 #if defined(TULIP_DEBUG)
-    u_int32_t rxintrs = sc->tulip_dbg.dbg_rxintrs - sc->tulip_dbg.dbg_last_rxintrs;
+    uint32_t rxintrs = sc->tulip_dbg.dbg_rxintrs - sc->tulip_dbg.dbg_last_rxintrs;
     if (rxintrs > sc->tulip_dbg.dbg_high_rxintrs_hz)
 	sc->tulip_dbg.dbg_high_rxintrs_hz = rxintrs;
     sc->tulip_dbg.dbg_last_rxintrs = sc->tulip_dbg.dbg_rxintrs;
@@ -4584,7 +4584,7 @@ tulip_pci_attach(
 #endif /* __OpenBSD__ */
 
     int retval, idx;
-    u_int32_t revinfo, cfdainfo, id;
+    uint32_t revinfo, cfdainfo, id;
     unsigned csroffset = TULIP_PCI_CSROFFSET;
     unsigned csrsize = TULIP_PCI_CSRSIZE;
     tulip_csrptr_t csr_base; 

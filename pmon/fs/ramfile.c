@@ -81,7 +81,7 @@ static int
 		dname += 8;
 
 	if (dname[0] == '@') {
-		u_int64_t address;
+		uint64_t address;
 		int size;
 		int nseperator = 0;
 		int i;
@@ -114,7 +114,7 @@ static int
 		}
 		
 #if 0
-		if (!get_rsa ((u_int32_t *)&address, straddr)) {
+		if (!get_rsa ((uint32_t *)&address, straddr)) {
 			return (-1);
 		}
 #else
@@ -123,7 +123,7 @@ static int
 		
 		if (strsize != NULL) {
 #if 0
-			if (!get_rsa ((u_int32_t *)&size, strsize)) {
+			if (!get_rsa ((uint32_t *)&size, strsize)) {
 				return (-1);
 			}
 #endif

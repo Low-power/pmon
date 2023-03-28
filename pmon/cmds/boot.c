@@ -106,12 +106,12 @@ cmd_boot(int argc, char **argv)
 			case 'r':
 				flags |= RFLAG; break;
 			case 'e':
-				if (!get_rsa ((u_int32_t *)&entry, optarg)) {
+				if (!get_rsa ((uint32_t *)&entry, optarg)) {
 					err++;
 				}
 				break;
 			case 'o':
-				if (!get_rsa ((u_int32_t *)&offset, optarg)) {
+				if (!get_rsa ((uint32_t *)&offset, optarg)) {
 					err++;
 				}
 				break;

@@ -97,8 +97,8 @@ _pci_conf_readn(tag, reg, width)
 	int width;
 {
 	pcireg_t data;
-	u_int32_t addr;
-	u_int32_t bus, dev, func;
+	uint32_t addr;
+	uint32_t bus, dev, func;
 
 	if (reg & (width-1) || reg < 0 || reg >= 0x100) {
 #ifdef PMON_PCIDEBUG		
@@ -155,8 +155,8 @@ _pci_conf_writen(tag, reg, data, width)
 	pcireg_t data;
 	int width;
 {
-	u_int32_t addr;
-	u_int32_t bus, dev, func;
+	uint32_t addr;
+	uint32_t bus, dev, func;
 
 	if (reg & (width-1) || reg < 0 || reg >= 0x100) {
 #ifdef PMON_PCIDEBUG		

@@ -3991,7 +3991,7 @@ static long long e100_read_mac(struct fxp_softc *nic)
 
         int i;
         long long mac_tmp = 0;
-	u_int16_t enaddr[3];
+	uint16_t enaddr[3];
 	unsigned short tmp=0;
 
         fxp_read_eeprom(nic, enaddr, 0, 3);
@@ -4020,8 +4020,8 @@ int cmd_setmac_fxp0(int ac, char *av[])
         
 	if(ac != 2){
         long long macaddr;
-        u_int8_t *paddr;
-        u_int8_t enaddr[6];
+        uint8_t *paddr;
+        uint8_t enaddr[6];
         macaddr=e100_read_mac(nic);
         paddr=(uint8_t*)&macaddr;
         enaddr[0] = paddr[5- 0];

@@ -48,7 +48,7 @@ int
 chg_moresz (name, value)
     char *name, *value;
 {
-	u_int32_t v;
+	uint32_t v;
 
 	if (atob (&v, value, 10) && v > 2 && v < 100) {
 		moresz = v;

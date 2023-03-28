@@ -87,11 +87,11 @@ struct disk {
 	 * on certain types of disks.
 	 */
 	int		dk_busy;	/* busy counter */
-	u_int64_t   dk_rxfer;   /* total number of read transfers *///wan+
-	u_int64_t   dk_wxfer;   /* total number of write transfers *///wan+
-	u_int64_t   dk_rbytes;  /* total bytes read *///wan+
-	u_int64_t   dk_wbytes;  /* total bytes written *///wan+
-	u_int64_t	dk_seek;	/* total independent seek operations */
+	uint64_t   dk_rxfer;   /* total number of read transfers *///wan+
+	uint64_t   dk_wxfer;   /* total number of write transfers *///wan+
+	uint64_t   dk_rbytes;  /* total bytes read *///wan+
+	uint64_t   dk_wbytes;  /* total bytes written *///wan+
+	uint64_t	dk_seek;	/* total independent seek operations */
 	struct timeval	dk_attachtime;	/* time disk was attached */
 	struct timeval	dk_timestamp;	/* timestamp of last unbusy */
 	struct timeval	dk_time;	/* total time spent busy */

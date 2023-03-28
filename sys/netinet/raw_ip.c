@@ -70,7 +70,7 @@ didn't get a copy, you may request one from <license@ipv6.nrl.navy.mil>.
 #include <netinet/ip_icmp.h>
 
 #ifdef IPSEC
-extern int     	check_ipsec_policy  __P((struct inpcb *, u_int32_t));
+extern int     	check_ipsec_policy  __P((struct inpcb *, uint32_t));
 #endif
 
 #include <machine/stdarg.h>
@@ -428,7 +428,7 @@ rip_usrreq(so, req, m, nam, control)
 	 */
 	case PRU_SEND:
 	    {
-		register u_int32_t dst;
+		register uint32_t dst;
 
 		if (so->so_state & SS_ISCONNECTED) {
 			if (nam) {

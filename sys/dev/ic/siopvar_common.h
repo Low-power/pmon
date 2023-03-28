@@ -39,8 +39,8 @@
 
 /* tables used by SCRIPT */
 struct scr_table {
-	u_int32_t count;
-	u_int32_t addr;
+	uint32_t count;
+	uint32_t addr;
 } __attribute__((__packed__));
 
 /* Number of scatter/gather entries */
@@ -57,12 +57,12 @@ struct scr_table {
  * transfer. 
  */
 struct siop_xfer_common {
-	u_int8_t msg_out[16];	         /*  0 */
-	u_int8_t msg_in[16];	         /* 16 */
-	u_int32_t status;	         /* 32 */
-	u_int32_t pad1;		         /* 36 */
-	u_int32_t id;		         /* 40 */
-	u_int32_t pad2;		         /* 44 */
+	uint8_t msg_out[16];	         /*  0 */
+	uint8_t msg_in[16];	         /* 16 */
+	uint32_t status;	         /* 32 */
+	uint32_t pad1;		         /* 36 */
+	uint32_t id;		         /* 40 */
+	uint32_t pad2;		         /* 44 */
 	struct scr_table t_msgin;	 /* 48 */
 	struct scr_table t_extmsgin;	 /* 56 */
 	struct scr_table t_extmsgdata;   /* 64 */
@@ -79,8 +79,8 @@ struct siop_xfer_common {
 /* xfer description of the script: tables and reselect script */
 struct siop_xfer {
 	struct siop_xfer_common tables;
-	/* u_int32_t resel[sizeof(load_dsa) / sizeof(load_dsa[0])]; */
-	u_int32_t resel[25];
+	/* uint32_t resel[sizeof(load_dsa) / sizeof(load_dsa[0])]; */
+	uint32_t resel[25];
 } __attribute__((__packed__));
 
 /*
@@ -146,7 +146,7 @@ struct siop_lun {
 struct siop_target {
 	int status;	/* target status, see below */
 	int flags;	/* target flags, see below */
-	u_int32_t id;	/* for SELECT FROM
+	uint32_t id;	/* for SELECT FROM
 			 * 31-24 == SCNTL3
 			 * 23-16 == SCSI id
 			 * 15- 8 == SXFER
@@ -178,8 +178,8 @@ struct siop_target {
 
 struct siop_lunsw {
 	TAILQ_ENTRY (siop_lunsw) next;
-	u_int32_t lunsw_off; /* offset of this lun sw, from sc_scriptaddr*/
-	u_int32_t lunsw_size; /* size of this lun sw */
+	uint32_t lunsw_off; /* offset of this lun sw, from sc_scriptaddr*/
+	uint32_t lunsw_size; /* size of this lun sw */
 };
 
 static __inline__ void siop_table_sync __P((struct siop_cmd *, int));

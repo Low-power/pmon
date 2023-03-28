@@ -31,112 +31,112 @@
  */
 
 struct scsi_read_capacity_cd {
-	u_int8_t opcode;
-	u_int8_t byte2;
-	u_int8_t addr[4];
-	u_int8_t unused[3];
-	u_int8_t control;
+	uint8_t opcode;
+	uint8_t byte2;
+	uint8_t addr[4];
+	uint8_t unused[3];
+	uint8_t control;
 };
 
 struct scsi_pause {
-	u_int8_t opcode;
-	u_int8_t byte2;
-	u_int8_t unused[6];
-	u_int8_t resume;
-	u_int8_t control;
+	uint8_t opcode;
+	uint8_t byte2;
+	uint8_t unused[6];
+	uint8_t resume;
+	uint8_t control;
 };
 #define	PA_PAUSE	1
 #define PA_RESUME	0
 
 struct scsi_play_msf {
-	u_int8_t opcode;
-	u_int8_t byte2;
-	u_int8_t unused;
-	u_int8_t start_m;
-	u_int8_t start_s;
-	u_int8_t start_f;
-	u_int8_t end_m;
-	u_int8_t end_s;
-	u_int8_t end_f;
-	u_int8_t control;
+	uint8_t opcode;
+	uint8_t byte2;
+	uint8_t unused;
+	uint8_t start_m;
+	uint8_t start_s;
+	uint8_t start_f;
+	uint8_t end_m;
+	uint8_t end_s;
+	uint8_t end_f;
+	uint8_t control;
 };
 
 struct scsi_play_track {
-	u_int8_t opcode;
-	u_int8_t byte2;
-	u_int8_t unused[2];
-	u_int8_t start_track;
-	u_int8_t start_index;
-	u_int8_t unused1;
-	u_int8_t end_track;
-	u_int8_t end_index;
-	u_int8_t control;
+	uint8_t opcode;
+	uint8_t byte2;
+	uint8_t unused[2];
+	uint8_t start_track;
+	uint8_t start_index;
+	uint8_t unused1;
+	uint8_t end_track;
+	uint8_t end_index;
+	uint8_t control;
 };
 
 struct scsi_play {
-	u_int8_t opcode;
-	u_int8_t byte2;
-	u_int8_t blk_addr[4];
-	u_int8_t unused;
-	u_int8_t xfer_len[2];
-	u_int8_t control;
+	uint8_t opcode;
+	uint8_t byte2;
+	uint8_t blk_addr[4];
+	uint8_t unused;
+	uint8_t xfer_len[2];
+	uint8_t control;
 };
 
 struct scsi_play_big {
-	u_int8_t opcode;
-	u_int8_t byte2;	/* same as above */
-	u_int8_t blk_addr[4];
-	u_int8_t xfer_len[4];
-	u_int8_t unused;
-	u_int8_t control;
+	uint8_t opcode;
+	uint8_t byte2;	/* same as above */
+	uint8_t blk_addr[4];
+	uint8_t xfer_len[4];
+	uint8_t unused;
+	uint8_t control;
 };
 
 struct scsi_play_rel_big {
-	u_int8_t opcode;
-	u_int8_t byte2;	/* same as above */
-	u_int8_t blk_addr[4];
-	u_int8_t xfer_len[4];
-	u_int8_t track;
-	u_int8_t control;
+	uint8_t opcode;
+	uint8_t byte2;	/* same as above */
+	uint8_t blk_addr[4];
+	uint8_t xfer_len[4];
+	uint8_t track;
+	uint8_t control;
 };
 
 struct scsi_read_header {
-	u_int8_t opcode;
-	u_int8_t byte2;
-	u_int8_t blk_addr[4];
-	u_int8_t unused;
-	u_int8_t data_len[2];
-	u_int8_t control;
+	uint8_t opcode;
+	uint8_t byte2;
+	uint8_t blk_addr[4];
+	uint8_t unused;
+	uint8_t data_len[2];
+	uint8_t control;
 };
 
 struct scsi_read_subchannel {
-	u_int8_t opcode;
-	u_int8_t byte2;
-	u_int8_t byte3;
+	uint8_t opcode;
+	uint8_t byte2;
+	uint8_t byte3;
 #define	SRS_SUBQ	0x40
-	u_int8_t subchan_format;
-	u_int8_t unused[2];
-	u_int8_t track;
-	u_int8_t data_len[2];
-	u_int8_t control;
+	uint8_t subchan_format;
+	uint8_t unused[2];
+	uint8_t track;
+	uint8_t data_len[2];
+	uint8_t control;
 };
 
 struct scsi_read_toc {
-	u_int8_t opcode;
-	u_int8_t byte2;
-	u_int8_t unused[4];
-	u_int8_t from_track;
-	u_int8_t data_len[2];
-	u_int8_t control;
+	uint8_t opcode;
+	uint8_t byte2;
+	uint8_t unused[4];
+	uint8_t from_track;
+	uint8_t data_len[2];
+	uint8_t control;
 };
 ;
 
 struct scsi_read_cd_capacity {
-	u_int8_t opcode;
-	u_int8_t byte2;
-	u_int8_t addr[4];
-	u_int8_t unused[3];
-	u_int8_t control;
+	uint8_t opcode;
+	uint8_t byte2;
+	uint8_t addr[4];
+	uint8_t unused[3];
+	uint8_t control;
 };
 
 /*
@@ -157,26 +157,26 @@ struct scsi_read_cd_capacity {
 
 
 struct scsi_read_cd_cap_data {
-	u_int8_t addr[4];
-	u_int8_t length[4];
+	uint8_t addr[4];
+	uint8_t length[4];
 };
 
 struct cd_audio_page {
-	u_int8_t page_code;
+	uint8_t page_code;
 #define	CD_PAGE_CODE	0x3F
 #define	AUDIO_PAGE	0x0e
 #define	CD_PAGE_PS	0x80
-	u_int8_t param_len;
-	u_int8_t flags;
+	uint8_t param_len;
+	uint8_t flags;
 #define		CD_PA_SOTC	0x02
 #define		CD_PA_IMMED	0x04
-	u_int8_t unused[2];
-	u_int8_t format_lba;
+	uint8_t unused[2];
+	uint8_t format_lba;
 #define		CD_PA_FORMAT_LBA	0x0F
 #define		CD_PA_APR_VALID	0x80
-	u_int8_t lb_per_sec[2];
+	uint8_t lb_per_sec[2];
 	struct	port_control {
-		u_int8_t channels;
+		uint8_t channels;
 #define	CHANNEL 0x0F
 #define	CHANNEL_0 1
 #define	CHANNEL_1 2
@@ -186,7 +186,7 @@ struct cd_audio_page {
 #define	RIGHT_CHANNEL	CHANNEL_1
 #define MUTE_CHANNEL    0x0
 #define BOTH_CHANNEL    LEFT_CHANNEL | RIGHT_CHANNEL
-		u_int8_t volume;
+		uint8_t volume;
 	} port[4];
 #define	LEFT_PORT	0
 #define	RIGHT_PORT	1

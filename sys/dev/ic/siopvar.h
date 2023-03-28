@@ -58,18 +58,18 @@ struct siop_softc {
 	void (*sc_reset) __P((struct siop_softc*)); /* reset callback */
 	bus_dmamap_t  sc_scriptdma;	/* DMA map for script */
 	bus_addr_t sc_scriptaddr;	/* on-board ram or physical adress */
-	u_int32_t *sc_script;		/* script location in memory */
+	uint32_t *sc_script;		/* script location in memory */
 	int sc_currschedslot;		/* current scheduler slot */
 	struct cbd_list cmds;		/* list of command block descriptors */
 	struct cmd_list free_list;	/* cmd descr free list */
 	struct cmd_list urgent_list;	/* high priority cmd descr list */
 	struct cmd_list ready_list;	/* cmd descr ready list */
 	struct lunsw_list lunsw_list;	/* lunsw free list */
-	u_int32_t script_free_lo;	/* free ram offset from sc_scriptaddr */
-	u_int32_t script_free_hi;	/* free ram offset from sc_scriptaddr */
+	uint32_t script_free_lo;	/* free ram offset from sc_scriptaddr */
+	uint32_t script_free_hi;	/* free ram offset from sc_scriptaddr */
 	struct siop_target *targets[16]; /* per-target states */
 	int sc_ntargets;		/* number of known targets */
-	u_int32_t sc_flags;
+	uint32_t sc_flags;
 };
 /* defs for sc_flags */
 /* none for now */

@@ -691,7 +691,7 @@ ifioctl(so, cmd, data, p)
 		case OSIOCGIFDSTADDR:
 		case OSIOCGIFBRDADDR:
 		case OSIOCGIFNETMASK:
-			*(u_int16_t *)&ifr->ifr_addr = ifr->ifr_addr.sa_family;
+			*(uint16_t *)&ifr->ifr_addr = ifr->ifr_addr.sa_family;
 		}
 		return (error);
 

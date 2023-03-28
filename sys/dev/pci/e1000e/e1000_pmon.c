@@ -410,7 +410,7 @@ struct net_device;
 struct dev_mc_list 
 {
     struct dev_mc_list  *next;
-    u_int8_t       dmi_addr[MAX_ADDR_LEN];
+    uint8_t       dmi_addr[MAX_ADDR_LEN];
     unsigned char       dmi_addrlen;
     int         dmi_users;
     int         dmi_gusers;
@@ -1013,7 +1013,7 @@ static int memcmp(const void * cs,const void * ct,size_t count)
 			break;
 	return res;
 }
-static inline int is_valid_ether_addr( u_int8_t *addr )
+static inline int is_valid_ether_addr( uint8_t *addr )
 {
     const char zaddr[6] = {0,};
 

@@ -54,12 +54,12 @@ typedef struct Sym {
 } Sym;
 
 
-static void defsym __P((char *, u_int32_t));
+static void defsym __P((char *, uint32_t));
 static int dopat __P((char *, int));
 static void doval __P((char *, int));
 static Sym * firstsym __P((int));
 static Sym * nextsym __P((void));
-static Sym * getsymbyvalue __P((u_int32_t));;
+static Sym * getsymbyvalue __P((uint32_t));;
 static Sym * getsymbyname __P((char *));
 
 
@@ -193,7 +193,7 @@ getsymbyname (name)
  */
 static Sym *
 getsymbyvalue (addr)
-    u_int32_t addr;
+    uint32_t addr;
 {
     Sym		**syms, *sym;
     int		lo, hi, mid;
@@ -247,7 +247,7 @@ getsymbyvalue (addr)
 int
 newsym (name, value)
     char	*name;
-    u_int32_t	value;
+    uint32_t	value;
 {
     Sym         *sym;
     unsigned int h;
@@ -409,7 +409,7 @@ cmd_sym (ac, av)
      int             ac;
      char           *av[];
 {
-    u_int32_t v;
+    uint32_t v;
 
     if (!get_rsa (&v, av[2]))
 	return (-1);
@@ -480,7 +480,7 @@ doval (val, flags)
      char           *val;
      int             flags;
 {
-    u_int32_t  value;
+    uint32_t  value;
     char       tmp[LINESZ];
 
     if (!get_rsa (&value, val))
@@ -613,7 +613,7 @@ cmd_ls (ac, av)
 static void
 defsym (name, value)
     char	*name;
-    u_int32_t	value;
+    uint32_t	value;
 {
     if (!getsymbyname (name))
 	newsym (name, value);
@@ -622,7 +622,7 @@ defsym (name, value)
 
 void
 defsyms (minaddr, maxaddr, pc)
-    u_int32_t minaddr, maxaddr, pc;
+    uint32_t minaddr, maxaddr, pc;
 {
     extern int	    start[];
     defsym ("Pmon", (unsigned long) start);
@@ -643,9 +643,9 @@ syminit ()
     extern unsigned long long	    memorysize;
 
 #ifdef __mips__
-    defsyms ((u_int32_t)sbrk(0) + 1024, memorysize | (CLIENTPC & 0xc0000000), CLIENTPC);
+    defsyms ((uint32_t)sbrk(0) + 1024, memorysize | (CLIENTPC & 0xc0000000), CLIENTPC);
 #else
-    defsyms ((u_int32_t)sbrk(0) + 1024, memorysize, CLIENTPC);
+    defsyms ((uint32_t)sbrk(0) + 1024, memorysize, CLIENTPC);
 #endif
 #if !defined(BSOTSUN) && 0
     newsym ("free", (etext - _ftext) + (edata - _fdata));

@@ -81,7 +81,7 @@ didn't get a copy, you may request one from <license@ipv6.nrl.navy.mil>.
 #ifdef IPSEC
 #include <netinet/ip_ipsp.h>
 
-extern int	check_ipsec_policy  __P((struct inpcb *, u_int32_t));
+extern int	check_ipsec_policy  __P((struct inpcb *, uint32_t));
 #endif
 
 struct	in_addr zeroin_addr;
@@ -128,8 +128,8 @@ struct baddynamicports baddynamicports;
  */
 int
 in_baddynamic(port, proto)
-	u_int16_t port;
-	u_int16_t proto;
+	uint16_t port;
+	uint16_t proto;
 {
 
 	if (port < IPPORT_RESERVED/2 || port >= IPPORT_RESERVED)
@@ -191,10 +191,10 @@ in_pcbbind(v, nam)
 	register struct inpcb *inp = v;
 	register struct socket *so = inp->inp_socket;
 	register struct inpcbtable *table = inp->inp_table;
-	u_int16_t *lastport = &inp->inp_table->inpt_lastport;
+	uint16_t *lastport = &inp->inp_table->inpt_lastport;
 	register struct sockaddr_in *sin;
 	struct proc *p = curproc;		/* XXX */
-	u_int16_t lport = 0;
+	uint16_t lport = 0;
 	int wild = 0, reuseport = (so->so_options & SO_REUSEPORT);
 	int error;
 
@@ -260,7 +260,7 @@ in_pcbbind(v, nam)
 		inp->inp_laddr = sin->sin_addr;
 	}
 	if (lport == 0) {
-		u_int16_t first, last, old = 0;
+		uint16_t first, last, old = 0;
 		int count;
 		int loopcount = 0;
 
@@ -430,7 +430,7 @@ in_pcbconnect(v, nam)
 		if (ro->ro_rt && !(ro->ro_rt->rt_ifp->if_flags & IFF_LOOPBACK))
 			ia = ifatoia(ro->ro_rt->rt_ifa);
 		if (ia == 0) {
-			u_int16_t fport = sin->sin_port;
+			uint16_t fport = sin->sin_port;
 
 			sin->sin_port = 0;
 			ia = ifatoia(ifa_ifwithdstaddr(sintosa(sin)));
@@ -606,7 +606,7 @@ in_pcbnotify(table, dst, fport_arg, laddr, lport_arg, errno, notify)
 {
 	register struct inpcb *inp, *oinp;
 	struct in_addr faddr;
-	u_int16_t fport = fport_arg, lport = lport_arg;
+	uint16_t fport = fport_arg, lport = lport_arg;
 
 #ifdef INET6
 	/*
@@ -738,7 +738,7 @@ in_pcblookup(table, faddrp, fport_arg, laddrp, lport_arg, flags)
 {
 	register struct inpcb *inp, *match = 0;
 	int matchwild = 3, wildcard;
-	u_int16_t fport = fport_arg, lport = lport_arg;
+	uint16_t fport = fport_arg, lport = lport_arg;
 	struct in_addr faddr = *(struct in_addr *)faddrp;
 	struct in_addr laddr = *(struct in_addr *)laddrp;
 
@@ -855,7 +855,7 @@ in_pcbhashlookup(table, faddr, fport_arg, laddr, lport_arg)
 {
 	struct inpcbhead *head;
 	register struct inpcb *inp;
-	u_int16_t fport = fport_arg, lport = lport_arg;
+	uint16_t fport = fport_arg, lport = lport_arg;
 
 	head = INPCBHASH(table, &faddr, fport, &laddr, lport);
 	for (inp = head->lh_first; inp != NULL; inp = inp->inp_hash.le_next) {
@@ -894,7 +894,7 @@ in6_pcbhashlookup(table, faddr, fport_arg, laddr, lport_arg)
 {
 	struct inpcbhead *head;
 	register struct inpcb *inp;
-	u_int16_t fport = fport_arg, lport = lport_arg;
+	uint16_t fport = fport_arg, lport = lport_arg;
 
 	head = IN6PCBHASH(table, faddr, fport, laddr, lport);
 	for (inp = head->lh_first; inp != NULL; inp = inp->inp_hash.le_next) {

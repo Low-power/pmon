@@ -729,7 +729,7 @@ brgphy_mii_phy_auto(struct mii_softc *sc)
 void
 brgphy_loop(struct mii_softc *sc)
 {
-	u_int32_t bmsr;
+	uint32_t bmsr;
 	int i;
 
 	PHY_WRITE(sc, BRGPHY_MII_BMCR, BRGPHY_BMCR_LOOP);
@@ -1127,7 +1127,7 @@ brgphy_disable_early_dac(struct mii_softc *sc)
 void
 brgphy_jumbo_settings(struct mii_softc *sc)
 {
-	u_int32_t val;
+	uint32_t val;
 
 	/* Set Jumbo frame settings in the PHY. */
 	if (sc->mii_model == MII_MODEL_BROADCOM_BCM5401) {
@@ -1148,7 +1148,7 @@ brgphy_jumbo_settings(struct mii_softc *sc)
 void
 brgphy_eth_wirespeed(struct mii_softc *sc)
 {
-	u_int32_t val;
+	uint32_t val;
 
 	/* Enable Ethernet@Wirespeed */
 	PHY_WRITE(sc, BRGPHY_MII_AUXCTL, 0x7007);

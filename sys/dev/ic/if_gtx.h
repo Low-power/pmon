@@ -160,45 +160,45 @@
  */
 #if BYTE_ORDER == LITTLE_ENDIAN
 typedef struct {
-    u_int32_t cmdstat;
-    u_int16_t l4_chk;
-    u_int16_t byte_cnt;
-    u_int32_t buff_ptr;
-    u_int32_t next;
+    uint32_t cmdstat;
+    uint16_t l4_chk;
+    uint16_t byte_cnt;
+    uint32_t buff_ptr;
+    uint32_t next;
     char *vbuff_ptr;
-    u_int32_t pad[3];
+    uint32_t pad[3];
 } TX_DESC;
 
 typedef struct {
-    u_int32_t cmdstat;
-    u_int16_t buf_size;
-    u_int16_t byte_cnt;
-    u_int32_t buff_ptr;
-    u_int32_t next;
+    uint32_t cmdstat;
+    uint16_t buf_size;
+    uint16_t byte_cnt;
+    uint32_t buff_ptr;
+    uint32_t next;
     struct mbuf *rx_mbuf;
     char *vbuff_ptr;
-    u_int32_t pad[2];
+    uint32_t pad[2];
 } RX_DESC;
 #else
 typedef struct {
-    u_int16_t byte_cnt;
-    u_int16_t l4_chk;
-    u_int32_t cmdstat;
-    u_int32_t next;
-    u_int32_t buff_ptr;
+    uint16_t byte_cnt;
+    uint16_t l4_chk;
+    uint32_t cmdstat;
+    uint32_t next;
+    uint32_t buff_ptr;
     char *vbuff_ptr;
-    u_int32_t pad[3];
+    uint32_t pad[3];
 } TX_DESC;
 
 typedef struct {
-    u_int16_t byte_cnt;
-    u_int16_t buf_size;
-    u_int32_t cmdstat;
-    u_int32_t next;
-    u_int32_t buff_ptr;
+    uint16_t byte_cnt;
+    uint16_t buf_size;
+    uint32_t cmdstat;
+    uint32_t next;
+    uint32_t buff_ptr;
     struct mbuf *rx_mbuf;
     char *vbuff_ptr;
-    u_int32_t pad[2];
+    uint32_t pad[2];
 } RX_DESC;
 #endif
 
@@ -247,31 +247,31 @@ enum hash_table_entry {
 
 // The GT643x0 MIB counters
 typedef struct {
-    u_int32_t bytesReceived;
-    u_int32_t bytesSent;
-    u_int32_t framesReceived;
-    u_int32_t framesSent;
-    u_int32_t totalBytesReceived;
-    u_int32_t totalFramesReceived;
-    u_int32_t broadcastFramesReceived;
-    u_int32_t multicastFramesReceived;
-    u_int32_t CRCErrors;
-    u_int32_t oversizeFrames;
-    u_int32_t fragments;
-    u_int32_t jabber;
-    u_int32_t collisions;
-    u_int32_t lateCollisions;
-    u_int32_t frames64_bytes;
-    u_int32_t frames65_127_bytes;
-    u_int32_t frames128_255_bytes;
-    u_int32_t frames256_511_bytes;
-    u_int32_t frames512_1023_bytes;
-    u_int32_t frames1024_MaxSize;
-    u_int32_t rxErrors;
-    u_int32_t droppedFrames;
-    u_int32_t multicastFramesSent;
-    u_int32_t broadcastFramesSent;
-    u_int32_t undersizeFrames;
+    uint32_t bytesReceived;
+    uint32_t bytesSent;
+    uint32_t framesReceived;
+    uint32_t framesSent;
+    uint32_t totalBytesReceived;
+    uint32_t totalFramesReceived;
+    uint32_t broadcastFramesReceived;
+    uint32_t multicastFramesReceived;
+    uint32_t CRCErrors;
+    uint32_t oversizeFrames;
+    uint32_t fragments;
+    uint32_t jabber;
+    uint32_t collisions;
+    uint32_t lateCollisions;
+    uint32_t frames64_bytes;
+    uint32_t frames65_127_bytes;
+    uint32_t frames128_255_bytes;
+    uint32_t frames256_511_bytes;
+    uint32_t frames512_1023_bytes;
+    uint32_t frames1024_MaxSize;
+    uint32_t rxErrors;
+    uint32_t droppedFrames;
+    uint32_t multicastFramesSent;
+    uint32_t broadcastFramesSent;
+    uint32_t undersizeFrames;
 } mib_counters_t;
 
 /*
@@ -321,7 +321,7 @@ struct gtx_softc {
 	struct arpcom	arpcom;		/* Per interface network data */
 	RX_DESC		*rx_ring;
 	TX_DESC		*tx_ring;
-	u_int32_t	*rx_hash;
+	uint32_t	*rx_hash;
 	int		sc_port;	/* Easy access port number */
 	int hash_mode;
 
@@ -329,8 +329,8 @@ struct gtx_softc {
      *  Tx buffers with less than 8 bytes
      *  of payload must be 8-byte aligned
      */
-    u_int8_t* tx_buff;
-    u_int8_t* rx_buff;
+    uint8_t* tx_buff;
+    uint8_t* rx_buff;
 
     int rx_next_out;		/* The next free ring entry to receive */
     int tx_next_in;		/* The next free ring entry to send */

@@ -398,7 +398,7 @@ ifmedia_delete_instance(struct ifmedia *ifm, u_int inst)
 struct ifmedia_baudrate ifmedia_baudrate_descriptions[] =
     IFM_BAUDRATE_DESCRIPTIONS;
 
-u_int64_t
+uint64_t
 ifmedia_baudrate(int mword)
 {
        int i;

@@ -57,7 +57,7 @@ static HEADER  *allocp;		/* K&R called allocp, freep */
 
 /* The rest of this file is from pages 185-189 of K & R Edition 2 */
 
-static HEADER *morecore __P((u_int32_t));
+static HEADER *morecore __P((uint32_t));
 
 void *
 malloc(size_t nbytes)
@@ -90,7 +90,7 @@ malloc(size_t nbytes)
 }
 
 static HEADER  *
-morecore(u_int32_t nu)
+morecore(uint32_t nu)
 {
 	char *cp;
 	HEADER *up;

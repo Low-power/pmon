@@ -75,7 +75,7 @@
 #define DPRINTF(x)
 #endif
 
-extern u_int8_t get_sa_require  __P((struct inpcb *));
+extern uint8_t get_sa_require  __P((struct inpcb *));
 
 #endif
 
@@ -178,7 +178,7 @@ ip_output(m0, va_alist)
 		struct sockaddr_encap *ddst, *gw;
 		struct tdb *tdb, *t;
 		int s;
-		u_int8_t sa_require, sa_have = 0;
+		uint8_t sa_require, sa_have = 0;
 
 		if (inp == NULL)
 			sa_require = get_sa_require(inp);
@@ -217,9 +217,9 @@ ip_output(m0, va_alist)
 
 		switch (ip->ip_p) {
 		case IPPROTO_UDP:
-			if (m->m_len < hlen + 2 * sizeof(u_int16_t)) {
+			if (m->m_len < hlen + 2 * sizeof(uint16_t)) {
 				if ((m = m_pullup(m, hlen + 2 *
-				    sizeof(u_int16_t))) == 0)
+				    sizeof(uint16_t))) == 0)
 					return ENOBUFS;
 				ip = mtod(m, struct ip *);
 			}
@@ -229,9 +229,9 @@ ip_output(m0, va_alist)
 			break;
 
 		case IPPROTO_TCP:
-			if (m->m_len < hlen + 2 * sizeof(u_int16_t)) {
+			if (m->m_len < hlen + 2 * sizeof(uint16_t)) {
 				if ((m = m_pullup(m, hlen + 2 *
-				    sizeof(u_int16_t))) == 0)
+				    sizeof(uint16_t))) == 0)
 					return ENOBUFS;
 				ip = mtod(m, struct ip *);
 			}
@@ -685,7 +685,7 @@ no_encap:
 			goto bad;
 		}
 		/* don't allow broadcast messages to be fragmented */
-		if ((u_int16_t)ip->ip_len > ifp->if_mtu) {
+		if ((uint16_t)ip->ip_len > ifp->if_mtu) {
 			error = EMSGSIZE;
 			goto bad;
 		}
@@ -710,9 +710,9 @@ sendit:
 	/*
 	 * If small enough for interface, can just send directly.
 	 */
-	if ((u_int16_t)ip->ip_len <= ifp->if_mtu) {
-		ip->ip_len = htons((u_int16_t)ip->ip_len);
-		ip->ip_off = htons((u_int16_t)ip->ip_off);
+	if ((uint16_t)ip->ip_len <= ifp->if_mtu) {
+		ip->ip_len = htons((uint16_t)ip->ip_len);
+		ip->ip_off = htons((uint16_t)ip->ip_off);
 		ip->ip_sum = 0;
 		ip->ip_sum = in_cksum(m, hlen);
 		error = (*ifp->if_output)(ifp, m, sintosa(dst), ro->ro_rt);
@@ -743,7 +743,7 @@ sendit:
 	 */
 	m0 = m;
 	mhlen = sizeof (struct ip);
-	for (off = hlen + len; off < (u_int16_t)ip->ip_len; off += len) {
+	for (off = hlen + len; off < (uint16_t)ip->ip_len; off += len) {
 		MGETHDR(m, M_DONTWAIT, MT_HEADER);
 		if (m == 0) {
 			error = ENOBUFS;
@@ -763,11 +763,11 @@ sendit:
 		mhip->ip_off = ((off - hlen) >> 3) + (ip->ip_off & ~IP_MF);
 		if (ip->ip_off & IP_MF)
 			mhip->ip_off |= IP_MF;
-		if (off + len >= (u_int16_t)ip->ip_len)
-			len = (u_int16_t)ip->ip_len - off;
+		if (off + len >= (uint16_t)ip->ip_len)
+			len = (uint16_t)ip->ip_len - off;
 		else
 			mhip->ip_off |= IP_MF;
-		mhip->ip_len = htons((u_int16_t)(len + mhlen));
+		mhip->ip_len = htons((uint16_t)(len + mhlen));
 		m->m_next = m_copy(m0, off, len);
 		if (m->m_next == 0) {
 			error = ENOBUFS;	/* ??? */
@@ -776,7 +776,7 @@ sendit:
 		}
 		m->m_pkthdr.len = mhlen + len;
 		m->m_pkthdr.rcvif = (struct ifnet *)0;
-		mhip->ip_off = htons((u_int16_t)mhip->ip_off);
+		mhip->ip_off = htons((uint16_t)mhip->ip_off);
 		mhip->ip_sum = 0;
 		mhip->ip_sum = in_cksum(m, mhlen);
 		ipstat.ips_ofragments++;
@@ -786,10 +786,10 @@ sendit:
 	 * and updating header, then send each fragment (in order).
 	 */
 	m = m0;
-	m_adj(m, hlen + firstlen - (u_int16_t)ip->ip_len);
+	m_adj(m, hlen + firstlen - (uint16_t)ip->ip_len);
 	m->m_pkthdr.len = hlen + firstlen;
-	ip->ip_len = htons((u_int16_t)m->m_pkthdr.len);
-	ip->ip_off = htons((u_int16_t)(ip->ip_off | IP_MF));
+	ip->ip_len = htons((uint16_t)m->m_pkthdr.len);
+	ip->ip_off = htons((uint16_t)(ip->ip_off | IP_MF));
 	ip->ip_sum = 0;
 	ip->ip_sum = in_cksum(m, hlen);
 sendorfree:
@@ -832,7 +832,7 @@ ip_insertoptions(m, opt, phlen)
 	unsigned optlen;
 
 	optlen = opt->m_len - sizeof(p->ipopt_dst);
-	if (optlen + (u_int16_t)ip->ip_len > IP_MAXPACKET)
+	if (optlen + (uint16_t)ip->ip_len > IP_MAXPACKET)
 		return (m);		/* XXX should fail */
 	if (p->ipopt_dst.s_addr)
 		ip->ip_dst = p->ipopt_dst;
@@ -1670,8 +1670,8 @@ ip_mloopback(ifp, m, dst)
 		 * than the interface's MTU.  Can this possibly matter?
 		 */
 		ip = mtod(copym, struct ip *);
-		ip->ip_len = htons((u_int16_t)ip->ip_len);
-		ip->ip_off = htons((u_int16_t)ip->ip_off);
+		ip->ip_len = htons((uint16_t)ip->ip_len);
+		ip->ip_off = htons((uint16_t)ip->ip_off);
 		ip->ip_sum = 0;
 		ip->ip_sum = in_cksum(copym, ip->ip_hl << 2);
 		(void) looutput(ifp, copym, sintosa(dst), NULL);

@@ -57,8 +57,8 @@
 #include <pmon.h>
 
 extern unsigned long long memorysize;
-extern u_int8_t end[];
-extern u_int8_t start[];
+extern uint8_t end[];
+extern uint8_t start[];
 #ifdef GODSONEV1
 extern int global_div_num;
 #endif

@@ -65,10 +65,10 @@ struct bioc_inq {
 struct bioc_disk {
 	void		*bd_cookie;
 
-	u_int16_t	bd_channel;
-	u_int16_t	bd_target;
-	u_int16_t	bd_lun;
-	u_int16_t	bd_other_id;	/* unused for now  */
+	uint16_t	bd_channel;
+	uint16_t	bd_target;
+	uint16_t	bd_lun;
+	uint16_t	bd_other_id;	/* unused for now  */
 
 	int		bd_volid;	/* associate with volume */
 	int		bd_diskid;	/* virtual disk */
@@ -103,7 +103,7 @@ struct bioc_vol {
 	int		bv_volid;	/* volume id */
 
 	int16_t		bv_percent;	/* percent done operation */
-	u_int16_t	bv_seconds;	/* seconds of progress so far */
+	uint16_t	bv_seconds;	/* seconds of progress so far */
 
 	int		bv_status;	/* current status */
 #define BIOC_SVONLINE		0x00
@@ -144,8 +144,8 @@ struct bioc_alarm {
 #define BIOCBLINK _IOWR('B', 36, struct bioc_blink)
 struct bioc_blink {
 	void		*bb_cookie;
-	u_int16_t	bb_channel;
-	u_int16_t	bb_target;
+	uint16_t	bb_channel;
+	uint16_t	bb_target;
 
 	int		bb_status;	/* current status */
 #define BIOC_SBUNBLINK		0x00	/* disable blinking */
@@ -156,10 +156,10 @@ struct bioc_blink {
 #define BIOCSETSTATE _IOWR('B', 37, struct bioc_setstate)
 struct bioc_setstate {
 	void		*bs_cookie;
-	u_int16_t	bs_channel;
-	u_int16_t	bs_target;
-	u_int16_t	bs_lun;
-	u_int16_t	bs_other_id_type; /* use other_id instead of ctl */
+	uint16_t	bs_channel;
+	uint16_t	bs_target;
+	uint16_t	bs_lun;
+	uint16_t	bs_other_id_type; /* use other_id instead of ctl */
 #define BIOC_SSOTHER_UNUSED	0x00
 #define BIOC_SSOTHER_DEVT	0x01
 	int		bs_other_id;	/* cram dev_t or other id in here */
@@ -176,21 +176,21 @@ struct bioc_setstate {
 struct bioc_createraid {
 	void		*bc_cookie;
 	void		*bc_dev_list;
-	u_int16_t	bc_dev_list_len;
+	uint16_t	bc_dev_list_len;
 	int32_t		bc_key_disk;
 #define BIOC_CRMAXLEN		1024
-	u_int16_t	bc_level;
-	u_int32_t	bc_flags;
+	uint16_t	bc_level;
+	uint32_t	bc_flags;
 #define BIOC_SCFORCE		0x01	/* do not assemble, force create */
 #define BIOC_SCDEVT		0x02	/* dev_t array or string in dev_list */
 #define BIOC_SCNOAUTOASSEMBLE	0x04	/* do not assemble during autoconf */
 #define BIOC_SCBOOTABLE		0x08	/* device is bootable */
-	u_int32_t	bc_opaque_size;
-	u_int32_t	bc_opaque_flags;
+	uint32_t	bc_opaque_size;
+	uint32_t	bc_opaque_flags;
 #define	BIOC_SOINVALID		0x00	/* no opaque pointer */
 #define	BIOC_SOIN		0x01	/* kernel perspective direction */
 #define BIOC_SOOUT		0x02	/* kernel perspective direction */
-	u_int32_t	bc_opaque_status;
+	uint32_t	bc_opaque_status;
 #define	BIOC_SOINOUT_FAILED	0x00	/* operation failed */
 #define	BIOC_SOINOUT_OK		0x01	/* operation succeeded */
 	void		*bc_opaque;
@@ -199,7 +199,7 @@ struct bioc_createraid {
 #define BIOCDELETERAID _IOWR('B', 39, struct bioc_deleteraid)
 struct bioc_deleteraid {
 	void		*bd_cookie;
-	u_int32_t	bd_flags;
+	uint32_t	bd_flags;
 #define BIOC_SDCLEARMETA	0x01	/* clear metadata region */
 	char		bd_dev[16];	/* device */
 };
@@ -208,8 +208,8 @@ struct bioc_deleteraid {
 struct bioc_discipline {
 	void		*bd_cookie;
 	char		bd_dev[16];
-	u_int32_t	bd_cmd;
-	u_int32_t	bd_size;
+	uint32_t	bd_cmd;
+	uint32_t	bd_size;
 	void		*bd_data;
 };
 
@@ -219,8 +219,8 @@ struct bioc_installboot {
 	char		bb_dev[16];
 	void		*bb_bootblk;
 	void		*bb_bootldr;
-	u_int32_t	bb_bootblk_size;
-	u_int32_t	bb_bootldr_size;
+	uint32_t	bb_bootblk_size;
+	uint32_t	bb_bootldr_size;
 };
 
 /* kernel and userspace defines */

@@ -45,8 +45,8 @@
  */
 #define	PCI_ID_REG			0x00
 
-typedef u_int16_t pci_vendor_id_t;
-typedef u_int16_t pci_product_id_t;
+typedef uint16_t pci_vendor_id_t;
+typedef uint16_t pci_product_id_t;
 
 #define	PCI_VENDOR_SHIFT			0
 #define	PCI_VENDOR_MASK				0xffff
@@ -101,10 +101,10 @@ typedef u_int16_t pci_product_id_t;
  */
 #define	PCI_CLASS_REG			0x08
 
-typedef u_int8_t pci_class_t;
-typedef u_int8_t pci_subclass_t;
-typedef u_int8_t pci_interface_t;
-typedef u_int8_t pci_revision_t;
+typedef uint8_t pci_class_t;
+typedef uint8_t pci_subclass_t;
+typedef uint8_t pci_interface_t;
+typedef uint8_t pci_revision_t;
 
 #define	PCI_CLASS_SHIFT				24
 #define	PCI_CLASS_MASK				0xff
@@ -477,8 +477,8 @@ typedef u_int8_t pci_revision_t;
  */
 #define	PCI_INTERRUPT_REG		0x3c
 
-typedef u_int8_t pci_intr_pin_t;
-typedef u_int8_t pci_intr_line_t;
+typedef uint8_t pci_intr_pin_t;
+typedef uint8_t pci_intr_line_t;
 
 #define	PCI_INTERRUPT_PIN_SHIFT			8
 #define	PCI_INTERRUPT_PIN_MASK			0xff

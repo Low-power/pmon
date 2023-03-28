@@ -65,7 +65,7 @@ cmd_sdump (ac, av)
      int             ac;
      char           *av[];
 {
-    u_int32_t       adr, siz, len, i, a;
+    uint32_t       adr, siz, len, i, a;
     char            *tmp;
     char           *uleof, *ulcr, *hostport = 0, *eol;
     int             fd, cs, v, binary = 0;

@@ -52,8 +52,8 @@ struct pcibr_softc {
 	struct pcibr_config	pcibr_config;
 	struct extent *extent_mem;
 	struct extent *extent_port;
-	u_int32_t mem_alloc_start;
-	u_int32_t port_alloc_start;
+	uint32_t mem_alloc_start;
+	uint32_t port_alloc_start;
 	int nbogus;
 };
 

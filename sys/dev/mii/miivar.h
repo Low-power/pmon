@@ -193,8 +193,8 @@ typedef struct mii_attach_args mii_attach_args_t;
  * Used to match a PHY.
  */
 struct mii_phydesc {
-       u_int32_t mpd_oui;              /* the PHY's OUI */
-       u_int32_t mpd_model;            /* the PHY's model */
+       uint32_t mpd_oui;              /* the PHY's OUI */
+       uint32_t mpd_model;            /* the PHY's model */
        const char *mpd_name;           /* the PHY's name */
 };
 
